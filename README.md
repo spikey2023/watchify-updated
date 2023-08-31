@@ -16,4 +16,5 @@ USERS
 
 EXTRAS
 -how specific ratings can get
--friends and sharing or combining lists
+- [ ] friends and sharing or combining lists
+
