@@ -14,6 +14,8 @@ USERS
 - [ ] after register /  login top 3 movies / 3 shows recommended show on screen - open to UI experience, eventually they’ll pick one and we’ll track that experience
 - [ ] once narrowed down get their rating or prompt them upon next login
 [] lists previously watched movies and user rating
+
+
 EXTRAS
 - [ ] how specific ratings can get
 - [ ] friends and sharing or combining lists
