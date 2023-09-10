@@ -2,10 +2,8 @@
   "scripts": {
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
-    "test": "",
     "test:dev": "",
     "test:dev:quiet": "",
-    "start:dev": "",
     "start": "nodemon ./app/server/index.js"
   },
   "dependencies": {
