@@ -7,7 +7,7 @@ const User = db.define("user", {
         primaryKey: true,
         defaultValue: UUIDV4,
     },
-    name: {
+    username: {
         type: STRING,
         allowNull: false,
         validate: {
