@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./server/index.js",
+  entry: "./app/index.js",
   mode: "development",
   devtool: "source-map",
   module: {
