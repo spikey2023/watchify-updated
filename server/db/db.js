@@ -1,8 +1,7 @@
 const Sequelize = require("sequelize");
 
 const db = new Sequelize(
-  process.env.DATABASE_URL || "postgres://localhost/watchify",
-  config
+  process.env.DATABASE_URL || "postgres://localhost/watchify"
 );
 
 module.exports = db;

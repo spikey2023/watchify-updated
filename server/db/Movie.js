@@ -9,11 +9,11 @@ const Movie = db.define("movie", {
   title: {
     type: STRING,
   },
-  avg_rating: {
+  vote_average: {
     type: DECIMAL,
     allowNull: true,
   },
-  rating_count: {
+  vote_count: {
     type: INTEGER,
     allowNull: true,
   },
