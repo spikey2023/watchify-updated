@@ -229,10 +229,6 @@ const syncAndSeed = async () => {
         vote_count: 1684.0,
       }),
     ]);
-    // await meg2.save();
-    // await action.save();
-    // console.log(meg2);
-    // console.log(action.tmdb_id);
 
     await Promise.all([
       GenreMovie.create({
