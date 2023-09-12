@@ -133,6 +133,7 @@ const syncAndSeed = async () => {
         name: "Western",
       }),
     ]);
+    michele.save();
     await Promise.all([
       GenrePref.create({
         userId: michele.id,
@@ -156,7 +157,7 @@ const syncAndSeed = async () => {
       }),
     ]);
     const [
-      Meg2,
+      meg2,
       popesExorcist,
       transformers,
       antMan,
@@ -168,185 +169,190 @@ const syncAndSeed = async () => {
       spiderMan,
     ] = await Promise.all([
       Movie.create({
-        tmbd_id: "615656",
+        tmdb_id: 615656,
         title: "Meg 2: The Trench",
-        vote_average: "7.079",
-        vote_count: "1365.0",
+        vote_average: 7.079,
+        vote_count: 1365.0,
       }),
       Movie.create({
-        tmbd_id: "758323",
+        tmdb_id: 758323,
         title: "The Pope's Exorcist",
-        vote_average: "Chief Exorcist of the Vatican.",
-        vote_count: "7.433",
+        vote_average: 7.161,
+        vote_count: 1899,
       }),
       Movie.create({
-        tmbd_id: "667538",
+        tmdb_id: 667538,
         title: "Transformers: Rise of the Beasts",
-        vote_average: "7.34",
-        vote_count: "1007.0",
+        vote_average: 7.34,
+        vote_count: 1007.0,
       }),
       Movie.create({
-        tmbd_id: "640146",
+        tmdb_id: 640146,
         title: "Ant-Man and the Wasp: Quantumania",
-        vote_average: "6.507",
-        vote_count: "2811.0",
+        vote_average: 6.507,
+        vote_count: 2811.0,
       }),
       Movie.create({
-        tmbd_id: "677179",
+        tmdb_id: 677179,
         title: "Creed III",
-        vote_average: "7.262",
-        vote_count: "1129.0",
+        vote_average: 7.262,
+        vote_count: 1129.0,
       }),
       Movie.create({
-        tmbd_id: "614479",
+        tmdb_id: 614479,
         title: "Insidious: The Red Door",
-        vote_average: "6.75",
-        vote_count: "564.0",
+        vote_average: 6.75,
+        vote_count: 564.0,
       }),
       Movie.create({
-        tmbd_id: "346698",
+        tmdb_id: 346698,
         title: "Barbie",
-        vote_average: "7.495",
-        vote_count: "2406.0",
+        vote_average: 7.495,
+        vote_count: 2406.0,
       }),
       Movie.create({
-        tmbd_id: "298618",
+        tmdb_id: 298618,
         title: "The Flash",
-        vote_average: "6.947",
-        vote_count: "1979.0",
+        vote_average: 6.947,
+        vote_count: 1979.0,
       }),
       Movie.create({
-        tmbd_id: "646389",
+        tmdb_id: 646389,
         title: "Plane",
-        vote_average: "6.901",
-        vote_count: "785.0",
+        vote_average: 6.901,
+        vote_count: 785.0,
       }),
       Movie.create({
-        tmbd_id: "569094",
+        tmdb_id: 569094,
         title: "Spider-Man: Across the Spider-Verse",
-        vote_average: "8.64",
-        vote_count: "1684.0",
+        vote_average: 8.64,
+        vote_count: 1684.0,
       }),
     ]);
+    // await meg2.save();
+    // await action.save();
+    // console.log(meg2);
+    // console.log(action.tmdb_id);
+
     await Promise.all([
       GenreMovie.create({
-        movieTmbdId: Meg2.tmbd_id,
+        movieTmdbId: meg2.tmdb_id,
         genreTmdbId: action.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: Meg2.tmbd_id,
+        movieTmdbId: meg2.tmdb_id,
         genreTmdbId: scifi.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: Meg2.tmbd_id,
+        movieTmdbId: meg2.tmdb_id,
         genreTmdbId: horror.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: popesExorcist.tmbd_id,
+        movieTmdbId: popesExorcist.tmdb_id,
         genreTmdbId: horror.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: popesExorcist.tmbd_id,
+        movieTmdbId: popesExorcist.tmdb_id,
         genreTmdbId: mystery.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: popesExorcist.tmbd_id,
+        movieTmdbId: popesExorcist.tmdb_id,
         genreTmdbId: thriller.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: transformers.tmbd_id,
+        movieTmdbId: transformers.tmdb_id,
         genreTmdbId: action.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: transformers.tmbd_id,
+        movieTmdbId: transformers.tmdb_id,
         genreTmdbId: adventure.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: transformers.tmbd_id,
+        movieTmdbId: transformers.tmdb_id,
         genreTmdbId: scifi.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: antMan.tmbd_id,
+        movieTmdbId: antMan.tmdb_id,
         genreTmdbId: action.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: antMan.tmbd_id,
+        movieTmdbId: antMan.tmdb_id,
         genreTmdbId: adventure.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: antMan.tmbd_id,
+        movieTmdbId: antMan.tmdb_id,
         genreTmdbId: scifi.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: creed3.tmbd_id,
+        movieTmdbId: creed3.tmdb_id,
         genreTmdbId: drama.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: creed3.tmbd_id,
+        movieTmdbId: creed3.tmdb_id,
         genreTmdbId: action.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: insidious.tmbd_id,
+        movieTmdbId: insidious.tmdb_id,
         genreTmdbId: horror.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: insidious.tmbd_id,
+        movieTmdbId: insidious.tmdb_id,
         genreTmdbId: mystery.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: insidious.tmbd_id,
+        movieTmdbId: insidious.tmdb_id,
         genreTmdbId: thriller.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: barbie.tmbd_id,
+        movieTmdbId: barbie.tmdb_id,
         genreTmdbId: comedy.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: barbie.tmbd_id,
+        movieTmdbId: barbie.tmdb_id,
         genreTmdbId: adventure.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: barbie.tmbd_id,
+        movieTmdbId: barbie.tmdb_id,
         genreTmdbId: fantasy.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: flash.tmbd_id,
+        movieTmdbId: flash.tmdb_id,
         genreTmdbId: action.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: flash.tmbd_id,
+        movieTmdbId: flash.tmdb_id,
         genreTmdbId: adventure.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: flash.tmbd_id,
+        movieTmdbId: flash.tmdb_id,
         genreTmdbId: scifi.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: plane.tmbd_id,
+        movieTmdbId: plane.tmdb_id,
         genreTmdbId: action.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: plane.tmbd_id,
+        movieTmdbId: plane.tmdb_id,
         genreTmdbId: adventure.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: plane.tmbd_id,
+        movieTmdbId: plane.tmdb_id,
         genreTmdbId: thriller.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: spiderMan.tmbd_id,
+        movieTmdbId: spiderMan.tmdb_id,
         genreTmdbId: action.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: spiderMan.tmbd_id,
+        movieTmdbId: spiderMan.tmdb_id,
         genreTmdbId: adventure.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: spiderMan.tmbd_id,
+        movieTmdbId: spiderMan.tmdb_id,
         genreTmdbId: animation.tmdb_id,
       }),
       GenreMovie.create({
-        movieTmbdId: spiderMan.tmbd_id,
+        movieTmdbId: spiderMan.tmdb_id,
         genreTmdbId: scifi.tmdb_id,
       }),
     ]);
@@ -357,63 +363,3 @@ const syncAndSeed = async () => {
 };
 
 syncAndSeed();
-
-// tmbd_id: "615656",
-//     title: "Meg 2: The Trench",
-//     genres: "Action-Science Fiction-Horror",
-//     vote_average: "7.079",
-//     vote_count: "1365.0",
-
-// tmbd_id: "758323",
-// title: "The Pope's Exorcist",
-// genres: "Horror-Mystery-Thriller",
-// vote_average: "Chief Exorcist of the Vatican.",
-// vote_count: "7.433",
-
-// tmbd_id: "667538",
-// title: "Transformers: Rise of the Beasts",
-// genres: "Action-Adventure-Science Fiction",
-// vote_average: "7.34",
-// vote_count: "1007.0",
-
-// tmbd_id: "640146",
-// title: "Ant-Man and the Wasp: Quantumania",
-// genres: "Action-Adventure-Science Fiction",
-// vote_average: "6.507",
-// vote_count: "2811.0",
-
-// tmbd_id: "677179",
-// title: "Creed III",
-// genres: "Drama-Action",
-// vote_average: "7.262",
-// vote_count: "1129.0",
-
-// tmbd_id: "614479",
-// title: "Insidious: The Red Door",
-// genres: "Horror-Mystery-Thriller",
-// vote_average: "6.75",
-// vote_count: "564.0",
-
-// tmbd_id: "346698",
-// title: "Barbie",
-// genres: "Comedy-Adventure-Fantasy",
-// vote_average: "7.495",
-// vote_count: "2406.0",
-
-// tmbd_id: "298618",
-// title: "The Flash",
-// genres: "Action-Adventure-Science Fiction",
-// vote_average: "6.947",
-// vote_count: "1979.0",
-
-// tmbd_id: "646389",
-// title: "Plane",
-// genres: "Action-Adventure-Thriller",
-// vote_average: "6.901",
-// vote_count: "785.0",
-
-// tmbd_id: "569094",
-// title: "Spider-Man: Across the Spider-Verse",
-// genres: "Action-Adventure-Animation-Science Fiction",
-// vote_average: "8.64",
-// vote_count: "1684.0",
