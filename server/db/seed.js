@@ -350,6 +350,7 @@ const syncAndSeed = async () => {
         genreTmdbId: scifi.tmdb_id,
       }),
     ]);
+    db.close();
   } catch (err) {
     db.close();
   }
