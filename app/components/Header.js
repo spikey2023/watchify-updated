@@ -14,8 +14,9 @@ const Header = () => {
 
                 <MovieIcon/>
                 <Typography 
-                    sx={{fontSize:"2rem", paddingLeft:"0.5%"}}
-                    > WATCHIFY!</Typography>
+                    sx={{fontSize:"2rem",fontWeight:'bold',paddingLeft:"0.5%"}}
+                    color="#1E3CA8"
+                    > WATCHIFY </Typography>
             
                 <Tabs 
                     sx={{marginLeft:'auto'}} 
@@ -26,7 +27,9 @@ const Header = () => {
                     // tab indicatorColor=to match theme
                     TabIndicatorProps={{ style: { background: "#1E3CA8" } }}
                     >
-                    <Tab label="Home" />                   
+                    <Tab label="Home" /> 
+                    <Tab label="Account" />  
+                    <Tab label="Watched List" />                
                 </Tabs>
 
                 <Button 
