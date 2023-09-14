@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import MoviesList from "./MoviesList";
-import Register from "./Register";
+import NavBar from "./NavBar";
+import Header from "./Header";
+import SignIn from "./SignIn";
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
 const Root = () => {
   const [movies, setMovies] = useState([
@@ -85,10 +88,12 @@ const Root = () => {
   ]);
 
   return (
-    <>
+    <div>
+    <Header />
       <MoviesList movies={movies} setMovies={setMovies} />
-      <Register />
-    </>
+      <SignIn/>
+      
+    </div>
   );
 };
 
