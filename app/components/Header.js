@@ -39,20 +39,11 @@ const Header = () => {
                     sx={{background: "#1E3CA8",
                     marginLeft:'auto'}}
                     >
-                        <Link to={`/${SignIn}`}>
+                        <Link to={`/SignIn`}>
                          Sign In
                         </Link>
                 </Button>
 
-                <Button 
-                    variant="contained" 
-                    sx={{marginLeft:'10px',
-                    background: "#1E3CA8"}}
-                    >
-                        {/* <Link to={`/${SignUp}`}> */}
-                         Sign Up
-                        {/* </Link>Sign Up */}
-                    </Button>
             </Toolbar>
         </AppBar>
     </React.Fragment>
