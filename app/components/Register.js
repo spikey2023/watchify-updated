@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { checkPws } from '../reducers/register';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
@@ -16,6 +17,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 export function Register(){
     const dispatch = useDispatch();
+    const pwsNotMatch = useSelector( (state => state.register.pwsNotMatch));
 
     const [showPassword, setShowPassword] = React.useState(false);
   
@@ -25,15 +27,33 @@ export function Register(){
         event.preventDefault();
     };
 
+    function handleSubmit(event){
+        //prevent page from refreshing
+        event.preventDefault();
+
+        //grab the inputs from the form
+        const data = {
+            name: event.target[0].value,
+            email: event.target[2].value,
+            password: event.target[4].value,
+            confirmPw: event.target[7].value
+        }
+
+        //validate data (only checking that password was typed correctly in both fields right now)
+        dispatch(checkPws(data));
+        console.log(`Name: ${event.target[0].value}\n`, `Email: ${event.target[2].value}\n`,`Password: ${event.target[4].value}\n`, `Confirm Pass: ${event.target[7].value}`);
+    }
+
     return <div>
-        <Box component="form" autoComplete="off" sx={{'& .MuiTextField-root': { m: 1, width: '90%' },}}>
+        <Box component="form" autoComplete="off" onSubmit={handleSubmit}sx={{'& .MuiTextField-root': { m: 1, width: '90%' },}}>
             <TextField required id="outlined-basic" label="User Name" variant="outlined" helperText="Tell us what we should call you!"/>
             <TextField required id="email-address" label="Email Address" variant="outlined" helperText="The email address you'll use to log in!"/> 
             <FormControl sx={{ m: 1, width: '90%' }} variant="outlined" required>
                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput
-                    id="outlined-adornment-password"
+                    id="outlined-adornment-password-error"
                     type={showPassword ? 'text' : 'password'}
+                    error={pwsNotMatch}
                     endAdornment={
                     <InputAdornment position="end">
                         <IconButton
@@ -48,12 +68,14 @@ export function Register(){
                     }
                     label="Password"
                 />
+                <FormHelperText>{pwsNotMatch ? "Entered passwords do not match" : "A secret word or phrase that only you know!"}</FormHelperText>
             </FormControl>
             <FormControl sx={{ m: 1, width: '90%' }} variant="outlined" required>
                 <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? 'text' : 'password'}
+                    error={pwsNotMatch}
                     endAdornment={
                     <InputAdornment position="end">
                         <IconButton
@@ -68,8 +90,9 @@ export function Register(){
                     }
                     label="Confirm Password"
                 />
+                <FormHelperText>{pwsNotMatch ? "Entered passwords do not match" : "Make sure you typed your password correctly!"}</FormHelperText>
             </FormControl>
-            <Button variant="contained" color="success">Register!</Button>
+            <Button variant="contained" color="success" type="submit">Register!</Button>
         </Box>
     </div>
 }
