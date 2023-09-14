@@ -3,7 +3,11 @@ import MoviesList from "./MoviesList";
 import NavBar from "./NavBar";
 import Header from "./Header";
 import SignIn from "./SignIn";
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import {Routes, Route } from 'react-router-dom'
+import Account from "./Account";
+import WatchedList from "./WatchedList";
+import Home from "./Home"
+
 
 const Root = () => {
   const [movies, setMovies] = useState([
@@ -89,7 +93,12 @@ const Root = () => {
 
   return (
     <div>
-    <Header />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/account" element={<Account/>} />
+        <Route path="/watchedlist" element={<WatchedList/>} />
+      </Routes>
       <MoviesList movies={movies} setMovies={setMovies} />
       <SignIn/>
       

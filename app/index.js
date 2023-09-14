@@ -3,14 +3,15 @@ import { createRoot } from "react-dom/client";
 import Root from "./components/root";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+
 
 const root = createRoot(document.querySelector("#root"));
 
 root.render(
   <Provider store={store}>
-    <HashRouter>
+    <BrowserRouter>
       <Root />
-    </HashRouter>
+    </BrowserRouter>
   </Provider>
 );

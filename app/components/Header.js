@@ -2,6 +2,8 @@ import React, {useState,Fragment} from 'react'
 import {AppBar, Typography, Toolbar, Tabs, Tab, Button} from '@mui/material'
 import MovieIcon from '@mui/icons-material/Movie';
 
+import { Link } from "react-router-dom"
+import SignIn from './SignIn';
 
 const Header = () => {
 
@@ -37,13 +39,20 @@ const Header = () => {
                     sx={{background: "#1E3CA8",
                     marginLeft:'auto'}}
                     >
-                        Sign In</Button>
+                        <Link to={`/${SignIn}`}>
+                         Sign In
+                        </Link>
+                </Button>
+
                 <Button 
                     variant="contained" 
                     sx={{marginLeft:'10px',
                     background: "#1E3CA8"}}
                     >
-                        Sign Up</Button>
+                        {/* <Link to={`/${SignUp}`}> */}
+                         Sign Up
+                        {/* </Link>Sign Up */}
+                    </Button>
             </Toolbar>
         </AppBar>
     </React.Fragment>
