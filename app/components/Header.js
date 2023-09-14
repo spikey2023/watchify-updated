@@ -1,18 +1,31 @@
-import React, {Fragment} from 'react'
+import React, {useState,Fragment} from 'react'
 import {AppBar, Typography, Toolbar, Tabs, Tab, Button} from '@mui/material'
 import MovieIcon from '@mui/icons-material/Movie';
 
 
 const Header = () => {
+
+    const [tabValue, settabValue] = useState()
+
   return (
     <React.Fragment>
         <AppBar sx={{background:"#0A0A0A"}}>
             <Toolbar>
 
                 <MovieIcon/>
-                <Typography> WATCHIFY!</Typography>
+                <Typography 
+                    sx={{fontSize:"2rem", paddingLeft:"0.5%"}}
+                    > WATCHIFY!</Typography>
             
-                <Tabs sx={{marginLeft:'auto'}} textColor='inherit'>
+                <Tabs 
+                    sx={{marginLeft:'auto'}} 
+                    textColor='inherit'
+                    //tabindicator color logic
+                    value={tabValue}
+                    onChange={(e, tabValue)=> settabValue(tabValue)}
+                    // tab indicatorColor=to match theme
+                    TabIndicatorProps={{ style: { background: "#1E3CA8" } }}
+                    >
                     <Tab label="Home" />                   
                 </Tabs>
 
