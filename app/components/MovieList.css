@@ -68,8 +68,9 @@
 
 /* indiviual movie card styling */
 .movie-card {
-  width: 200px;
-  height: 300px;
+  min-width: 275px;
+  min-height: 350px;
+  max-width: 100%;
   background-color: #f3f3f3;
   border-radius: 10px;
   padding: 0px;

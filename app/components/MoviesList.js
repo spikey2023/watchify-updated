@@ -11,8 +11,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./MovieList.css";
+import MovieRating from "./Rating";
 
-const MoviesList = ({ movies }) => {
+const roundToHalf = (num) => {
+  return Math.round(num * 2) / 2;
+};
+
+const MoviesList = ({ movies, setMovies }) => {
   const [hasAnimated, setHasAnimated] = useState(() => {
     return movies.map((_, index) => {
       if (
@@ -49,13 +54,36 @@ const MoviesList = ({ movies }) => {
     };
   }, [movies]);
 
+  const handleRatingChange = (id, newRating) => {
+    // Logic for updating the rating and count
+    const movie = movies.find((movie) => movie.id === id);
+    if (!movie) return;
+
+    const newRatingCount = movie.rating_count + 1;
+    const newAvgRating =
+      (movie.avg_rating * movie.rating_count + newRating) / newRatingCount;
+
+    // Update the state
+    setMovies((prevMovies) => {
+      return prevMovies.map((movie) => {
+        if (movie.id !== id) return movie;
+
+        return {
+          ...movie,
+          rating_count: newRatingCount,
+          avg_rating: newAvgRating,
+        };
+      });
+    });
+  };
+
   return (
     <>
       {" "}
       <h1 className="card-title-popular">Most Popular Movies</h1>
       <Swiper
         direction="horizontal"
-        slidesPerView={5}
+        slidesPerView={1}
         grabCursor={true}
         centeredSlides={true}
         effect="coverflow"
@@ -66,6 +94,20 @@ const MoviesList = ({ movies }) => {
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
+        }}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+          },
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 30,
+          },
         }}
         modules={[Mousewheel, Pagination, Keyboard, Navigation]}
       >
@@ -79,7 +121,14 @@ const MoviesList = ({ movies }) => {
           >
             <div className="movie-card">
               <h3>{movie.title}</h3>
-              <p>{movie.overview}</p>
+              <p>{`Average Rating: ${roundToHalf(movie.avg_rating)}`}</p>
+              <p>{`Total Votes: ${movie.rating_count}`}</p>
+              <MovieRating
+                value={movie.avg_rating}
+                onChange={(newRating) =>
+                  handleRatingChange(movie.id, newRating)
+                }
+              />
             </div>
           </SwiperSlide>
         ))}
