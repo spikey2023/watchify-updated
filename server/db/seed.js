@@ -354,8 +354,9 @@ const syncAndSeed = async () => {
     ]);
     db.close();
   } catch (err) {
-    db.close();
+    console.log(err);
   }
+  db.close();
 };
 
 syncAndSeed();
