@@ -4,12 +4,13 @@ import {
   Mousewheel,
   Pagination,
   Keyboard,
-  Virtual,
   Navigation,
+  EffectCoverflow,
 } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/effect-coverflow";
 import "./MovieList.css";
 import MovieRating from "./Rating";
 
@@ -81,45 +82,59 @@ const MoviesList = ({ movies, setMovies }) => {
     <>
       {" "}
       <h1 className="card-title-popular">Most Popular Movies</h1>
-      <Swiper
-        direction="horizontal"
-        slidesPerView={1}
-        grabCursor={true}
-        centeredSlides={true}
-        effect="coverflow"
-        pagination={{ clickable: true }}
-        loop={true}
-        keyboard={true}
-        mousewheel={true}
-        navigation={{
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        }}
-        breakpoints={{
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 4,
-            spaceBetween: 30,
-          },
-          1024: {
-            slidesPerView: 5,
-            spaceBetween: 30,
-          },
-        }}
-        modules={[Mousewheel, Pagination, Keyboard, Navigation]}
-      >
-        {" "}
-        {movies.map((movie, index) => (
-          <SwiperSlide
-            key={movie.id}
-            className={`swiper-slide ${
-              hasAnimated[index] ? "animate-slide" : ""
-            }`}
-          >
-            <div className="movie-card">
+      <div>
+        <Swiper
+          effect={"coverflow"}
+          direction="horizontal"
+          slidesPerView={3}
+          spaceBetween={24}
+          grabCursor={true}
+          centeredSlides={true}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 50,
+            modifier: 2.5,
+            slideShadows: false,
+          }}
+          pagination={{ clickable: true }}
+          loop={true}
+          keyboard={true}
+          mousewheel={true}
+          navigation={{
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          }}
+          // breakpoints={{
+          //   640: {
+          //     slidesPerView: 2,
+          //     spaceBetween: 20,
+          //   },
+          //   768: {
+          //     slidesPerView: 4,
+          //     spaceBetween: 30,
+          //   },
+          //   1024: {
+          //     slidesPerView: 5,
+          //     spaceBetween: 30,
+          //   },
+          // }}
+          modules={[
+            Mousewheel,
+            Pagination,
+            Keyboard,
+            Navigation,
+            EffectCoverflow,
+          ]}
+        >
+          {" "}
+          {movies.map((movie, index) => (
+            <SwiperSlide
+              key={movie.id}
+              className={`swiper-slide ${
+                hasAnimated[index] ? "animate-slide" : ""
+              }`}
+            >
               <h3>{movie.title}</h3>
               <p>{`Average Rating: ${roundToHalf(movie.avg_rating)}`}</p>
               <p>{`Total Votes: ${movie.rating_count}`}</p>
@@ -129,12 +144,12 @@ const MoviesList = ({ movies, setMovies }) => {
                   handleRatingChange(movie.id, newRating)
                 }
               />
-            </div>
-          </SwiperSlide>
-        ))}
-        <div className="swiper-button-prev"></div>
-        <div className="swiper-button-next"></div>
-      </Swiper>
+            </SwiperSlide>
+          ))}
+          <div className="swiper-button-prev"></div>
+          <div className="swiper-button-next"></div>
+        </Swiper>
+      </div>
     </>
   );
 };
