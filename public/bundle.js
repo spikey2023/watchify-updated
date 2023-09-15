@@ -29379,8 +29379,8 @@ function Copyright(props) {
     align: "center"
   }, props), 'Copyright © ', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Link__WEBPACK_IMPORTED_MODULE_2__["default"], {
     color: "inherit",
-    href: "https://mui.com/"
-  }, "Your Website"), ' ', new Date().getFullYear(), '.');
+    href: "/"
+  }, "Watchify!"), ' ', new Date().getFullYear(), '.');
 }
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -29447,8 +29447,11 @@ const SignIn = () => {
     variant: "contained",
     sx: {
       mt: 3,
-      mb: 2
-    }
+      mb: 2,
+      background: "#1E3CA8"
+    },
+    component: _mui_material_Link__WEBPACK_IMPORTED_MODULE_2__["default"],
+    to: `/`
   }, "Sign In"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
     container: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
@@ -29456,12 +29459,14 @@ const SignIn = () => {
     xs: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Link__WEBPACK_IMPORTED_MODULE_2__["default"], {
     href: "#",
-    variant: "body2"
+    variant: "body2",
+    color: "#1E3CA8"
   }, "Forgot password?")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Grid__WEBPACK_IMPORTED_MODULE_14__["default"], {
     item: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Link__WEBPACK_IMPORTED_MODULE_2__["default"], {
     href: "#",
-    variant: "body2"
+    variant: "body2",
+    color: "#1E3CA8"
   }, "Don't have an account? Sign Up"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Copyright, {
     sx: {
       mt: 8,
