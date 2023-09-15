@@ -14269,7 +14269,10 @@ function MovieRating({
     onChange: (event, newValue) => {
       onChange(newValue);
     },
-    precision: 0.5
+    precision: 0.5,
+    style: {
+      background: "linear-gradient(transparent, rgb(112, 112, 112))"
+    }
   });
 }
 
