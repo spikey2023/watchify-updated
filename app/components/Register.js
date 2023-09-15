@@ -1,11 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { checkPws } from '../reducers/register';
+import { checkPws, registerUser } from '../reducers/register';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -14,6 +12,11 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import axios from 'axios';
+
+async function registration(data){
+    await axios.post("/api/user", data);
+}
 
 export function Register(){
     const dispatch = useDispatch();
@@ -27,13 +30,13 @@ export function Register(){
         event.preventDefault();
     };
 
-    function handleSubmit(event){
+    async function handleSubmit(event){
         //prevent page from refreshing
         event.preventDefault();
 
         //grab the inputs from the form
         const data = {
-            name: event.target[0].value,
+            username: event.target[0].value,
             email: event.target[2].value,
             password: event.target[4].value,
             confirmPw: event.target[7].value
@@ -41,10 +44,13 @@ export function Register(){
 
         //validate data (only checking that password was typed correctly in both fields right now)
         dispatch(checkPws(data));
+        delete data.confirmPw;
         console.log(`Name: ${event.target[0].value}\n`, `Email: ${event.target[2].value}\n`,`Password: ${event.target[4].value}\n`, `Confirm Pass: ${event.target[7].value}`);
+        dispatch(registerUser(data));
     }
 
     return <div>
+        <h1>Register for Watchify!</h1>
         <Box component="form" autoComplete="off" onSubmit={handleSubmit}sx={{'& .MuiTextField-root': { m: 1, width: '90%' },}}>
             <TextField required id="outlined-basic" label="User Name" variant="outlined" helperText="Tell us what we should call you!"/>
             <TextField required id="email-address" label="Email Address" variant="outlined" helperText="The email address you'll use to log in!"/> 

@@ -4,7 +4,7 @@ import { Register } from "./Register";
 
 export default function main (){
     return <div>
-        <Counter />
+        {/* <Counter /> */}
         <Register />
     </div>
 }
