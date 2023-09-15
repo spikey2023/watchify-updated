@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Mousewheel,
@@ -13,48 +13,13 @@ import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import "./MovieList.css";
 import MovieRating from "./Rating";
+// import infinityWarImage from "./infinitywar.jpeg";
 
 const roundToHalf = (num) => {
   return Math.round(num * 2) / 2;
 };
 
 const MoviesList = ({ movies, setMovies }) => {
-  const [hasAnimated, setHasAnimated] = useState(() => {
-    return movies.map((_, index) => {
-      if (
-        index === movies.length - 1 ||
-        index === movies.length - 2 ||
-        index === 0 ||
-        index === 1 ||
-        index === 2
-      ) {
-        return false;
-      }
-      return true;
-    });
-  });
-
-  useEffect(() => {
-    // Animation timers for first 5 cards. Starting with .length-2
-    const lastIndex = movies.length - 1;
-    const secondLastIndex = movies.length - 2;
-    const indicesToAnimate = [secondLastIndex, lastIndex, 0, 1, 2];
-
-    const timers = indicesToAnimate.map((index, i) => {
-      return setTimeout(() => {
-        setHasAnimated((prev) => {
-          const newArr = [...prev];
-          newArr[index] = true;
-          return newArr;
-        });
-      }, i * 200);
-    });
-
-    return () => {
-      timers.forEach((timer) => clearTimeout(timer));
-    };
-  }, [movies]);
-
   const handleRatingChange = (id, newRating) => {
     // Logic for updating the rating and count
     const movie = movies.find((movie) => movie.id === id);
@@ -85,17 +50,18 @@ const MoviesList = ({ movies, setMovies }) => {
       <div>
         <Swiper
           effect={"coverflow"}
+          lazy={true}
           direction="horizontal"
-          slidesPerView={3}
-          spaceBetween={24}
+          slidesPerView={"auto"}
+          spaceBetween={25}
           grabCursor={true}
           centeredSlides={true}
           coverflowEffect={{
             rotate: 0,
-            stretch: 0,
-            depth: 50,
-            modifier: 2.5,
-            slideShadows: false,
+            stretch: 30,
+            depth: 75,
+            modifier: 3,
+            slideShadows: true,
           }}
           pagination={{ clickable: true }}
           loop={true}
@@ -105,20 +71,6 @@ const MoviesList = ({ movies, setMovies }) => {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          // breakpoints={{
-          //   640: {
-          //     slidesPerView: 2,
-          //     spaceBetween: 20,
-          //   },
-          //   768: {
-          //     slidesPerView: 4,
-          //     spaceBetween: 30,
-          //   },
-          //   1024: {
-          //     slidesPerView: 5,
-          //     spaceBetween: 30,
-          //   },
-          // }}
           modules={[
             Mousewheel,
             Pagination,
@@ -129,21 +81,27 @@ const MoviesList = ({ movies, setMovies }) => {
         >
           {" "}
           {movies.map((movie, index) => (
-            <SwiperSlide
-              key={movie.id}
-              className={`swiper-slide ${
-                hasAnimated[index] ? "animate-slide" : ""
-              }`}
-            >
-              <h3>{movie.title}</h3>
-              <p>{`Average Rating: ${roundToHalf(movie.avg_rating)}`}</p>
-              <p>{`Total Votes: ${movie.rating_count}`}</p>
-              <MovieRating
-                value={movie.avg_rating}
-                onChange={(newRating) =>
-                  handleRatingChange(movie.id, newRating)
-                }
-              />
+            <SwiperSlide key={movie.id} className={"swiper-slide"}>
+              <div className="image-wrapper">
+                <img
+                  src={movie.backdrop ? movie.backdrop : "placeholder.jpeg"}
+                  loading="lazy"
+                  alt={movie.title}
+                />
+                <div className="movie-content">
+                  <h3>{movie.title}</h3>
+                  <p>{`Average Rating: ${roundToHalf(movie.avg_rating)}`}</p>
+                  <p>{`Total Votes: ${movie.rating_count}`}</p>
+                  <p>
+                    <MovieRating
+                      value={movie.avg_rating}
+                      onChange={(newRating) =>
+                        handleRatingChange(movie.id, newRating)
+                      }
+                    />
+                  </p>
+                </div>
+              </div>
             </SwiperSlide>
           ))}
           <div className="swiper-button-prev"></div>

@@ -8,18 +8,21 @@ const Root = () => {
       title: "Movie 1",
       avg_rating: 3.75,
       rating_count: 10,
+      backdrop: "/infinitywar_backdrop.jpeg",
     },
     {
       id: "2",
       title: "Movie 2",
       avg_rating: 4.75,
       rating_count: 4,
+      backdrop: "/elemental_backdrop.jpeg",
     },
     {
       id: "3",
       title: "Movie 3",
       avg_rating: 3.7,
       rating_count: 10,
+      backdrop: "/fastX_backdrop.jpeg",
     },
     {
       id: "4",

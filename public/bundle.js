@@ -14128,8 +14128,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.css");
 /* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! swiper/css/pagination */ "./node_modules/swiper/modules/pagination.css");
 /* harmony import */ var swiper_css_navigation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! swiper/css/navigation */ "./node_modules/swiper/modules/navigation.css");
-/* harmony import */ var _MovieList_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./MovieList.css */ "./app/components/MovieList.css");
-/* harmony import */ var _Rating__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Rating */ "./app/components/Rating.js");
+/* harmony import */ var swiper_css_effect_coverflow__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! swiper/css/effect-coverflow */ "./node_modules/swiper/modules/effect-coverflow.css");
+/* harmony import */ var _MovieList_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./MovieList.css */ "./app/components/MovieList.css");
+/* harmony import */ var _Rating__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Rating */ "./app/components/Rating.js");
 
 
 
@@ -14137,6 +14138,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+// import infinityWarImage from "./infinitywar.jpeg";
 
 const roundToHalf = num => {
   return Math.round(num * 2) / 2;
@@ -14145,32 +14149,6 @@ const MoviesList = ({
   movies,
   setMovies
 }) => {
-  const [hasAnimated, setHasAnimated] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => {
-    return movies.map((_, index) => {
-      if (index === movies.length - 1 || index === movies.length - 2 || index === 0 || index === 1 || index === 2) {
-        return false;
-      }
-      return true;
-    });
-  });
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    // Animation timers for first 5 cards. Starting with .length-2
-    const lastIndex = movies.length - 1;
-    const secondLastIndex = movies.length - 2;
-    const indicesToAnimate = [secondLastIndex, lastIndex, 0, 1, 2];
-    const timers = indicesToAnimate.map((index, i) => {
-      return setTimeout(() => {
-        setHasAnimated(prev => {
-          const newArr = [...prev];
-          newArr[index] = true;
-          return newArr;
-        });
-      }, i * 200);
-    });
-    return () => {
-      timers.forEach(timer => clearTimeout(timer));
-    };
-  }, [movies]);
   const handleRatingChange = (id, newRating) => {
     // Logic for updating the rating and count
     const movie = movies.find(movie => movie.id === id);
@@ -14192,12 +14170,21 @@ const MoviesList = ({
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
     className: "card-title-popular"
-  }, "Most Popular Movies"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(swiper_react__WEBPACK_IMPORTED_MODULE_1__.Swiper, {
+  }, "Most Popular Movies"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(swiper_react__WEBPACK_IMPORTED_MODULE_1__.Swiper, {
+    effect: "coverflow",
+    lazy: true,
     direction: "horizontal",
-    slidesPerView: 1,
+    slidesPerView: "auto",
+    spaceBetween: 25,
     grabCursor: true,
     centeredSlides: true,
-    effect: "coverflow",
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 30,
+      depth: 75,
+      modifier: 3,
+      slideShadows: true
+    },
     pagination: {
       clickable: true
     },
@@ -14208,34 +14195,26 @@ const MoviesList = ({
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev"
     },
-    breakpoints: {
-      640: {
-        slidesPerView: 2,
-        spaceBetween: 20
-      },
-      768: {
-        slidesPerView: 4,
-        spaceBetween: 30
-      },
-      1024: {
-        slidesPerView: 5,
-        spaceBetween: 30
-      }
-    },
-    modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Mousewheel, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Keyboard, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Navigation]
+    modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Mousewheel, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Keyboard, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.EffectCoverflow]
   }, " ", movies.map((movie, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(swiper_react__WEBPACK_IMPORTED_MODULE_1__.SwiperSlide, {
     key: movie.id,
-    className: `swiper-slide ${hasAnimated[index] ? "animate-slide" : ""}`
+    className: "swiper-slide"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "movie-card"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, movie.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Average Rating: ${roundToHalf(movie.avg_rating)}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Total Votes: ${movie.rating_count}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Rating__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    className: "image-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: movie.backdrop ? movie.backdrop : "placeholder.jpeg",
+    loading: "lazy",
+    alt: movie.title
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "movie-content"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, movie.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Average Rating: ${roundToHalf(movie.avg_rating)}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Total Votes: ${movie.rating_count}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Rating__WEBPACK_IMPORTED_MODULE_8__["default"], {
     value: movie.avg_rating,
     onChange: newRating => handleRatingChange(movie.id, newRating)
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "swiper-button-prev"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "swiper-button-next"
-  })));
+  }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MoviesList);
 
@@ -14270,6 +14249,9 @@ function MovieRating({
       onChange(newValue);
     },
     precision: 0.5
+    // style={{
+    //   background: "linear-gradient(transparent, rgb(112, 112, 112))",
+    // }}
   });
 }
 
@@ -14296,17 +14278,20 @@ const Root = () => {
     id: "1",
     title: "Movie 1",
     avg_rating: 3.75,
-    rating_count: 10
+    rating_count: 10,
+    backdrop: "/infinitywar_backdrop.jpeg"
   }, {
     id: "2",
     title: "Movie 2",
     avg_rating: 4.75,
-    rating_count: 4
+    rating_count: 4,
+    backdrop: "/elemental_backdrop.jpeg"
   }, {
     id: "3",
     title: "Movie 3",
     avg_rating: 3.7,
-    rating_count: 10
+    rating_count: 10,
+    backdrop: "/fastX_backdrop.jpeg"
   }, {
     id: "4",
     title: "Movie 4",
@@ -14413,90 +14398,63 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.card-title-popular {
 }
 
 .swiper {
-  width: 100%;
-  min-height: 400px;
-}
-
-/* class will only be applied once for initial animation */
-.animate-slide {
-  animation: slideInFromRight 1s ease-out forwards;
-}
-
-@keyframes slideInFromRight {
-  0% {
-    opacity: 0;
-    transform: translateX(200%);
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
+  width: 95%;
+  max-height: 400px;
+  padding-bottom: 50px;
 }
 
 /* define how each slide should position and behave within Swiper */
+/* indiviual movie card styling */
 .swiper-slide {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: end;
+  align-items: last baseline;
+  width: 635px;
+  min-width: 635px;
+  max-width: 635px;
+  height: 357px;
+  min-height: 357px;
+  max-height: 357px;
   text-align: center;
-  opacity: 0;
-}
-
-/* styles for outer most edge cards */
-.swiper-slide .movie-card {
-  opacity: 0.5;
-  transform: scale(0.7);
-  z-index: 1;
-  transition: all 0s ease;
-}
-
-/* Styles for left slide of center active slide*/
-.swiper-slide.swiper-slide-prev .movie-card {
-  opacity: 0.7;
-  transform: scale(0.85);
-  z-index: 2;
-  transition: all 0s ease;
-}
-
-/* Styles for the center active slide */
-.swiper-slide.swiper-slide-active .movie-card {
-  opacity: 1;
-  transform: scale(1);
-  z-index: 3;
-  transition: all 0s ease;
-}
-
-/* Styles for right slide of center active slide*/
-.swiper-slide.swiper-slide-next .movie-card {
-  opacity: 0.7;
-  transform: scale(0.9);
-  z-index: 2;
-  transition: all 0s ease;
-}
-
-/* indiviual movie card styling */
-.movie-card {
-  min-width: 275px;
-  min-height: 350px;
-  max-width: 100%;
   background-color: #f3f3f3;
   border-radius: 10px;
-  padding: 0px;
+  padding: 2px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 5px;
 }
 
-.movie-card h3 {
-  font-size: 1.2rem;
+.swiper-slide h3 {
+  font-size: 1.8rem;
+  z-index: 2;
+  position: relative;
+  color: rgb(255, 255, 255);
+  margin: 0;
+  padding-top: 5px;
 }
 
-.movie-card p {
-  font-size: 0.9rem;
+.swiper-slide p {
+  z-index: 2;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin: 0;
+  position: relative;
+  font-size: 1.4rem;
+  color: rgb(222, 247, 247);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3; /* max number of text lines to show i think */
   -webkit-box-orient: vertical;
+}
+
+.swiper-slide img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 /* Navigation buttons*/
@@ -14508,7 +14466,77 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.card-title-popular {
     background-color: rgba(255, 255, 255, 0.5);
   }
 }
-`, "",{"version":3,"sources":["webpack://./app/components/MovieList.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,uBAAuB;EACvB,oBAAoB;AACtB;;AAEA;EACE,WAAW;EACX,iBAAiB;AACnB;;AAEA,0DAA0D;AAC1D;EACE,gDAAgD;AAClD;;AAEA;EACE;IACE,UAAU;IACV,2BAA2B;EAC7B;EACA;IACE,wBAAwB;IACxB,UAAU;EACZ;AACF;;AAEA,mEAAmE;AACnE;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,kBAAkB;EAClB,UAAU;AACZ;;AAEA,qCAAqC;AACrC;EACE,YAAY;EACZ,qBAAqB;EACrB,UAAU;EACV,uBAAuB;AACzB;;AAEA,gDAAgD;AAChD;EACE,YAAY;EACZ,sBAAsB;EACtB,UAAU;EACV,uBAAuB;AACzB;;AAEA,uCAAuC;AACvC;EACE,UAAU;EACV,mBAAmB;EACnB,UAAU;EACV,uBAAuB;AACzB;;AAEA,iDAAiD;AACjD;EACE,YAAY;EACZ,qBAAqB;EACrB,UAAU;EACV,uBAAuB;AACzB;;AAEA,iCAAiC;AACjC;EACE,gBAAgB;EAChB,iBAAiB;EACjB,eAAe;EACf,yBAAyB;EACzB,mBAAmB;EACnB,YAAY;EACZ,wCAAwC;EACxC,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,iBAAiB;EACjB,gBAAgB;EAChB,uBAAuB;EACvB,oBAAoB;EACpB,qBAAqB,EAAE,6CAA6C;EACpE,4BAA4B;AAC9B;;AAEA,sBAAsB;AACtB;;EAEE;;IAEE,WAAW;IACX,0CAA0C;EAC5C;AACF","sourcesContent":[".card-title-popular {\n  display: flex;\n  justify-content: center;\n  padding-bottom: 10px;\n}\n\n.swiper {\n  width: 100%;\n  min-height: 400px;\n}\n\n/* class will only be applied once for initial animation */\n.animate-slide {\n  animation: slideInFromRight 1s ease-out forwards;\n}\n\n@keyframes slideInFromRight {\n  0% {\n    opacity: 0;\n    transform: translateX(200%);\n  }\n  100% {\n    transform: translateX(0);\n    opacity: 1;\n  }\n}\n\n/* define how each slide should position and behave within Swiper */\n.swiper-slide {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center;\n  opacity: 0;\n}\n\n/* styles for outer most edge cards */\n.swiper-slide .movie-card {\n  opacity: 0.5;\n  transform: scale(0.7);\n  z-index: 1;\n  transition: all 0s ease;\n}\n\n/* Styles for left slide of center active slide*/\n.swiper-slide.swiper-slide-prev .movie-card {\n  opacity: 0.7;\n  transform: scale(0.85);\n  z-index: 2;\n  transition: all 0s ease;\n}\n\n/* Styles for the center active slide */\n.swiper-slide.swiper-slide-active .movie-card {\n  opacity: 1;\n  transform: scale(1);\n  z-index: 3;\n  transition: all 0s ease;\n}\n\n/* Styles for right slide of center active slide*/\n.swiper-slide.swiper-slide-next .movie-card {\n  opacity: 0.7;\n  transform: scale(0.9);\n  z-index: 2;\n  transition: all 0s ease;\n}\n\n/* indiviual movie card styling */\n.movie-card {\n  min-width: 275px;\n  min-height: 350px;\n  max-width: 100%;\n  background-color: #f3f3f3;\n  border-radius: 10px;\n  padding: 0px;\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n  margin-bottom: 5px;\n}\n\n.movie-card h3 {\n  font-size: 1.2rem;\n}\n\n.movie-card p {\n  font-size: 0.9rem;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 3; /* max number of text lines to show i think */\n  -webkit-box-orient: vertical;\n}\n\n/* Navigation buttons*/\n.swiper-button-prev,\n.swiper-button-next {\n  .swiper-button-next,\n  .swiper-button-prev {\n    color: #000;\n    background-color: rgba(255, 255, 255, 0.5);\n  }\n}\n"],"sourceRoot":""}]);
+
+.movie-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.movie-content::before {
+  content: "";
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  /* background: linear-gradient(transparent, rgba(0, 0, 0, 0)); */
+  pointer-events: none; /* So it doesn't interfere with clicks */
+  z-index: -1; /* Put it behind the text */
+}
+
+.swiper-slide h3,
+.swiper-slide p {
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.836);
+  margin: 0;
+}
+
+.swiper-slide h3::before,
+.swiper-slide p::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(74, 74, 74, 0.653);
+  z-index: -1;
+}
+`, "",{"version":3,"sources":["webpack://./app/components/MovieList.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,uBAAuB;EACvB,oBAAoB;AACtB;;AAEA;EACE,UAAU;EACV,iBAAiB;EACjB,oBAAoB;AACtB;;AAEA,mEAAmE;AACnE,iCAAiC;AACjC;EACE,aAAa;EACb,sBAAsB;EACtB,oBAAoB;EACpB,0BAA0B;EAC1B,YAAY;EACZ,gBAAgB;EAChB,gBAAgB;EAChB,aAAa;EACb,iBAAiB;EACjB,iBAAiB;EACjB,kBAAkB;EAClB,yBAAyB;EACzB,mBAAmB;EACnB,YAAY;EACZ,wCAAwC;AAC1C;;AAEA;EACE,iBAAiB;EACjB,UAAU;EACV,kBAAkB;EAClB,yBAAyB;EACzB,SAAS;EACT,gBAAgB;AAClB;;AAEA;EACE,UAAU;EACV,gBAAgB;EAChB,mBAAmB;EACnB,SAAS;EACT,kBAAkB;EAClB,iBAAiB;EACjB,yBAAyB;EACzB,gBAAgB;EAChB,uBAAuB;EACvB,oBAAoB;EACpB,qBAAqB,EAAE,6CAA6C;EACpE,4BAA4B;AAC9B;;AAEA;EACE,kBAAkB;EAClB,MAAM;EACN,OAAO;EACP,WAAW;EACX,iBAAiB;EACjB,WAAW;EACX,YAAY;AACd;;AAEA,sBAAsB;AACtB;;EAEE;;IAEE,WAAW;IACX,0CAA0C;EAC5C;AACF;;AAEA;EACE,kBAAkB;EAClB,SAAS;EACT,OAAO;EACP,QAAQ;EACR,YAAY;EACZ,mBAAmB;EACnB,aAAa;EACb,sBAAsB;EACtB,yBAAyB;AAC3B;;AAEA;EACE,WAAW;EACX,kBAAkB;EAClB,SAAS;EACT,OAAO;EACP,QAAQ;EACR,MAAM;EACN,gEAAgE;EAChE,oBAAoB,EAAE,wCAAwC;EAC9D,WAAW,EAAE,2BAA2B;AAC1C;;AAEA;;EAEE,gBAAgB;EAChB,6CAA6C;EAC7C,SAAS;AACX;;AAEA;;EAEE,WAAW;EACX,kBAAkB;EAClB,MAAM;EACN,OAAO;EACP,QAAQ;EACR,SAAS;EACT,mCAAmC;EACnC,WAAW;AACb","sourcesContent":[".card-title-popular {\n  display: flex;\n  justify-content: center;\n  padding-bottom: 10px;\n}\n\n.swiper {\n  width: 95%;\n  max-height: 400px;\n  padding-bottom: 50px;\n}\n\n/* define how each slide should position and behave within Swiper */\n/* indiviual movie card styling */\n.swiper-slide {\n  display: flex;\n  flex-direction: column;\n  justify-content: end;\n  align-items: last baseline;\n  width: 635px;\n  min-width: 635px;\n  max-width: 635px;\n  height: 357px;\n  min-height: 357px;\n  max-height: 357px;\n  text-align: center;\n  background-color: #f3f3f3;\n  border-radius: 10px;\n  padding: 2px;\n  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n}\n\n.swiper-slide h3 {\n  font-size: 1.8rem;\n  z-index: 2;\n  position: relative;\n  color: rgb(255, 255, 255);\n  margin: 0;\n  padding-top: 5px;\n}\n\n.swiper-slide p {\n  z-index: 2;\n  padding-top: 2px;\n  padding-bottom: 2px;\n  margin: 0;\n  position: relative;\n  font-size: 1.4rem;\n  color: rgb(222, 247, 247);\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 3; /* max number of text lines to show i think */\n  -webkit-box-orient: vertical;\n}\n\n.swiper-slide img {\n  position: absolute;\n  top: 0;\n  left: 0;\n  z-index: -1;\n  object-fit: cover;\n  width: 100%;\n  height: 100%;\n}\n\n/* Navigation buttons*/\n.swiper-button-prev,\n.swiper-button-next {\n  .swiper-button-next,\n  .swiper-button-prev {\n    color: #000;\n    background-color: rgba(255, 255, 255, 0.5);\n  }\n}\n\n.movie-content {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  color: white;\n  /* padding: 20px; */\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-end;\n}\n\n.movie-content::before {\n  content: \"\";\n  position: relative;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  top: 0;\n  /* background: linear-gradient(transparent, rgba(0, 0, 0, 0)); */\n  pointer-events: none; /* So it doesn't interfere with clicks */\n  z-index: -1; /* Put it behind the text */\n}\n\n.swiper-slide h3,\n.swiper-slide p {\n  font-weight: 500;\n  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.836);\n  margin: 0;\n}\n\n.swiper-slide h3::before,\n.swiper-slide p::before {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(74, 74, 74, 0.653);\n  z-index: -1;\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/swiper/modules/effect-coverflow.css":
+/*!************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/swiper/modules/effect-coverflow.css ***!
+  \************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ``, "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -57074,6 +57102,61 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
        /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_MovieList_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_MovieList_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_MovieList_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ }),
+
+/***/ "./node_modules/swiper/modules/effect-coverflow.css":
+/*!**********************************************************!*\
+  !*** ./node_modules/swiper/modules/effect-coverflow.css ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _css_loader_dist_cjs_js_effect_coverflow_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js!./effect-coverflow.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/swiper/modules/effect-coverflow.css");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_effect_coverflow_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_effect_coverflow_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _css_loader_dist_cjs_js_effect_coverflow_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _css_loader_dist_cjs_js_effect_coverflow_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),
