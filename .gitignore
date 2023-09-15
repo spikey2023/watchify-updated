@@ -1,7 +1,6 @@
 node_modules
 dist
 .env
-bundle.js.map
 
 .DS_store
 public/bundle.js

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express.Router();
 const { User } = require('../db');
-const { isUserValid } = require('./middleware/authMiddleWare');
+const { isUserValid } = require('./middleware/authMiddleware');
 module.exports = app;
 
 app.post('/', isUserValid, async (req, res, next) => {
