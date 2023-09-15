@@ -26341,20 +26341,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _reducers_register__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/register */ "./app/reducers/register.js");
-/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/Box/Box.js");
-/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/IconButton/IconButton.js");
-/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
-/* harmony import */ var _mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/OutlinedInput */ "./node_modules/@mui/material/OutlinedInput/OutlinedInput.js");
-/* harmony import */ var _mui_material_InputLabel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material/InputLabel */ "./node_modules/@mui/material/InputLabel/InputLabel.js");
-/* harmony import */ var _mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/InputAdornment */ "./node_modules/@mui/material/InputAdornment/InputAdornment.js");
-/* harmony import */ var _mui_material_FormHelperText__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/FormHelperText */ "./node_modules/@mui/material/FormHelperText/FormHelperText.js");
-/* harmony import */ var _mui_material_FormControl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material/FormControl */ "./node_modules/@mui/material/FormControl/FormControl.js");
-/* harmony import */ var _mui_material_TextField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material/TextField */ "./node_modules/@mui/material/TextField/TextField.js");
-/* harmony import */ var _mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/icons-material/Visibility */ "./node_modules/@mui/icons-material/Visibility.js");
-/* harmony import */ var _mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/icons-material/VisibilityOff */ "./node_modules/@mui/icons-material/VisibilityOff.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
-/* harmony import */ var _features_counter_counterSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../features/counter/counterSlice */ "./features/counter/counterSlice.js");
-
+/* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/Box/Box.js");
+/* harmony import */ var _mui_material_IconButton__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @mui/material/IconButton */ "./node_modules/@mui/material/IconButton/IconButton.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
+/* harmony import */ var _mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @mui/material/OutlinedInput */ "./node_modules/@mui/material/OutlinedInput/OutlinedInput.js");
+/* harmony import */ var _mui_material_InputLabel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @mui/material/InputLabel */ "./node_modules/@mui/material/InputLabel/InputLabel.js");
+/* harmony import */ var _mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @mui/material/InputAdornment */ "./node_modules/@mui/material/InputAdornment/InputAdornment.js");
+/* harmony import */ var _mui_material_FormHelperText__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @mui/material/FormHelperText */ "./node_modules/@mui/material/FormHelperText/FormHelperText.js");
+/* harmony import */ var _mui_material_FormControl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material/FormControl */ "./node_modules/@mui/material/FormControl/FormControl.js");
+/* harmony import */ var _mui_material_TextField__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/TextField */ "./node_modules/@mui/material/TextField/TextField.js");
+/* harmony import */ var _mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @mui/icons-material/Visibility */ "./node_modules/@mui/icons-material/Visibility.js");
+/* harmony import */ var _mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @mui/icons-material/VisibilityOff */ "./node_modules/@mui/icons-material/VisibilityOff.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 
 
 
@@ -26383,7 +26381,7 @@ function verifyEmailFormat(string) {
 }
 async function registerUser(data) {
   try {
-    const user = await axios__WEBPACK_IMPORTED_MODULE_4__["default"].post("/api/user", data);
+    const user = await axios__WEBPACK_IMPORTED_MODULE_3__["default"].post("/api/user", data);
     return user;
   } catch (error) {
     console.log(error);
@@ -26392,7 +26390,8 @@ async function registerUser(data) {
 function Register() {
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   const pwsNotMatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.register.pwError);
-  const invalidEmail = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.register.emailError);
+  const emailState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.register.emailError);
+  const lastEmailEntered = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.register.currEmailInput);
   const [showPassword, setShowPassword] = react__WEBPACK_IMPORTED_MODULE_0___default().useState(false);
   const handleClickShowPassword = () => setShowPassword(show => !show);
   const handleMouseDownPassword = event => {
@@ -26400,16 +26399,34 @@ function Register() {
   };
   async function checkEmail(event) {
     const emailStr = event.target.value;
-    dispatch((0,_features_counter_counterSlice__WEBPACK_IMPORTED_MODULE_3__.increment)());
-    if (verifyEmailFormat(emailStr)) {
-      dispatch((0,_reducers_register__WEBPACK_IMPORTED_MODULE_2__.emailNoError)());
-    } else {
-      dispatch((0,_reducers_register__WEBPACK_IMPORTED_MODULE_2__.emailError)());
+    //This code includes an API call that I don't want to make if the text in the
+    //email box hasn't changed since last time this function was called
+    if (emailStr !== lastEmailEntered && emailStr) {
+      dispatch((0,_reducers_register__WEBPACK_IMPORTED_MODULE_2__.updateCurrEmailInput)(emailStr));
+      if (!verifyEmailFormat(emailStr)) {
+        dispatch((0,_reducers_register__WEBPACK_IMPORTED_MODULE_2__.emailInvalid)());
+        return false;
+      }
+      try {
+        const user = await axios__WEBPACK_IMPORTED_MODULE_3__["default"].get(`/api/user/${emailStr}`);
+        if (user.data) {
+          dispatch((0,_reducers_register__WEBPACK_IMPORTED_MODULE_2__.emailTaken)());
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (emailStr !== lastEmailEntered && !emailStr) {
+      dispatch((0,_reducers_register__WEBPACK_IMPORTED_MODULE_2__.updateCurrEmailInput)(emailStr));
     }
-    try {
-      const user = await axios__WEBPACK_IMPORTED_MODULE_4__["default"].get(`/api/user/${emailStr}`);
-    } catch (error) {
-      console.log(error);
+  }
+  function emailHelperText() {
+    switch (emailState) {
+      case "invalid":
+        return "Please enter a valid email address";
+      case "taken":
+        return "This email address is already in use";
+      default:
+        return "The email address you'll use to log in!";
     }
   }
   async function handleSubmit(event) {
@@ -26430,7 +26447,7 @@ function Register() {
     } else {
       dispatch((0,_reducers_register__WEBPACK_IMPORTED_MODULE_2__.pwNoError)());
     }
-    if (!invalidEmail && !pwsNotMatch) {
+    if (emailState === "none" && !pwsNotMatch) {
       delete data.confirmPw;
       const newUser = await registerUser(data);
       console.log(newUser);
@@ -26438,7 +26455,7 @@ function Register() {
     }
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Register for Watchify!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_Box__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Register for Watchify!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_Box__WEBPACK_IMPORTED_MODULE_4__["default"], {
     component: "form",
     autoComplete: "off",
     onSubmit: handleSubmit,
@@ -26448,65 +26465,65 @@ function Register() {
         width: '90%'
       }
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
     required: true,
     id: "outlined-basic",
     label: "User Name",
     variant: "outlined",
     helperText: "Tell us what we should call you!"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_TextField__WEBPACK_IMPORTED_MODULE_5__["default"], {
     required: true,
     id: "email-address",
     label: "Email Address",
     variant: "outlined",
-    helperText: invalidEmail ? "Please enter a valid email address" : "The email address you'll use to log in!",
+    helperText: emailHelperText(),
     onBlur: checkEmail,
-    error: invalidEmail
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_FormControl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    error: emailState === "invalid" || emailState === "taken"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_FormControl__WEBPACK_IMPORTED_MODULE_6__["default"], {
     sx: {
       m: 1,
       width: '90%'
     },
     variant: "outlined",
     required: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_InputLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_InputLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
     htmlFor: "outlined-adornment-password"
-  }, "Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }, "Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_8__["default"], {
     id: "outlined-adornment-password-error",
     type: showPassword ? 'text' : 'password',
     error: pwsNotMatch,
-    endAdornment: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    endAdornment: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_9__["default"], {
       position: "end"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_10__["default"], {
       "aria-label": "toggle password visibility",
       onClick: handleClickShowPassword,
       onMouseDown: handleMouseDownPassword,
       edge: "end"
-    }, showPassword ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_12__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_13__["default"], null))),
+    }, showPassword ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_11__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_12__["default"], null))),
     label: "Password"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_FormHelperText__WEBPACK_IMPORTED_MODULE_14__["default"], null, pwsNotMatch ? "Entered passwords do not match" : "A secret word or phrase that only you know!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_FormControl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_FormHelperText__WEBPACK_IMPORTED_MODULE_13__["default"], null, pwsNotMatch ? "Entered passwords do not match" : "A secret word or phrase that only you know!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_FormControl__WEBPACK_IMPORTED_MODULE_6__["default"], {
     sx: {
       m: 1,
       width: '90%'
     },
     variant: "outlined",
     required: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_InputLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_InputLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
     htmlFor: "outlined-adornment-password"
-  }, "Confirm Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }, "Confirm Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_OutlinedInput__WEBPACK_IMPORTED_MODULE_8__["default"], {
     id: "outlined-adornment-password",
     type: showPassword ? 'text' : 'password',
     error: pwsNotMatch,
-    endAdornment: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    endAdornment: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_InputAdornment__WEBPACK_IMPORTED_MODULE_9__["default"], {
       position: "end"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_IconButton__WEBPACK_IMPORTED_MODULE_10__["default"], {
       "aria-label": "toggle password visibility",
       onClick: handleClickShowPassword,
       onMouseDown: handleMouseDownPassword,
       edge: "end"
-    }, showPassword ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_12__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_13__["default"], null))),
+    }, showPassword ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material_VisibilityOff__WEBPACK_IMPORTED_MODULE_11__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material_Visibility__WEBPACK_IMPORTED_MODULE_12__["default"], null))),
     label: "Confirm Password"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_FormHelperText__WEBPACK_IMPORTED_MODULE_14__["default"], null, pwsNotMatch ? "Entered passwords do not match" : "Make sure you typed your password correctly!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_Button__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_FormHelperText__WEBPACK_IMPORTED_MODULE_13__["default"], null, pwsNotMatch ? "Entered passwords do not match" : "Make sure you typed your password correctly!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material_Button__WEBPACK_IMPORTED_MODULE_14__["default"], {
     variant: "contained",
     color: "success",
     type: "submit"
@@ -26549,12 +26566,14 @@ function main() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   emailError: () => (/* binding */ emailError),
+/* harmony export */   emailInvalid: () => (/* binding */ emailInvalid),
 /* harmony export */   emailNoError: () => (/* binding */ emailNoError),
+/* harmony export */   emailTaken: () => (/* binding */ emailTaken),
 /* harmony export */   pwError: () => (/* binding */ pwError),
 /* harmony export */   pwNoError: () => (/* binding */ pwNoError),
 /* harmony export */   registerUser: () => (/* binding */ registerUser),
-/* harmony export */   registrationSlice: () => (/* binding */ registrationSlice)
+/* harmony export */   registrationSlice: () => (/* binding */ registrationSlice),
+/* harmony export */   updateCurrEmailInput: () => (/* binding */ updateCurrEmailInput)
 /* harmony export */ });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
@@ -26562,7 +26581,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const initialState = {
   pwError: false,
-  emailError: false
+  emailError: "none",
+  currEmailInput: ""
 };
 const registrationSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
   name: "register",
@@ -26574,11 +26594,15 @@ const registrationSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
     pwNoError: state => {
       state.pwError = false;
     },
-    emailError: state => {
-      state.emailError = true;
+    emailInvalid: state => {
+      state.emailError = "invalid";
     },
-    emailNoError: state => {
-      state.emailError = false;
+    emailTaken: state => {
+      state.emailError = "taken";
+    },
+    updateCurrEmailInput: (state, input) => {
+      state.currEmailInput = input.payload;
+      state.emailError = "none";
     }
   }
 });
@@ -26592,8 +26616,10 @@ const registerUser = async data => {
 const {
   pwError,
   pwNoError,
-  emailError,
-  emailNoError
+  emailInvalid,
+  emailNoError,
+  emailTaken,
+  updateCurrEmailInput
 } = registrationSlice.actions;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (registrationSlice.reducer);
 

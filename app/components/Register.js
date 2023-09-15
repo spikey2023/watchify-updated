@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { pwError, pwNoError, emailError, emailNoError } from '../reducers/register';
+import { pwError, pwNoError, emailInvalid, emailTaken, updateCurrEmailInput} from '../reducers/register';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
@@ -13,7 +13,6 @@ import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
-import { decrement, increment } from '../../features/counter/counterSlice'
 
 function verifyEmailFormat(string){
     //verifies the entered email is in some form of "<x>@<y>.<z>"
@@ -39,7 +38,8 @@ async function registerUser(data){
 export function Register(){
     const dispatch = useDispatch();
     const pwsNotMatch = useSelector( state => state.register.pwError );
-    const invalidEmail = useSelector( state => state.register.emailError );
+    const emailState = useSelector( state => state.register.emailError );
+    const lastEmailEntered = useSelector( state => state.register.currEmailInput );
 
     const [showPassword, setShowPassword] = React.useState(false);
   
@@ -51,17 +51,36 @@ export function Register(){
 
     async function checkEmail(event){
         const emailStr = event.target.value;
-        dispatch(increment());
-        if(verifyEmailFormat(emailStr)){
-            dispatch(emailNoError());
+        //This code includes an API call that I don't want to make if the text in the
+        //email box hasn't changed since last time this function was called
+        if(emailStr !== lastEmailEntered && emailStr){
+            dispatch(updateCurrEmailInput(emailStr));
+            if(!verifyEmailFormat(emailStr)){
+                dispatch(emailInvalid());
+                return false;
+            }
+            try {
+                const user = await axios.get(`/api/user/${emailStr}`);
+                if(user.data){
+                    dispatch(emailTaken());
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
-        else{
-            dispatch(emailError());
+        else if(emailStr !== lastEmailEntered && !emailStr){
+            dispatch(updateCurrEmailInput(emailStr));
         }
-        try {
-            const user = await axios.get(`/api/user/${emailStr}`);
-        } catch (error) {
-            console.log(error);
+    }
+
+    function emailHelperText(){
+        switch(emailState){
+            case "invalid":
+                return "Please enter a valid email address";
+            case "taken":
+                return "This email address is already in use";
+            default:
+                return "The email address you'll use to log in!";
         }
     }
     async function handleSubmit(event){
@@ -83,7 +102,7 @@ export function Register(){
         else{
             dispatch(pwNoError());
         }
-        if(!invalidEmail && !pwsNotMatch){
+        if(emailState === "none" && !pwsNotMatch){
             delete data.confirmPw;
             const newUser = await registerUser(data);
             console.log(newUser);
@@ -98,9 +117,9 @@ export function Register(){
             <TextField required id="email-address" 
                 label="Email Address" 
                 variant="outlined" 
-                helperText={invalidEmail ? "Please enter a valid email address" : "The email address you'll use to log in!" } 
+                helperText={emailHelperText()} 
                 onBlur={checkEmail} 
-                error={invalidEmail}/> 
+                error={emailState === "invalid" || emailState === "taken"}/> 
             <FormControl sx={{ m: 1, width: '90%' }} variant="outlined" required>
                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput

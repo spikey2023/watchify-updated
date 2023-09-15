@@ -3,7 +3,8 @@ import axios from "axios";
 
 const initialState = {
     pwError: false,
-    emailError: false,
+    emailError: "none",
+    currEmailInput: "",
 }
 
 export const registrationSlice = createSlice({
@@ -12,8 +13,12 @@ export const registrationSlice = createSlice({
     reducers: {
         pwError: (state) => {state.pwError = true},
         pwNoError: (state) => {state.pwError = false},
-        emailError: (state) => {state.emailError = true},
-        emailNoError: (state) => {state.emailError = false},
+        emailInvalid: (state) => {state.emailError = "invalid"},
+        emailTaken: (state) => {state.emailError = "taken"},
+        updateCurrEmailInput: (state, input) => {
+            state.currEmailInput = input.payload;
+            state.emailError = "none";
+        },
     },
 
 });
@@ -26,6 +31,12 @@ export const registerUser = async (data) => {
     }
 }
 
-export const { pwError, pwNoError, emailError, emailNoError } = registrationSlice.actions;
+export const { 
+    pwError, 
+    pwNoError, 
+    emailInvalid, 
+    emailNoError, 
+    emailTaken, 
+    updateCurrEmailInput } = registrationSlice.actions;
 
 export default registrationSlice.reducer;
