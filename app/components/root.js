@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MoviesList from "./MoviesList";
+import Register from "./Register";
 
 const Root = () => {
   const [movies, setMovies] = useState([
@@ -86,6 +87,7 @@ const Root = () => {
   return (
     <>
       <MoviesList movies={movies} setMovies={setMovies} />
+      <Register />
     </>
   );
 };
