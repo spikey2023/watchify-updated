@@ -133,6 +133,7 @@ const syncAndSeed = async () => {
         name: "Western",
       }),
     ]);
+    michele.save();
     await Promise.all([
       GenrePref.create({
         userId: michele.id,
@@ -155,9 +156,207 @@ const syncAndSeed = async () => {
         genreTmdbId: mystery.tmdb_id,
       }),
     ]);
-  } catch (err) {
+    const [
+      meg2,
+      popesExorcist,
+      transformers,
+      antMan,
+      creed3,
+      insidious,
+      barbie,
+      flash,
+      plane,
+      spiderMan,
+    ] = await Promise.all([
+      Movie.create({
+        tmdb_id: 615656,
+        title: "Meg 2: The Trench",
+        vote_average: 7.079,
+        vote_count: 1365.0,
+      }),
+      Movie.create({
+        tmdb_id: 758323,
+        title: "The Pope's Exorcist",
+        vote_average: 7.161,
+        vote_count: 1899,
+      }),
+      Movie.create({
+        tmdb_id: 667538,
+        title: "Transformers: Rise of the Beasts",
+        vote_average: 7.34,
+        vote_count: 1007.0,
+      }),
+      Movie.create({
+        tmdb_id: 640146,
+        title: "Ant-Man and the Wasp: Quantumania",
+        vote_average: 6.507,
+        vote_count: 2811.0,
+      }),
+      Movie.create({
+        tmdb_id: 677179,
+        title: "Creed III",
+        vote_average: 7.262,
+        vote_count: 1129.0,
+      }),
+      Movie.create({
+        tmdb_id: 614479,
+        title: "Insidious: The Red Door",
+        vote_average: 6.75,
+        vote_count: 564.0,
+      }),
+      Movie.create({
+        tmdb_id: 346698,
+        title: "Barbie",
+        vote_average: 7.495,
+        vote_count: 2406.0,
+      }),
+      Movie.create({
+        tmdb_id: 298618,
+        title: "The Flash",
+        vote_average: 6.947,
+        vote_count: 1979.0,
+      }),
+      Movie.create({
+        tmdb_id: 646389,
+        title: "Plane",
+        vote_average: 6.901,
+        vote_count: 785.0,
+      }),
+      Movie.create({
+        tmdb_id: 569094,
+        title: "Spider-Man: Across the Spider-Verse",
+        vote_average: 8.64,
+        vote_count: 1684.0,
+      }),
+    ]);
+
+    await Promise.all([
+      GenreMovie.create({
+        movieTmdbId: meg2.tmdb_id,
+        genreTmdbId: action.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: meg2.tmdb_id,
+        genreTmdbId: scifi.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: meg2.tmdb_id,
+        genreTmdbId: horror.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: popesExorcist.tmdb_id,
+        genreTmdbId: horror.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: popesExorcist.tmdb_id,
+        genreTmdbId: mystery.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: popesExorcist.tmdb_id,
+        genreTmdbId: thriller.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: transformers.tmdb_id,
+        genreTmdbId: action.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: transformers.tmdb_id,
+        genreTmdbId: adventure.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: transformers.tmdb_id,
+        genreTmdbId: scifi.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: antMan.tmdb_id,
+        genreTmdbId: action.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: antMan.tmdb_id,
+        genreTmdbId: adventure.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: antMan.tmdb_id,
+        genreTmdbId: scifi.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: creed3.tmdb_id,
+        genreTmdbId: drama.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: creed3.tmdb_id,
+        genreTmdbId: action.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: insidious.tmdb_id,
+        genreTmdbId: horror.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: insidious.tmdb_id,
+        genreTmdbId: mystery.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: insidious.tmdb_id,
+        genreTmdbId: thriller.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: barbie.tmdb_id,
+        genreTmdbId: comedy.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: barbie.tmdb_id,
+        genreTmdbId: adventure.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: barbie.tmdb_id,
+        genreTmdbId: fantasy.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: flash.tmdb_id,
+        genreTmdbId: action.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: flash.tmdb_id,
+        genreTmdbId: adventure.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: flash.tmdb_id,
+        genreTmdbId: scifi.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: plane.tmdb_id,
+        genreTmdbId: action.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: plane.tmdb_id,
+        genreTmdbId: adventure.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: plane.tmdb_id,
+        genreTmdbId: thriller.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: spiderMan.tmdb_id,
+        genreTmdbId: action.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: spiderMan.tmdb_id,
+        genreTmdbId: adventure.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: spiderMan.tmdb_id,
+        genreTmdbId: animation.tmdb_id,
+      }),
+      GenreMovie.create({
+        movieTmdbId: spiderMan.tmdb_id,
+        genreTmdbId: scifi.tmdb_id,
+      }),
+    ]);
     db.close();
+  } catch (err) {
+    console.log(err);
   }
+  db.close();
 };
 
 syncAndSeed();
