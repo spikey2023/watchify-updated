@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import UserAccUpdates from "./UserAccUpdates";
 
 const UserAccountPage = () => {
   //const { auth } = useSelector((state) => state)
@@ -22,7 +23,7 @@ const UserAccountPage = () => {
           <section className="user-section">
             <p>email:</p>
             <p className="useracc-info">email placeholder</p>
-            <Link>edit</Link>
+            <UserAccUpdates />
           </section>
           <section className="user-section">
             <p>password:</p>
