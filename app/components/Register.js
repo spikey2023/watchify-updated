@@ -35,7 +35,7 @@ async function registerUser(data){
     }
 }
 
-export function Register(){
+export default function Register(){
     const dispatch = useDispatch();
     const pwsNotMatch = useSelector( state => state.register.pwError );
     const emailState = useSelector( state => state.register.emailError );
