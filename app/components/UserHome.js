@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import MoviesList from './MoviesList'
 
-const Home = () => {
+const UserHome = () => {
   const [movies, setMovies] = useState([
     {
       id: "1",
@@ -89,4 +89,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default UserHome

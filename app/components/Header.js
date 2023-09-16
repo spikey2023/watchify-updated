@@ -35,7 +35,7 @@ const Header = () => {
                         label="Home"
                         value="/"
                         component={Link}
-                        to={`/`} 
+                        to={`/userhome`} 
                         /> 
                     <Tab 
                         label="Account"
@@ -54,7 +54,7 @@ const Header = () => {
                     sx={{background: "#1E3CA8",
                     marginLeft:'auto'}}
                     component={Link}
-                    to={`/signIn`}
+                    to={`/login`}
                     >
                          Sign In
                 </Button>
