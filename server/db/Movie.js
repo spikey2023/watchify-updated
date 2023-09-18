@@ -3,7 +3,7 @@ const { DECIMAL, STRING, INTEGER } = db.Sequelize;
 
 const Movie = db.define("movie", {
   tmdb_id: {
-   type: INTEGER,
+    type: INTEGER,
     primaryKey: true,
   },
   title: {
@@ -15,7 +15,6 @@ const Movie = db.define("movie", {
   },
   vote_count: {
     type: INTEGER,
-
     allowNull: true,
   },
 });
