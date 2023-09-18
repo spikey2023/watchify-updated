@@ -1,6 +1,6 @@
 const fs = require("fs");
 const csv = require("csv-parser");
-const { db, User, Genre, Movie, GenreMovie, GenrePref } = require("./index"); // Make sure to import your models correctly here
+const { db, User, Genre, Movie, GenreMovie, GenrePref } = require("./index");
 
 const genreLookup = {
   Action: 28,
