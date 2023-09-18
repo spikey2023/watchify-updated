@@ -30,7 +30,6 @@ const UserAccountPage = () => {
             <p className="useracc-info">password placeholder</p>
             <Link>change password</Link>
           </section>
-          <p>MY PROFILE</p>
           <section className="user-section">
             <p>username:</p>
             <p className="useracc-info">username placeholder</p>

@@ -2,6 +2,8 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
+const routes = require("./api");
+
 module.exports = app;
 
 // logging middleware
@@ -16,6 +18,9 @@ app.get("/", (req, res) =>
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "..", "/public")));
+
+//routes
+app.use("/api", routes);
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
