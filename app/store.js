@@ -1,5 +1,13 @@
+//automatically added the thunk middleware
+//automatically combines reducers
+//automatically set up the Redux DevTools Extension connection
 import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "./store/userSlice";
 
-export const store = configureStore({
-  reducer: {},
+const store = configureStore({
+  reducer: {
+    user: userReducer,
+  },
 });
+
+export default store;

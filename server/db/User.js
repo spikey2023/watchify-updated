@@ -81,19 +81,16 @@ returns a jwt token for the created user
  */
 
 User.authenticate = async ({ email, password }) => {
-  //console.log("__________", email, password);
   //find user based on email
   const user = await User.findOne({
     where: { email: email },
   });
-  //console.log("###", user);
   //Compare the password in the db with the password provided by the user with bcrypt
   //If they match then generate a token for the user
 
   if (user && (await bcrypt.compare(password, user.password))) {
     return User.generateToken(user);
   }
-
   const error = Error("bad credentials");
   error.status = 401;
   throw error;

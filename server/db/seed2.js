@@ -9,7 +9,7 @@ const {
   GenrePref,
   UserWatched,
 } = require("./index");
-​
+
 const genreLookup = {
   Action: 28,
   Adventure: 12,
@@ -31,12 +31,12 @@ const genreLookup = {
   War: 10752,
   Western: 37,
 };
-​
+
 const seed = async () => {
   try {
     await db.sync();
     console.log("DB Synced");
-​
+
     // Seed Genre table
     await Promise.all(
       Object.keys(genreLookup).map((name) => {
@@ -44,17 +44,16 @@ const seed = async () => {
       })
     );
     console.log("Genre table seeded");
-​
     const batchSize = 500;
     let movieBatch = [];
     let genreMovieBatch = [];
-​
     const closeDb = async () => {
       await db.close();
     };
-​
     const stream = fs
-      .createReadStream("/Users/kevinchoi/watchify/movies.csv")
+      .createReadStream(
+        "/Users/micheletazbaz/Documents/Fullstack2303/Senior/watchify/watchify/movies.csv"
+      )
       .pipe(csv())
       .on("data", (row) => {
         movieBatch.push({
@@ -63,9 +62,8 @@ const seed = async () => {
           vote_average: row.vote_average,
           vote_count: row.vote_count,
         });
-​
         const genres = row.genres.split("-");
-​
+
         genres.forEach((genreName) => {
           const genreId = genreLookup[genreName];
           if (genreId) {
@@ -75,10 +73,10 @@ const seed = async () => {
             });
           }
         });
-​
+
         if (movieBatch.length >= batchSize) {
           stream.pause();
-​
+
           Promise.all([
             ...movieBatch.map((record) => {
               return Movie.upsert(record);
@@ -98,6 +96,7 @@ const seed = async () => {
             });
         }
       })
+
       .on("end", async () => {
         if (movieBatch.length > 0 || genreMovieBatch.length > 0) {
           await Promise.all([
@@ -123,5 +122,5 @@ const seed = async () => {
     await db.close();
   }
 };
-​
+
 seed();
