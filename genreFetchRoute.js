@@ -1,47 +1,63 @@
-const { Sequelize, Model, DataTypes, Op } = require("sequelize");
+const { Sequelize, Op } = require("sequelize");
+const {
+  db,
+  User,
+  Genre,
+  Movie,
+  GenreMovie,
+  GenrePref,
+} = require("./server/db/index");
 
-// Initialize Sequelize and connect to the database
-const db = new Sequelize("watchify", "kevinchoi", "password", {
-  host: "localhost",
-  dialect: "postgres", // or any other dialect you're using
-});
-
-// Function to get movies based on user's genre preferences
 const getMoviesForUser = async (userId) => {
-  // Step 1: Fetch the user's genre preferences
+  //Fetch the user's genre preferences
   const userGenrePrefs = await GenrePref.findAll({
     where: { userId },
   });
-
   const userPrefGenreIds = userGenrePrefs.map((pref) => pref.genreTmdbId);
 
-  // Step 2: Fetch movies that match the user's genre preferences
-  const matchingMovies = await Movie.findAll({
-    include: [
-      {
-        model: GenreMovie,
-        where: {
-          genreTmdbId: {
-            [Op.in]: userPrefGenreIds,
-          },
-        },
-      },
-    ],
+  //Fetch all movies with a vote_count of at least 100
+  const allMovies = await Movie.findAll({
     where: {
       vote_count: {
         [Op.gte]: 100,
       },
     },
-    order: [["vote_average", "DESC"]],
-    limit: 20,
   });
 
-  return matchingMovies;
+  //Fetch genre associations for those movies
+  const allMovieIds = allMovies.map((movie) => movie.tmdb_id);
+  const allGenreMovies = await GenreMovie.findAll({
+    where: {
+      movieTmdbId: {
+        [Op.in]: allMovieIds,
+      },
+    },
+  });
+
+  //Filter movies by user's genre preferences and count matches
+  const movieGenreCounts = {};
+  allGenreMovies.forEach((gm) => {
+    if (userPrefGenreIds.includes(gm.genreTmdbId)) {
+      movieGenreCounts[gm.movieTmdbId] =
+        (movieGenreCounts[gm.movieTmdbId] || 0) + 1;
+    }
+  });
+
+  //Sort by number of genre matches and then by vote average
+  const sortedMovies = allMovies
+    .filter((movie) => movieGenreCounts[movie.tmdb_id])
+    .sort((a, b) => {
+      const diff = movieGenreCounts[b.tmdb_id] - movieGenreCounts[a.tmdb_id];
+      if (diff !== 0) return diff;
+      return b.vote_average - a.vote_average;
+    })
+    .slice(0, 20); // Take top 20 movies
+
+  return sortedMovies;
 };
 
-// Example usage
 (async () => {
-  const userId = "6f9f15de-c331-4274-8ac4-c055fe23dc7a"; // Replace with the actual user ID
+  const userId = "6f9f15de-c331-4274-8ac4-c055fe23dc7a";
   const recommendedMovies = await getMoviesForUser(userId);
-  console.log(recommendedMovies);
+  console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
 })();
