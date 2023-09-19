@@ -7,7 +7,7 @@
     "build:dev": "npm run build -- --watch --mode=development",
     "start": "nodemon server",
     "start:dev": "npm run build:dev & npm run start-server",
-    "seed": "node server/db/seed.js",
+    "seed": "node server/db/seed2.js",
     "start:dev:logger": "LOGGING=true npm run start:dev",
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client"
   },

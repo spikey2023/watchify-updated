@@ -1,5 +1,6 @@
 const fs = require("fs");
 const csv = require("csv-parser");
+const path = require("path");
 const { db, User, Genre, Movie, GenreMovie, GenrePref } = require("./index");
 
 const genreLookup = {
@@ -88,7 +89,7 @@ const seed = async () => {
     let genreMovieBatch = [];
 
     const stream = fs
-      .createReadStream("/Users/kevinchoi/watchify/movies.csv")
+      .createReadStream(path.join(process.cwd(), "movies.csv"))
       .pipe(csv())
       .on("data", (row) => {
         batch.push({
