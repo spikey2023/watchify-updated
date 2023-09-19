@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import Root from "./components/Root";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import UserAccountPage from "./components/UserAccountPage";
 
@@ -11,9 +11,8 @@ const root = createRoot(document.querySelector("#root"));
 
 root.render(
   <Provider store={store}>
-    <HashRouter>
-      <UserAccountPage />
-      {/* <Root /> */}
-    </HashRouter>
+    <BrowserRouter>
+      <Root />
+    </BrowserRouter>
   </Provider>
 );

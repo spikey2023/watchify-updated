@@ -1,5 +1,6 @@
 const fs = require("fs");
 const csv = require("csv-parser");
+<<<<<<< HEAD
 const {
   db,
   User,
@@ -9,6 +10,10 @@ const {
   GenrePref,
   UserWatched,
 } = require("./index");
+=======
+const path = require("path");
+const { db, User, Genre, Movie, GenreMovie, GenrePref } = require("./index");
+>>>>>>> main
 
 const genreLookup = {
   Action: 28,
@@ -38,6 +43,7 @@ const seed = async () => {
     console.log("DB Synced");
 
     // Seed Genre table
+<<<<<<< HEAD
     await Promise.all(
       Object.keys(genreLookup).map((name) => {
         return Genre.upsert({ tmdb_id: genreLookup[name], name });
@@ -57,13 +63,82 @@ const seed = async () => {
       .pipe(csv())
       .on("data", (row) => {
         movieBatch.push({
+=======
+    const genrePromises = Object.keys(genreLookup).map((genreName) => {
+      return Genre.upsert({
+        tmdb_id: genreLookup[genreName],
+        name: genreName,
+      });
+    });
+    await Promise.all(genrePromises);
+    console.log("Genre table seeded");
+
+    // Seed User table
+    const users = await Promise.all([
+      User.create({
+        username: "andrew",
+        email: "andrew@aol.com",
+        password: "123",
+      }),
+      User.create({
+        username: "spike",
+        email: "spike@aol.com",
+        password: "123",
+      }),
+      User.create({
+        username: "michele",
+        email: "michele@aol.com",
+        password: "123",
+      }),
+      User.create({
+        username: "kevin",
+        email: "kevin@aol.com",
+        password: "123",
+      }),
+    ]);
+    console.log("User table seeded");
+
+    // Seed GenrePref table
+    const genrePrefPromises = [];
+    users.forEach((user) => {
+      genrePrefPromises.push(
+        GenrePref.create({
+          userId: user.id,
+          genreTmdbId: 28,
+        }),
+        GenrePref.create({
+          userId: user.id,
+          genreTmdbId: 12,
+        })
+      );
+    });
+
+    await Promise.all(genrePrefPromises);
+    console.log("GenrePref table seeded");
+
+    // Seed Movie and GenreMovie tables
+    const batchSize = 500;
+    let batch = [];
+    let genreMovieBatch = [];
+
+    const stream = fs
+      .createReadStream(path.join(process.cwd(), "movies.csv"))
+      .pipe(csv())
+      .on("data", (row) => {
+        batch.push({
+>>>>>>> main
           tmdb_id: row.id,
           title: row.title,
           vote_average: row.vote_average,
           vote_count: row.vote_count,
         });
+<<<<<<< HEAD
         const genres = row.genres.split("-");
 
+=======
+
+        const genres = row.genres.split("-");
+>>>>>>> main
         genres.forEach((genreName) => {
           const genreId = genreLookup[genreName];
           if (genreId) {
@@ -74,6 +149,7 @@ const seed = async () => {
           }
         });
 
+<<<<<<< HEAD
         if (movieBatch.length >= batchSize) {
           stream.pause();
 
@@ -87,6 +163,16 @@ const seed = async () => {
           ])
             .then(() => {
               movieBatch = [];
+=======
+        if (batch.length >= batchSize) {
+          stream.pause();
+          Promise.all(
+            batch.map((record) => Movie.upsert(record)),
+            genreMovieBatch.map((record) => GenreMovie.upsert(record))
+          )
+            .then(() => {
+              batch = [];
+>>>>>>> main
               genreMovieBatch = [];
               stream.resume();
             })
@@ -96,6 +182,7 @@ const seed = async () => {
             });
         }
       })
+<<<<<<< HEAD
 
       .on("end", async () => {
         if (movieBatch.length > 0 || genreMovieBatch.length > 0) {
@@ -116,6 +203,23 @@ const seed = async () => {
         closeDb().catch((err) =>
           console.error("Failed to close the database:", err)
         );
+=======
+      .on("end", async () => {
+        if (batch.length > 0 || genreMovieBatch.length > 0) {
+          await Promise.all(
+            batch.map((record) => Movie.upsert(record)),
+            genreMovieBatch.map((record) => GenreMovie.upsert(record))
+          );
+        }
+        console.log("CSV file successfully processed");
+        await db.close();
+      })
+      .on("error", (error) => {
+        console.error(`Stream error: ${error}`);
+        db.close().catch((err) => {
+          console.error("Error closing database:", err);
+        });
+>>>>>>> main
       });
   } catch (error) {
     console.error(`Seed Failed:`, error);
