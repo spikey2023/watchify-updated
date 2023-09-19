@@ -4,6 +4,7 @@ const { User } = require("../../db/index");
 //Post /api/auth/login
 authRouter.post("/login", async (req, res, next) => {
   try {
+    console.log("hello");
     const user = await User.authenticate(req.body);
 
     res.send(user);

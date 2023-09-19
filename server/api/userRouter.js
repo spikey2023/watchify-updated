@@ -15,7 +15,7 @@ userRouter.get("/:id", async (req, res, next) => {
 });
 
 //PUT /api/user/:id
-userRouter.get("/:id", async (req, res, next) => {
+userRouter.put("/:id", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     res.send(await user.update(req.body));

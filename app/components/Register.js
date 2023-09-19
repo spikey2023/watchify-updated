@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { pwError, pwNoError, emailInvalid, emailTaken, updateCurrEmailInput} from '../reducers/register';
+import { pwError, pwNoError, emailInvalid, emailTaken, updateCurrEmailInput} from '../features/register';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
@@ -42,7 +42,7 @@ export default function Register(){
     const lastEmailEntered = useSelector( state => state.register.currEmailInput );
 
     const [showPassword, setShowPassword] = React.useState(false);
-  
+
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleMouseDownPassword = (event) => {
@@ -114,12 +114,12 @@ export default function Register(){
         <h1>Register for Watchify!</h1>
         <Box component="form" autoComplete="off" onSubmit={handleSubmit}sx={{'& .MuiTextField-root': { m: 1, width: '90%' },}}>
             <TextField required id="outlined-basic" label="User Name" variant="outlined" helperText="Tell us what we should call you!" />
-            <TextField required id="email-address" 
-                label="Email Address" 
-                variant="outlined" 
-                helperText={emailHelperText()} 
-                onBlur={checkEmail} 
-                error={emailState === "invalid" || emailState === "taken"}/> 
+            <TextField required id="email-address"
+                label="Email Address"
+                variant="outlined"
+                helperText={emailHelperText()}
+                onBlur={checkEmail}
+                error={emailState === "invalid" || emailState === "taken"}/>
             <FormControl sx={{ m: 1, width: '90%' }} variant="outlined" required>
                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput

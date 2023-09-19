@@ -1,23 +1,5 @@
 import axios from "axios";
 
-// const GET_USER = "GET_USER";
-
-// const _getUser = (user) => {
-//   return {
-//     type: GET_USER,
-//     user,
-//   };
-// };
-
-// export default (state = {}, action) => {
-//   switch (action.type) {
-//     case GET_USER:
-//       return action.user;
-//     default:
-//       return state;
-//   }
-// };
-
 // can write the case reducers as functions inside of an object,
 // instead of having to write a switch/case statement
 // The reducers will be able to write shorter immutable update logic
@@ -56,7 +38,7 @@ export const updateUser = createAsyncThunk(
 //due to immer.js under the hood we don't need to copy state with spread operator
 //will copy on it's own
 const userSlice = createSlice({
-  name: user,
+  name: "user",
   initialState,
   //extraReducers handle axios calls - unlike "reducers:{}"
   extraReducers: (builder) => {
