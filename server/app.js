@@ -17,6 +17,9 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 //routes
 app.use("/api/user", require("./api/user"));
 
+//JWT
+app.use("/api/auth", require("./api/auth"))
+
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
   if (path.extname(req.path).length) {
