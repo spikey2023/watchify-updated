@@ -5,15 +5,3 @@ dist
 .DS_store
 ./public/bundle.js
 ./public/bundle.js.map
-
-# swiper.updateSlides()
-# recalculate number of slides and their offsets. Useful after you add/remove slides with JavaScript
-# https://swiperjs.com/swiper-api#method-swiper-updateSlides
-
-# swiper.update()
-# You should call it after you add/remove slides manually, or after you hide/show it, or do any custom DOM modifications with Swiper This method also includes subcall of the following methods which you can use separately:
-# https://swiperjs.com/swiper-api#method-swiper-update
-
-# Virtual Slides module allows to keep just required amount of slides in DOM. It is very useful in terms in performance and memory issues if you have a lot of slides
-# https://swiperjs.com/swiper-api#virtual-slides
-
