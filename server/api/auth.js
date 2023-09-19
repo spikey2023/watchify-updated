@@ -13,6 +13,7 @@ app.post('/', isUserValid, async (req, res, next) => {
   }
 });
 
+// Token exchange route
 app.get('/', async (req, res, next) => {
   try {
     if (!req.headers.authorization) {
