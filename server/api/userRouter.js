@@ -14,4 +14,17 @@ userRouter.get("/:id", async (req, res, next) => {
   }
 });
 
+//PUT /api/user/:id
+userRouter.get("/:id", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    res.send(await user.update(req.body));
+  } catch (err) {
+    res.status(500).json({
+      message: "could not update user",
+      error: err.message,
+    });
+  }
+});
+
 module.exports = userRouter;

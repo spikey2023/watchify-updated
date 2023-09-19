@@ -2,7 +2,7 @@
 //automatically combines reducers
 //automatically set up the Redux DevTools Extension connection
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./store/userSlice";
+import userReducer from "./features/userSlice";
 
 const store = configureStore({
   reducer: {
