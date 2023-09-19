@@ -7,7 +7,7 @@ import WatchedList from "./WatchedList";
 import Hero from "./Hero"
 import UserHome from "./UserHome";
 import Register from "./Register"
-import RecMovie from "./RecMovie";
+
 
 
 const Root = () => {
