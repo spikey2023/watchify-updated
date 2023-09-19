@@ -97,12 +97,12 @@ const SignIn= () =>{
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2" color="#1E3CA8">
+                {/* <Link href="#" variant="body2" color="#1E3CA8">
                   Forgot password?
-                </Link>
+                </Link> */}
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2" color="#1E3CA8">
+                <Link href="/register" variant="body2" color="#1E3CA8">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

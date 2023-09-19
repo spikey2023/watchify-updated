@@ -17,27 +17,13 @@ export const loginWithToken = () => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem('token');
-      if (token) {
-        const guestCart = window.localStorage.getItem('tempCart');
-        if (guestCart.lineItems) {
-          const cartResponse = await axios.post(
-            '/api/orders/loginCart',
-            guestCart,
-            {
-              headers: {
-                authorization: token,
-              },
-            }
-          );
-        }
         const authResponse = await axios.get('/api/auth', {
           headers: {
             authorization: token,
           },
         });
         dispatch({ type: 'SET_AUTH', auth: authResponse.data });
-      }
-    } catch (error) {
+      } catch (error) {
       console.error('Error during login with token:', error);
       dispatch(logout()); // If token is invalid, log the user out
     }
@@ -56,6 +42,7 @@ export const attemptLogin = (credentials) => {
     }
   };
 };
+
 export const attemptRegister = (credentials) => {
   return async (dispatch) => {
     try {

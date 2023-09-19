@@ -6,6 +6,8 @@ import Account from "./Account";
 import WatchedList from "./WatchedList";
 import Hero from "./Hero"
 import UserHome from "./UserHome";
+import Register from "./Register"
+import RecMovie from "./RecMovie";
 
 
 const Root = () => {
@@ -18,9 +20,11 @@ const Root = () => {
         <Route exact path="/watchedlist" element={<WatchedList/>} />
         <Route exact path="/login" element={<SignIn/>} />
         <Route exact path="/userhome" element={<UserHome/>} />
+        <Route exact path="/register" element={<Register/>} />
+        {/* <Route exact path="/recmovie" element={<RecMovie/>} /> */}
         <Route exact path="/" element={<Hero/>} />
       </Routes>      
-      
+
     </div>
   );
 };
