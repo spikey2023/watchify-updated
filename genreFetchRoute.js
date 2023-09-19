@@ -57,7 +57,7 @@ const getMoviesForUser = async (userId) => {
 };
 
 (async () => {
-  const userId = "6f9f15de-c331-4274-8ac4-c055fe23dc7a";
+  const userId = "6f9f15de-c331-4274-8ac4-c055fe23dc7a"; //kevin uuid (change this later)
   const recommendedMovies = await getMoviesForUser(userId);
   console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
 })();
