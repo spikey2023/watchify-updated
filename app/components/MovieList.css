@@ -5,90 +5,63 @@
 }
 
 .swiper {
-  width: 100%;
-  min-height: 400px;
-}
-
-/* class will only be applied once for initial animation */
-.animate-slide {
-  animation: slideInFromRight 1s ease-out forwards;
-}
-
-@keyframes slideInFromRight {
-  0% {
-    opacity: 0;
-    transform: translateX(200%);
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
+  width: 95%;
+  max-height: 400px;
+  padding-bottom: 50px;
 }
 
 /* define how each slide should position and behave within Swiper */
+/* indiviual movie card styling */
 .swiper-slide {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: end;
+  align-items: last baseline;
+  width: 635px;
+  min-width: 635px;
+  max-width: 635px;
+  height: 357px;
+  min-height: 357px;
+  max-height: 357px;
   text-align: center;
-  opacity: 0;
-}
-
-/* styles for outer most edge cards */
-.swiper-slide .movie-card {
-  opacity: 0.5;
-  transform: scale(0.7);
-  z-index: 1;
-  transition: all 0s ease;
-}
-
-/* Styles for left slide of center active slide*/
-.swiper-slide.swiper-slide-prev .movie-card {
-  opacity: 0.7;
-  transform: scale(0.85);
-  z-index: 2;
-  transition: all 0s ease;
-}
-
-/* Styles for the center active slide */
-.swiper-slide.swiper-slide-active .movie-card {
-  opacity: 1;
-  transform: scale(1);
-  z-index: 3;
-  transition: all 0s ease;
-}
-
-/* Styles for right slide of center active slide*/
-.swiper-slide.swiper-slide-next .movie-card {
-  opacity: 0.7;
-  transform: scale(0.9);
-  z-index: 2;
-  transition: all 0s ease;
-}
-
-/* indiviual movie card styling */
-.movie-card {
-  min-width: 275px;
-  min-height: 350px;
-  max-width: 100%;
   background-color: #f3f3f3;
   border-radius: 10px;
-  padding: 0px;
+  padding: 2px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 5px;
 }
 
-.movie-card h3 {
-  font-size: 1.2rem;
+.swiper-slide h3 {
+  font-size: 1.8rem;
+  z-index: 2;
+  position: relative;
+  color: rgb(255, 255, 255);
+  margin: 0;
+  padding-top: 5px;
 }
 
-.movie-card p {
-  font-size: 0.9rem;
+.swiper-slide p {
+  z-index: 2;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin: 0;
+  position: relative;
+  font-size: 1.4rem;
+  color: rgb(222, 247, 247);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3; /* max number of text lines to show i think */
   -webkit-box-orient: vertical;
+}
+
+.swiper-slide img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 /* Navigation buttons*/
@@ -99,4 +72,47 @@
     color: #000;
     background-color: rgba(255, 255, 255, 0.5);
   }
+}
+
+.movie-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.movie-content::before {
+  content: "";
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  /* background: linear-gradient(transparent, rgba(0, 0, 0, 0)); */
+  pointer-events: none; /* So it doesn't interfere with clicks */
+  z-index: -1; /* Put it behind the text */
+}
+
+.swiper-slide h3,
+.swiper-slide p {
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.836);
+  margin: 0;
+}
+
+.swiper-slide h3::before,
+.swiper-slide p::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(74, 74, 74, 0.653);
+  z-index: -1;
 }
