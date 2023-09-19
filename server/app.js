@@ -2,7 +2,6 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
-module.exports = app;
 
 // logging middleware
 app.use(morgan("dev"));
@@ -15,7 +14,13 @@ app.get("/", (req, res) =>
 );
 
 // static file-serving middleware
-app.use(express.static(path.join(__dirname, "..", "/public")));
+app.use(express.static(path.join(__dirname, "..", "public")));
+
+//routes
+app.use("/api/user", require("./api/user"));
+
+//JWT
+app.use("/api/auth", require("./api/auth"));
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
@@ -39,3 +44,5 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).send(err.message || "Internal server error.");
 });
+
+module.exports = app;

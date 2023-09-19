@@ -3,3 +3,5 @@ dist
 .env
 
 .DS_store
+public/bundle.js
+public/bundle.js.map

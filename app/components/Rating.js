@@ -12,9 +12,9 @@ export default function MovieRating({ value, onChange }) {
         onChange(newValue);
       }}
       precision={0.5}
-      style={{
-        background: "linear-gradient(transparent, rgb(112, 112, 112))",
-      }}
+      // style={{
+      //   background: "linear-gradient(transparent, rgb(112, 112, 112))",
+      // }}
     />
   );
 }
