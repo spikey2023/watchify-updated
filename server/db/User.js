@@ -92,7 +92,13 @@ User.authenticate = async ({ email, password }) => {
   //If they match then generate a token for the user
 
   if (user && (await bcrypt.compare(password, user.password))) {
-    return User.generateToken(user);
+    return {
+      user,
+      headers: {
+        authorization: User.generateToken(user),
+      },
+    };
+    //return User.generateToken(user);
   }
   const error = Error("bad credentials");
   error.status = 401;

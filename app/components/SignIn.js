@@ -14,6 +14,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { loginUser } from "../features/userSlice";
+//import { redirect } from "react-router-dom";
+// import { createBrowserHistory } from "history";
+// let history = createBrowserHistory();
 
 function Copyright(props) {
   return (
@@ -44,10 +47,10 @@ const SignIn = () => {
   const login = async (event) => {
     event.preventDefault();
     try {
-      const loggedInUser = await dispatch(loginUser(user))
-        .unwrap()
-        .then(setUser({ email: "", password: "" }));
-      //.then((loggedInUser)) some kind of history push to home page opportunity?
+      await dispatch(loginUser(user));
+      setUser({ email: "", password: "" });
+      //redirect("/userhome"); //Not working!
+      //history.push("/userhome"); //not working either
     } catch (err) {
       console.log(err);
     }

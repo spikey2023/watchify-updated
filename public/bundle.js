@@ -34129,6 +34129,10 @@ function _extends() { _extends = Object.assign ? Object.assign.bind() : function
 
 
 
+//import { redirect } from "react-router-dom";
+// import { createBrowserHistory } from "history";
+// let history = createBrowserHistory();
+
 function Copyright(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
     variant: "body2",
@@ -34152,11 +34156,13 @@ const SignIn = () => {
   const login = async event => {
     event.preventDefault();
     try {
-      const loggedInUser = await dispatch((0,_features_userSlice__WEBPACK_IMPORTED_MODULE_2__.loginUser)(user)).unwrap().then(setUser({
+      await dispatch((0,_features_userSlice__WEBPACK_IMPORTED_MODULE_2__.loginUser)(user));
+      setUser({
         email: "",
         password: ""
-      }));
-      //.then((loggedInUser)) some kind of history push to home page opportunity?
+      });
+      //redirect("/userhome"); //Not working!
+      //history.push("/userhome"); //not working either
     } catch (err) {
       console.log(err);
     }
@@ -34604,18 +34610,7 @@ const initialState = {
   error: "",
   token: ""
 };
-
-//below is old redux way
-// const _loginUser = (token, email) => {
-//   return {
-//     type: "LOGIN_USER",
-//     token,
-//     email,
-//   };
-// };
-
 const loginUser = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)("auth/loginUser", async user => {
-  console.log("USERRRRR", user);
   try {
     const response = await axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(`/api/auth/login`, user);
     return response.data;

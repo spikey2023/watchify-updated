@@ -15,17 +15,7 @@ const initialState = {
   token: "",
 };
 
-//below is old redux way
-// const _loginUser = (token, email) => {
-//   return {
-//     type: "LOGIN_USER",
-//     token,
-//     email,
-//   };
-// };
-
 export const loginUser = createAsyncThunk("auth/loginUser", async (user) => {
-  console.log("USERRRRR", user);
   try {
     const response = await axios.post(`/api/auth/login`, user);
     return response.data;
