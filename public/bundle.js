@@ -32838,19 +32838,19 @@ const MoviesList = ({
 }) => {
   const handleRatingChange = (id, newRating) => {
     // Logic for updating the rating and count
-    const movie = movies.find(movie => movie.id === id);
+    const movie = movies.find(movie => movie.tmdb_id === id);
     if (!movie) return;
-    const newRatingCount = movie.rating_count + 1;
-    const newAvgRating = (movie.avg_rating * movie.rating_count + newRating) / newRatingCount;
+    const newRatingCount = movie.vote_count + 1;
+    const newAvgRating = (movie.vote_average * movie.vote_count + newRating) / newRatingCount;
 
     // Update the state
     setMovies(prevMovies => {
       return prevMovies.map(movie => {
-        if (movie.id !== id) return movie;
+        if (movie.tmdb_id !== id) return movie;
         return {
           ...movie,
-          rating_count: newRatingCount,
-          avg_rating: newAvgRating
+          vote_count: newRatingCount,
+          vote_average: newAvgRating
         };
       });
     });
@@ -32884,7 +32884,7 @@ const MoviesList = ({
     },
     modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Mousewheel, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Keyboard, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_2__.EffectCoverflow]
   }, " ", movies.map((movie, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(swiper_react__WEBPACK_IMPORTED_MODULE_1__.SwiperSlide, {
-    key: movie.id,
+    key: movie.tmdb_id,
     className: "swiper-slide"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "image-wrapper"
@@ -32894,9 +32894,9 @@ const MoviesList = ({
     alt: movie.title
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "movie-content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, movie.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Average Rating: ${roundToHalf(movie.avg_rating)}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Total Votes: ${movie.rating_count}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Rating__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    value: movie.avg_rating,
-    onChange: newRating => handleRatingChange(movie.id, newRating)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, movie.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Average Rating: ${roundToHalf(movie.vote_average)}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Total Votes: ${movie.vote_count}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Rating__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    value: movie.vote_average,
+    onChange: newRating => handleRatingChange(movie.tmdb_id, newRating)
   })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "swiper-button-prev"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -33378,70 +33378,70 @@ __webpack_require__.r(__webpack_exports__);
 
 const UserHome = () => {
   const [movies, setMovies] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([{
-    id: "1",
+    tmdb_id: "1",
     title: "Movie 1",
-    avg_rating: 3.75,
-    rating_count: 10
+    vote_average: 3.75,
+    vote_count: 10
   }, {
-    id: "2",
+    tmdb_id: "2",
     title: "Movie 2",
-    avg_rating: 4.75,
-    rating_count: 4
+    vote_average: 4.75,
+    vote_count: 4
   }, {
-    id: "3",
+    tmdb_id: "3",
     title: "Movie 3",
-    avg_rating: 3.7,
-    rating_count: 10
+    vote_average: 3.7,
+    vote_count: 10
   }, {
-    id: "4",
+    tmdb_id: "4",
     title: "Movie 4",
-    avg_rating: 3.5,
-    rating_count: 20
+    vote_average: 3.5,
+    vote_count: 20
   }, {
-    id: "5",
+    tmdb_id: "5",
     title: "Movie 5",
-    avg_rating: 4.9,
-    rating_count: 50
+    vote_average: 4.9,
+    vote_count: 50
   }, {
-    id: "6",
+    tmdb_id: "6",
     title: "Movie 6",
-    avg_rating: 4.5,
-    rating_count: 3333
+    vote_average: 4.5,
+    vote_count: 3333
   }, {
-    id: "7",
+    tmdb_id: "7",
     title: "Movie 7",
-    avg_rating: 4.5,
-    rating_count: 3333
+    vote_average: 4.5,
+    vote_count: 3333
   }, {
-    id: "8",
+    tmdb_id: "8",
     title: "Movie 8",
-    avg_rating: 4.5,
-    rating_count: 3333
+    vote_average: 4.5,
+    vote_count: 3333
   }, {
-    id: "9",
+    tmdb_id: "9",
     title: "Movie 9",
-    avg_rating: 4.5,
-    rating_count: 3333
+    vote_average: 4.5,
+    vote_count: 3333
   }, {
-    id: "10",
+    tmdb_id: "10",
     title: "Movie 10",
-    avg_rating: 4.5,
-    rating_count: 3333
+    vote_average: 4.5,
+    vote_count: 3333
   }, {
-    id: "11",
+    tmdb_id: "11",
     title: "Movie 11",
-    avg_rating: 4.5,
-    rating_count: 3333
+    vote_average: 4.5,
+    vote_count: 3333
   }, {
-    id: "12",
+    tmdb_id: "12",
     title: "Movie 12",
-    avg_rating: 3.75,
-    rating_count: 5
+    vote_average: 3.75,
+    vote_count: 5
   }, {
-    id: "13",
+    tmdb_id: "13",
     title: "Movie 13",
-    avg_rating: 4.7,
-    rating_count: 20
+    vote_average: 4.7,
+    vote_count: 20
   }]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MoviesList__WEBPACK_IMPORTED_MODULE_1__["default"], {
     movies: movies,

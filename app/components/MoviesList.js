@@ -22,22 +22,22 @@ const roundToHalf = (num) => {
 const MoviesList = ({ movies, setMovies }) => {
   const handleRatingChange = (id, newRating) => {
     // Logic for updating the rating and count
-    const movie = movies.find((movie) => movie.id === id);
+    const movie = movies.find((movie) => movie.tmdb_id === id);
     if (!movie) return;
 
-    const newRatingCount = movie.rating_count + 1;
+    const newRatingCount = movie.vote_count + 1;
     const newAvgRating =
-      (movie.avg_rating * movie.rating_count + newRating) / newRatingCount;
+      (movie.vote_average * movie.vote_count + newRating) / newRatingCount;
 
     // Update the state
     setMovies((prevMovies) => {
       return prevMovies.map((movie) => {
-        if (movie.id !== id) return movie;
+        if (movie.tmdb_id !== id) return movie;
 
         return {
           ...movie,
-          rating_count: newRatingCount,
-          avg_rating: newAvgRating,
+          vote_count: newRatingCount,
+          vote_average: newAvgRating,
         };
       });
     });
@@ -81,7 +81,7 @@ const MoviesList = ({ movies, setMovies }) => {
         >
           {" "}
           {movies.map((movie, index) => (
-            <SwiperSlide key={movie.id} className={"swiper-slide"}>
+            <SwiperSlide key={movie.tmdb_id} className={"swiper-slide"}>
               <div className="image-wrapper">
                 <img
                   src={movie.backdrop ? movie.backdrop : "placeholder.jpeg"}
@@ -90,13 +90,13 @@ const MoviesList = ({ movies, setMovies }) => {
                 />
                 <div className="movie-content">
                   <h3>{movie.title}</h3>
-                  <p>{`Average Rating: ${roundToHalf(movie.avg_rating)}`}</p>
-                  <p>{`Total Votes: ${movie.rating_count}`}</p>
+                  <p>{`Average Rating: ${roundToHalf(movie.vote_average)}`}</p>
+                  <p>{`Total Votes: ${movie.vote_count}`}</p>
                   <p>
                     <MovieRating
-                      value={movie.avg_rating}
+                      value={movie.vote_average}
                       onChange={(newRating) =>
-                        handleRatingChange(movie.id, newRating)
+                        handleRatingChange(movie.tmdb_id, newRating)
                       }
                     />
                   </p>
