@@ -34151,8 +34151,15 @@ const SignIn = () => {
   });
   const login = async event => {
     event.preventDefault();
-    console.log(user);
-    dispatch((0,_features_userSlice__WEBPACK_IMPORTED_MODULE_2__.loginUser)(user));
+    try {
+      const loggedInUser = await dispatch((0,_features_userSlice__WEBPACK_IMPORTED_MODULE_2__.loginUser)(user)).unwrap().then(setUser({
+        email: "",
+        password: ""
+      }));
+      //.then((loggedInUser)) some kind of history push to home page opportunity?
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleChange = event => {
     setUser(prevState => ({
@@ -34611,14 +34618,12 @@ const loginUser = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncTh
   console.log("USERRRRR", user);
   try {
     const response = await axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(`/api/auth/login`, user);
-    console.log(data);
-    //dispatch(_loginUser(data.token, data.email))
     return response.data;
-  } catch (error) {
-    return error.message;
+  } catch (err) {
+    console.log(err);
   }
 });
-const getUser = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)("user/getUser", async id => {
+const getUser = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)("auth/getUser", async id => {
   try {
     const response = await axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(`/api/user/${id}`);
     return response.data;
@@ -34626,7 +34631,7 @@ const getUser = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThun
     return error.message;
   }
 });
-const updateUser = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)("user/updateUser", async userInfo => {
+const updateUser = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)("auth/updateUser", async userInfo => {
   try {
     const {
       data: updated
@@ -34691,31 +34696,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _features_register__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./features/register */ "./app/features/register.js");
 /* harmony import */ var redux_logger__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-logger */ "./node_modules/redux-logger/dist/redux-logger.js");
 /* harmony import */ var redux_logger__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(redux_logger__WEBPACK_IMPORTED_MODULE_2__);
-//automatically added the thunk middleware
-//automatically combines reducers
-//automatically set up the Redux DevTools Extension connection
+/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 
 
 
 
 
-//below was mine
 const store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.configureStore)({
   reducer: {
     auth: _features_userSlice__WEBPACK_IMPORTED_MODULE_0__["default"],
     register: _features_register__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  middleware: [(redux_logger__WEBPACK_IMPORTED_MODULE_2___default())]
+  middleware: [(redux_logger__WEBPACK_IMPORTED_MODULE_2___default()), redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"]]
 });
-
-// export const store = configureStore({
-//   reducer: {
-//     counter: counterReducer,
-//     register: registerReducer,
-//   },
-//   middleware: [logger, thunk],
-// });
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
 
 /***/ }),

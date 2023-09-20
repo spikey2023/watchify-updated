@@ -43,8 +43,14 @@ const SignIn = () => {
 
   const login = async (event) => {
     event.preventDefault();
-    console.log(user);
-    dispatch(loginUser(user));
+    try {
+      const loggedInUser = await dispatch(loginUser(user))
+        .unwrap()
+        .then(setUser({ email: "", password: "" }));
+      //.then((loggedInUser)) some kind of history push to home page opportunity?
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleChange = (event) => {

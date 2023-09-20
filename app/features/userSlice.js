@@ -28,15 +28,13 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (user) => {
   console.log("USERRRRR", user);
   try {
     const response = await axios.post(`/api/auth/login`, user);
-    console.log(data);
-    //dispatch(_loginUser(data.token, data.email))
     return response.data;
-  } catch (error) {
-    return error.message;
+  } catch (err) {
+    console.log(err);
   }
 });
 
-export const getUser = createAsyncThunk("user/getUser", async (id) => {
+export const getUser = createAsyncThunk("auth/getUser", async (id) => {
   try {
     const response = await axios.get(`/api/user/${id}`);
     return response.data;
@@ -46,7 +44,7 @@ export const getUser = createAsyncThunk("user/getUser", async (id) => {
 });
 
 export const updateUser = createAsyncThunk(
-  "user/updateUser",
+  "auth/updateUser",
   async (userInfo) => {
     try {
       const { data: updated } = await axios.put(`/api/user/${id}`, userInfo);
