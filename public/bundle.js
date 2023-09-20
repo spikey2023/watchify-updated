@@ -32859,7 +32859,7 @@ const MoviesList = ({
     className: "card-title-popular"
   }, "Most Popular Movies"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(swiper_react__WEBPACK_IMPORTED_MODULE_1__.Swiper, {
     effect: "coverflow",
-    lazy: true,
+    lazy: "true",
     direction: "horizontal",
     slidesPerView: "auto",
     spaceBetween: 25,
