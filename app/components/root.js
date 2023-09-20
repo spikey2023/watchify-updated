@@ -14,7 +14,6 @@ const Root = () => {
       <Header />
       <Routes>
         <Route path="/account" element={<UserAccountPage />} />
-        {/* <Route exact path="/account" element={<Account/>} /> */}
         <Route exact path="/watchedlist" element={<WatchedList />} />
         <Route exact path="/login" element={<SignIn />} />
         <Route exact path="/userhome" element={<UserHome />} />

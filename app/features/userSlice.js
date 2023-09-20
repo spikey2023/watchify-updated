@@ -24,14 +24,21 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (user) => {
   }
 });
 
-export const getUser = createAsyncThunk("auth/getUser", async (id) => {
-  try {
-    const response = await axios.get(`/api/user/${id}`);
-    return response.data;
-  } catch (error) {
-    return error.message;
+export const getUser = createAsyncThunk(
+  "auth/getUser",
+  async ({ id, token }) => {
+    try {
+      const response = await axios.get(`/api/user/${id}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return error.message;
+    }
   }
-});
+);
 
 export const updateUser = createAsyncThunk(
   "auth/updateUser",

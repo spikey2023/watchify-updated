@@ -94,9 +94,7 @@ User.authenticate = async ({ email, password }) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     return {
       user,
-      headers: {
-        authorization: User.generateToken(user),
-      },
+      token: User.generateToken(user),
     };
     //return User.generateToken(user);
   }

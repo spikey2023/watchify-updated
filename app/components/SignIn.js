@@ -14,9 +14,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { loginUser } from "../features/userSlice";
-//import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { createBrowserHistory } from "history";
 // let history = createBrowserHistory();
+//import { Link } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -44,12 +45,14 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const [user, setUser] = React.useState({ email: "", password: "" });
 
+  const navigate = useNavigate();
+
   const login = async (event) => {
     event.preventDefault();
     try {
       await dispatch(loginUser(user));
       setUser({ email: "", password: "" });
-      //redirect("/userhome"); //Not working!
+      navigate("/userhome"); //Not working!
       //history.push("/userhome"); //not working either
     } catch (err) {
       console.log(err);
@@ -117,18 +120,16 @@ const SignIn = () => {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Link href="/userhome">
-                <button
-                  type="submit"
-                  //fullWidth
-                  // variant="contained"
-                  // sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
-                  // component={Link}
-                  //href={`/userhome`}
-                >
-                  Sign In
-                </button>
-              </Link>
+              <button
+                type="submit"
+                //fullWidth
+                // variant="contained"
+                // sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
+                // component={Link}
+                //href={`/userhome`}
+              >
+                Sign In
+              </button>
               <Grid container>
                 <Grid item xs></Grid>
                 <Grid item>

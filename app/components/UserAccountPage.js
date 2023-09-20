@@ -2,25 +2,24 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import UserAccUpdates from "./UserAccUpdates";
-// import { getUser } from "../app/store/userSlice.js"
 import { getUser, selectUser } from "../features/userSlice";
 
 const UserAccountPage = () => {
-  const user = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
 
-  //? const user = useSelector(selectUser) //this is good to track multiple states
+  //const user = useSelector(selectUser); //this is good to track multiple states
   const dispatch = useDispatch();
 
   //need useEffect since we're not clicking any event listeners / to call dispatch
   useEffect(() => {
-    dispatch(getUser(user.id));
-  }, {});
+    dispatch(getUser({id: auth.user.id, token: auth.token}));
+  }, []);
 
-  console.log(user);
+  console.log(auth.user);
   return (
     <div>
-      {user.loading && <div>Loading...</div>}
-      {!user.loading && user.error ? <div>Error: {user.error}</div> : null}
+      {/* {user.loading && <div>Loading...</div>}
+      {!user.loading && user.error ? <div>Error: {user.error}</div> : null} */}
       {/* {!user.loading && user.user.length ? (
 
 
