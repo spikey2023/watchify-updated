@@ -5,8 +5,6 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import { BrowserRouter } from "react-router-dom";
 
-// import UserAccountPage from "./components/UserAccountPage";
-
 const root = createRoot(document.querySelector("#root"));
 
 root.render(
