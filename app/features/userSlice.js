@@ -10,9 +10,31 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //createSlice has 3 main options: name, initialState, reducers
 const initialState = {
   user: {},
-  loading: false,
+  isLoggedIn: false,
   error: "",
+  token: "",
 };
+
+//below is old redux way
+// const _loginUser = (token, email) => {
+//   return {
+//     type: "LOGIN_USER",
+//     token,
+//     email,
+//   };
+// };
+
+export const loginUser = createAsyncThunk("auth/loginUser", async (user) => {
+  console.log("USERRRRR", user);
+  try {
+    const response = await axios.post(`/api/auth/login`, user);
+    console.log(data);
+    //dispatch(_loginUser(data.token, data.email))
+    return response.data;
+  } catch (error) {
+    return error.message;
+  }
+});
 
 export const getUser = createAsyncThunk("user/getUser", async (id) => {
   try {
@@ -38,26 +60,28 @@ export const updateUser = createAsyncThunk(
 //due to immer.js under the hood we don't need to copy state with spread operator
 //will copy on it's own
 const userSlice = createSlice({
-  name: "user",
+  name: "auth",
   initialState,
+  reducers: {},
   //extraReducers handle axios calls - unlike "reducers:{}"
   extraReducers: (builder) => {
-    builder.addCase(getUser.pending, (state) => {
-      state.loading = true;
-    });
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.user = action.payload;
       //or: return action.payload  ??
-      state.loading = false;
+      isLoggedIn: true;
     });
     builder.addCase(getUser.rejected, (state, action) => {
-      state.loading = false;
-      state.user = {};
       state.error = action.error.message;
+      isLoggedIn: false;
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
-      state.loading = false;
       state.user = action.payload;
+      isLoggedIn: true;
+    });
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      //state.user = action.payload;
+      return action.payload;
+      isLoggedIn: true;
     });
   },
 });

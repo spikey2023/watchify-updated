@@ -9,7 +9,7 @@ import logger from "redux-logger";
 //below was mine
 const store = configureStore({
   reducer: {
-   // user: userReducer,
+    auth: userReducer,
     register: registerReducer,
   },
   middleware: [logger],
