@@ -6,14 +6,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { loggedoutUser } from "../features/userSlice"
 
 
-
 import { NavLink, Link } from "react-router-dom";
-import SignIn from "./SignIn";
+
 
 const Header = () => {
   const [tabValue, settabValue] = useState();
   const dispatch = useDispatch(); 
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
+ 
+  //use userId to to update logout and signin
+  const userId = useSelector((state) => state.auth.user.id);
 
   const handleLogout = () => {
     // Dispatch the logout action when the logout button is clicked
@@ -60,7 +61,7 @@ const Header = () => {
           </Tabs>
 
 {/* Make SignIn and Log out appear conditionally */}
-{ isLoggedIn ? (
+{ userId ? (
             <Button
             variant="contained"
             sx={{ background: "#1E3CA8", marginLeft: "auto" }}

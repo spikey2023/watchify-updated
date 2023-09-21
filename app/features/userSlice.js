@@ -57,12 +57,7 @@ export const updateUser = createAsyncThunk(
 const userSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    //added loggedin state action to 
-    loggedinUser:(state)=>{
-      state.isLoggedIn= true;
-    },
-    
+  reducers: {    
     //Logout action 
     loggedoutUser:(state) => {
       state.user = {};
@@ -76,7 +71,7 @@ const userSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.user = action.payload;
       //or: return action.payload  ??
-      isLoggedIn: true;
+      state.isLoggedIn= true;
     });
     builder.addCase(getUser.rejected, (state, action) => {
       state.error = action.error.message;
@@ -88,8 +83,9 @@ const userSlice = createSlice({
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       //state.user = action.payload;
-      return action.payload;
-      isLoggedIn: true;
+       return action.payload;
+      //  state.isLoggedIn = true
+      
     });
   },
 });
