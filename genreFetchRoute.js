@@ -69,7 +69,7 @@ const getMoviesForUser = async (username) => {
 (async () => {
   const username = "kevin@aol.com"; //kevin uuid (change this later)
   const recommendedMovies = await getMoviesForUser(username);
-  console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
+  // console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
 })();
 
 module.exports = { getMoviesForUser };
