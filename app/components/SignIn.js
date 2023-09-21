@@ -120,16 +120,19 @@ const SignIn = () => {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <button
+              <Button
                 type="submit"
-                //fullWidth
-                // variant="contained"
-                // sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
-                // component={Link}
-                //href={`/userhome`}
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
               >
                 Sign In
-              </button>
+              </Button>
+              {/* <button
+                type="submit"
+              >
+                Sign In
+              </button> */}
               <Grid container>
                 <Grid item xs></Grid>
                 <Grid item>
