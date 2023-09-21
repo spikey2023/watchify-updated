@@ -64,23 +64,17 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.user = action.payload;
-      //state.isLoggedIn = true;  //throws errors
     });
     builder.addCase(getUser.rejected, (state, action) => {
       state.error = action.error.message;
-      //state.isLoggedIn = false;  //throws errors
     });
     builder.addCase(updateUserInfo.fulfilled, (state, action) => {
       state.user = action.payload;
-      //state.isLoggedIn = true;  //throws errors
     });
     builder.addCase(updateUserInfo.rejected, (state, action) => {
       state.error = action.error.message;
-      //state.isLoggedIn = false;  //throws errors
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      //state.user = action.payload;
-      //state.isLoggedIn = true;  //throws errors
       return action.payload;
     });
   },
