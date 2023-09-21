@@ -7,6 +7,7 @@ import WatchedList from "./WatchedList";
 import Hero from "./Hero"
 import UserHome from "./UserHome";
 import Register from "./Register"
+import MovieDetails from "./MovieDetails";
 
 
 
@@ -21,7 +22,7 @@ const Root = () => {
         <Route exact path="/login" element={<SignIn/>} />
         <Route exact path="/userhome" element={<UserHome/>} />
         <Route exact path="/register" element={<Register/>} />
-        {/* <Route exact path="/recmovie" element={<RecMovie/>} /> */}
+        <Route exact path="/movie/:id" element={<MovieDetails/>} />
         <Route exact path="/" element={<Hero/>} />
       </Routes>      
 
