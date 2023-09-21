@@ -31,12 +31,12 @@ export const registerUser = async (data) => {
     }
 }
 
-export const { 
-    pwError, 
-    pwNoError, 
-    emailInvalid, 
-    emailNoError, 
-    emailTaken, 
+export const {
+    pwError,
+    pwNoError,
+    emailInvalid,
+    emailNoError,
+    emailTaken,
     updateCurrEmailInput } = registrationSlice.actions;
 
 export default registrationSlice.reducer;
