@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
+const routes = require("./api");
 
 // logging middleware
 app.use(morgan("dev"));
@@ -16,11 +17,11 @@ app.get("/", (req, res) =>
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-//routes
+//routes - andrew
 app.use("/api/user", require("./api/user"));
 
-//JWT
-app.use("/api/auth", require("./api/auth"));
+//routes
+app.use("/api", routes);
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
 app.use((req, res, next) => {
