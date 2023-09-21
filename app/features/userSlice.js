@@ -34,15 +34,20 @@ export const getUser = createAsyncThunk(
   }
 );
 
-export const updateUser = createAsyncThunk(
-  "auth/updateUser",
-  async ({ userInfo, token }) => {
+export const updateUserInfo = createAsyncThunk(
+  "auth/updateUserInfo",
+  async (userInfo, { ...token }) => {
+    console.log("userInfo, token in thunk", userInfo, token);
     try {
-      const { data: updated } = await axios.put(`/api/user/${id}`, userInfo, {
-        headers: {
-          authorization: token,
-        },
-      });
+      const { data: updated } = await axios.put(
+        `/api/user/${userInfo.id}`,
+        userInfo,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
       return updated;
     } catch (error) {
       return error.message;
@@ -60,27 +65,31 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.user = action.payload;
-      isLoggedIn: true;
+      //state.isLoggedIn = true;  //throws errors
     });
     builder.addCase(getUser.rejected, (state, action) => {
       state.error = action.error.message;
-      isLoggedIn: false;
+      //state.isLoggedIn = false;  //throws errors
     });
-    builder.addCase(updateUser.fulfilled, (state, action) => {
+    builder.addCase(updateUserInfo.fulfilled, (state, action) => {
       state.user = action.payload;
-      isLoggedIn: true;
+      //state.isLoggedIn = true;  //throws errors
+    });
+    builder.addCase(updateUserInfo.rejected, (state, action) => {
+      state.error = action.error.message;
+      //state.isLoggedIn = false;  //throws errors
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       //state.user = action.payload;
+      //state.isLoggedIn = true;  //throws errors
       return action.payload;
-      isLoggedIn: true;
     });
   },
 });
 
-//need to import actions for non-axios action calls
+//need to export actions for non-axios action calls
 // export const { getUser } = userSlice.actions
 
 export default userSlice.reducer;
 
-//?  export const selectUser = (state) => state.user //may be state.user.user
+//  export const selectUser = (state) => state.auth.user //if using selectUser()

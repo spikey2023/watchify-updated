@@ -108,6 +108,7 @@ User.authenticate = async ({ email, password }) => {
 
 User.validate = async (token) => {
   try {
+    console.log("TOKEN in validate", token); //empty object right now
     const { userId } = await jwt.verify(
       token,
       process.env.JWT_SECRET || "abigfatsecretword"

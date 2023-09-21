@@ -5,15 +5,20 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import updateUser from "../features/userSlice";
+import { updateUserInfo } from "../features/userSlice";
 
 export default function UserAccUpdates() {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
-  const [email, setEmail] = React.useState("");
+  const [user, updateUser] = React.useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
+  //console.log("auth.user", auth.user);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -23,15 +28,30 @@ export default function UserAccUpdates() {
   };
 
   const handleChange = (e) => {
-    setEmail(e.target.value);
+    const { name, value } = e.target;
+    // console.log("********", auth.user);
+    // console.log("!!!!!", name, value);
+    // console.log("###", user);
+
+    updateUser({
+      ...auth.user,
+      [name]: value,
+    });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("e.target.value", e.target.value); //undefined
-    console.log("email", email); //works
+    console.log("USER", user); //works, but token is malformed
     try {
-      dispatch(updateUser(email));
+      dispatch(
+        updateUserInfo({
+          ...auth.user,
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          password: user.password,
+          token: auth.token, //fix this
+        })
+      );
       setOpen(false);
     } catch (err) {
       console.log(err);
@@ -48,7 +68,7 @@ export default function UserAccUpdates() {
           <DialogContent>
             <input
               className="email-input"
-              value={email}
+              value={user.email}
               name="email"
               onChange={handleChange}
             />
