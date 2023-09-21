@@ -18,7 +18,6 @@ export default function UserAccUpdates() {
     password: "",
   });
 
-  //console.log("auth.user", auth.user);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -29,9 +28,6 @@ export default function UserAccUpdates() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // console.log("********", auth.user);
-    // console.log("!!!!!", name, value);
-    // console.log("###", user);
 
     updateUser({
       ...auth.user,
@@ -40,7 +36,7 @@ export default function UserAccUpdates() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("USER", user); //works, but token is malformed
+
     try {
       dispatch(
         updateUserInfo({
@@ -49,7 +45,7 @@ export default function UserAccUpdates() {
           username: user.username,
           email: user.email,
           password: user.password,
-          token: auth.token, //fix this
+          token: auth.token,
         })
       );
       setOpen(false);

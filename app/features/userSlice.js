@@ -36,15 +36,14 @@ export const getUser = createAsyncThunk(
 
 export const updateUserInfo = createAsyncThunk(
   "auth/updateUserInfo",
-  async (userInfo, { ...token }) => {
-    console.log("userInfo, token in thunk", userInfo, token);
+  async (userInfo) => {
     try {
       const { data: updated } = await axios.put(
         `/api/user/${userInfo.id}`,
         userInfo,
         {
           headers: {
-            authorization: token,
+            authorization: userInfo.token,
           },
         }
       );
