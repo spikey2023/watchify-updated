@@ -95,7 +95,7 @@ const MoviesList = ({ movies, setMovies }) => {
       <div>
         <Swiper
           effect={"coverflow"}
-          lazy={"true"}
+          lazy="true"
           direction="horizontal"
           slidesPerView={"auto"}
           spaceBetween={25}

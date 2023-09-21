@@ -61,7 +61,7 @@ const getMoviesForUser = async (userId) => {
       if (diff !== 0) return diff;
       return b.vote_average - a.vote_average;
     })
-    .slice(0, 20); // Take top 20 movies
+    .slice(0, 15); // Take top 15 movies
 
   return sortedMovies;
 };
