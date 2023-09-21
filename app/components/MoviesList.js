@@ -94,7 +94,7 @@ const MoviesList = ({ movies, setMovies }) => {
                   <p>{`Total Votes: ${movie.vote_count}`}</p>
                   <p>
                     <MovieRating
-                      value={movie.vote_average}
+                      value={Number(movie.vote_average)}
                       onChange={(newRating) =>
                         handleRatingChange(movie.tmdb_id, newRating)
                       }
