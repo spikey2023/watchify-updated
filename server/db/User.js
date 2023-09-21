@@ -96,7 +96,6 @@ User.authenticate = async ({ email, password }) => {
       user,
       token: User.generateToken(user),
     };
-    //return User.generateToken(user);
   }
   const error = Error("bad credentials");
   error.status = 401;

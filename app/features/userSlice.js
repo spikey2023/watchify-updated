@@ -36,9 +36,13 @@ export const getUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   "auth/updateUser",
-  async (userInfo) => {
+  async ({ userInfo, token }) => {
     try {
-      const { data: updated } = await axios.put(`/api/user/${id}`, userInfo);
+      const { data: updated } = await axios.put(`/api/user/${id}`, userInfo, {
+        headers: {
+          authorization: token,
+        },
+      });
       return updated;
     } catch (error) {
       return error.message;
