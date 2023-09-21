@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 
 //routes - andrew
 app.use("/api/user", require("./api/user"));
+app.use("/api/getMovies", require("./api/getMovies"));
 
 //routes
 app.use("/api", routes);
