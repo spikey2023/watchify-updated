@@ -8,9 +8,9 @@ const {
   GenrePref,
 } = require("./server/db/index");
 
-const getMoviesForUser = async (username) => {
+const getMoviesForUser = async (userId) => {
   const user = await User.findOne({
-    where: { email: username },
+    where: { id: userId },
   });
 
   if (!user) {
@@ -18,7 +18,7 @@ const getMoviesForUser = async (username) => {
     return [];
   }
 
-  const userId = user.id;
+  // const userId = user.id;
   //Fetch the user's genre preferences
   const userGenrePrefs = await GenrePref.findAll({
     where: { userId },
@@ -61,15 +61,15 @@ const getMoviesForUser = async (username) => {
       if (diff !== 0) return diff;
       return b.vote_average - a.vote_average;
     })
-    .slice(0, 20); // Take top 20 movies
+    .slice(0, 15); // Take top 15 movies
 
   return sortedMovies;
 };
 
-(async () => {
-  const username = "kevin@aol.com"; //kevin uuid (change this later)
-  const recommendedMovies = await getMoviesForUser(username);
-  console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
-})();
+// (async () => {
+//   const username = "kevin@aol.com"; //kevin uuid (change this later)
+//   const recommendedMovies = await getMoviesForUser(username);
+//   console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
+// })();
 
 module.exports = { getMoviesForUser };

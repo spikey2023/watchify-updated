@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import axios from "axios";
 import {
   Mousewheel,
   Pagination,
@@ -43,6 +44,50 @@ const MoviesList = ({ movies, setMovies }) => {
     });
   };
 
+  useEffect(() => {
+    const fetchBackdrops = async () => {
+      try {
+        const updatedMovies = await Promise.all(
+          movies.map(async (movie) => {
+            try {
+              const response = await axios.get(
+                `https://api.themoviedb.org/3/movie/${movie.tmdb_id}/images?api_key=7c1a02da75b25d48c10edcf2e32896b2`
+              );
+              const { backdrops } = response.data;
+              let backdropUrl = "";
+              if (backdrops && backdrops.length > 0) {
+                const firstBackdrop = backdrops[0];
+                backdropUrl = `https://image.tmdb.org/t/p/original${firstBackdrop.file_path}`;
+              }
+
+              // Extract the desired backdrop URL from the response data
+              // const backdropUrl = "" + ; // Replace with actual logic to extract URL from response.data
+
+              return {
+                ...movie,
+                backdrop: backdropUrl,
+              };
+            } catch (error) {
+              console.error(
+                `Error fetching backdrop for movie ID: ${movie.tmdb_id}`,
+                error
+              );
+              return movie; // return original movie if fetching backdrop fails
+            }
+          })
+        );
+
+        setMovies(updatedMovies);
+      } catch (error) {
+        console.error("Error fetching backdrops:", error);
+      }
+    };
+
+    if (movies && movies.length > 0) {
+      fetchBackdrops();
+    }
+  }, [movies, setMovies]);
+
   return (
     <>
       {" "}
@@ -50,7 +95,7 @@ const MoviesList = ({ movies, setMovies }) => {
       <div>
         <Swiper
           effect={"coverflow"}
-          lazy={"true"}
+          lazy="true"
           direction="horizontal"
           slidesPerView={"auto"}
           spaceBetween={25}
