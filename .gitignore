@@ -3,4 +3,4 @@ node_modules
 .DS_store
 public/bundle.js
 public/bundle.js.map
-package-lock.json
+dist

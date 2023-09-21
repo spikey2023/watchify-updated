@@ -17,7 +17,7 @@ const UserAccountPage = () => {
 
   console.log(auth.user);
   return (
-    <div>
+    <div className="useraccount">
       {/* {user.loading && <div>Loading...</div>}
       {!user.loading && user.error ? <div>Error: {user.error}</div> : null} */}
       {/* {!user.loading && user.user.length ? (
