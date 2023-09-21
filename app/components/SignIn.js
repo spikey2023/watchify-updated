@@ -51,7 +51,7 @@ const SignIn = () => {
   const login = async (event) => {
     event.preventDefault();
     try {
-      await dispatch(loginUser(user));
+      await dispatch(loginUser(user))
       setUser({ email: "", password: "" });
       navigate("/userhome"); //Not working!
       //history.push("/userhome"); //not working either
@@ -130,7 +130,7 @@ const SignIn = () => {
               <Button
                 type="submit"
                 fullWidth
-                // onClick={handleLogin}
+                onClick={handleLogin}
                 variant="contained"
                 sx={{ mt: 3, mb: 2, background: "#1E3CA8" }
               }
