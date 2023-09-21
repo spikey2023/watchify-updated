@@ -6,8 +6,8 @@ const { getMoviesForUser } = require("../../genreFetchRoute");
 router.get("/", async (req, res, next) => {
   try {
     // const userId = req.query.userId;
-    const username = req.query.username;
-    const movies = await getMoviesForUser(username);
+    const userId = req.query.userId;
+    const movies = await getMoviesForUser(userId);
     res.json(movies);
   } catch (error) {
     next(error);
