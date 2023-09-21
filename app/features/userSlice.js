@@ -1,13 +1,7 @@
 import axios from "axios";
 
-// can write the case reducers as functions inside of an object,
-// instead of having to write a switch/case statement
-// The reducers will be able to write shorter immutable update logic
-// All the action creators will be generated automatically based on the reducer functions we've provided
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-//createSlice has 3 main options: name, initialState, reducers
 const initialState = {
   user: {},
   isLoggedIn: false,
@@ -62,7 +56,6 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.user = action.payload;
-      //or: return action.payload  ??
       isLoggedIn: true;
     });
     builder.addCase(getUser.rejected, (state, action) => {

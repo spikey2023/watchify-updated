@@ -1,7 +1,6 @@
 import * as React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -15,9 +14,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { loginUser } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
-// import { createBrowserHistory } from "history";
-// let history = createBrowserHistory();
-//import { Link } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -37,8 +33,6 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 const SignIn = () => {
@@ -52,8 +46,7 @@ const SignIn = () => {
     try {
       await dispatch(loginUser(user));
       setUser({ email: "", password: "" });
-      navigate("/userhome"); //Not working!
-      //history.push("/userhome"); //not working either
+      navigate("/userhome");
     } catch (err) {
       console.log(err);
     }
@@ -86,8 +79,6 @@ const SignIn = () => {
               Sign in
             </Typography>
             <Box
-              //component="form"
-              //onSubmit={handleSubmit}
               noValidate
               sx={{ mt: 1 }}
             >
@@ -125,8 +116,6 @@ const SignIn = () => {
                 //fullWidth
                 // variant="contained"
                 // sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
-                // component={Link}
-                //href={`/userhome`}
               >
                 Sign In
               </button>

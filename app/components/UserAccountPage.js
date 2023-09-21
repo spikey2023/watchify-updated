@@ -12,7 +12,7 @@ const UserAccountPage = () => {
 
   //need useEffect since we're not clicking any event listeners / to call dispatch
   useEffect(() => {
-    dispatch(getUser({id: auth.user.id, token: auth.token}));
+    dispatch(getUser({ id: auth.user.id, token: auth.token }));
   }, []);
 
   console.log(auth.user);
@@ -30,12 +30,15 @@ const UserAccountPage = () => {
         <aside className="useracc-left-nav">
           <Link>Account info</Link>
           <Link>Genre preferences</Link>
-          <Link>My network providers</Link>
           <Link>My watched list</Link>
-          <Link>Friends</Link>
         </aside>
         <main className="useracc-right-main">
-          <p className="p-heading">SIGN IN DETAILS</p>
+          <p className="p-heading">ACCOUNT DETAILS</p>
+          <section className="user-section">
+            <p>username:</p>
+            <p className="useracc-info">username placeholder</p>
+            <Link>edit</Link>
+          </section>
           <section className="user-section">
             <p>email:</p>
             <p className="useracc-info">email placeholder</p>
@@ -45,11 +48,6 @@ const UserAccountPage = () => {
             <p>password:</p>
             <p className="useracc-info">password placeholder</p>
             <Link>change password</Link>
-          </section>
-          <section className="user-section">
-            <p>username:</p>
-            <p className="useracc-info">username placeholder</p>
-            <Link>edit</Link>
           </section>
         </main>
       </div>
