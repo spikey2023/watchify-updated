@@ -27,7 +27,7 @@ const genreLookup = {
 
 const seed = async () => {
   try {
-    await db.sync();
+    await db.sync({ force: true });
     console.log("DB Synced");
 
     // Seed Genre table

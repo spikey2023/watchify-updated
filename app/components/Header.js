@@ -2,11 +2,25 @@ import React, { useState, Fragment } from "react";
 import { AppBar, Typography, Toolbar, Tabs, Tab, Button } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 
+import { useSelector, useDispatch } from "react-redux";
+import { loggedoutUser } from "../features/userSlice"
+
+
 import { NavLink, Link } from "react-router-dom";
-import SignIn from "./SignIn";
+
 
 const Header = () => {
   const [tabValue, settabValue] = useState();
+  const dispatch = useDispatch(); 
+ 
+  //use userId to to update logout and signin
+  const userId = useSelector((state) => state.auth.user.id);
+
+  const handleLogout = () => {
+    // Dispatch the logout action when the logout button is clicked
+    dispatch(loggedoutUser());
+    console.log("logout dispatched")
+  };
 
   return (
     <React.Fragment>
@@ -46,6 +60,18 @@ const Header = () => {
             />
           </Tabs>
 
+{/* Make SignIn and Log out appear conditionally */}
+{ userId ? (
+            <Button
+            variant="contained"
+            sx={{ background: "#1E3CA8", marginLeft: "auto" }}
+            onClick={handleLogout}
+            component={Link}
+            to={`/`}
+          >
+            Logout
+          </Button>
+          ) : (
           <Button
             variant="contained"
             sx={{ background: "#1E3CA8", marginLeft: "auto" }}
@@ -53,7 +79,8 @@ const Header = () => {
             to={`/login`}
           >
             Sign In
-          </Button>
+          </Button>)}
+
         </Toolbar>
       </AppBar>
     </React.Fragment>
