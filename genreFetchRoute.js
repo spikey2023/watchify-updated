@@ -29,7 +29,7 @@ const getMoviesForUser = async (username) => {
   const allMovies = await Movie.findAll({
     where: {
       vote_count: {
-        [Op.gte]: 100,
+        [Op.gte]: 100, //Op.gte = Operator greater than or equal to
       },
     },
   });
@@ -39,7 +39,7 @@ const getMoviesForUser = async (username) => {
   const allGenreMovies = await GenreMovie.findAll({
     where: {
       movieTmdbId: {
-        [Op.in]: allMovieIds,
+        [Op.in]: allMovieIds, //Op.in return all values true from map of allMovieIds
       },
     },
   });
@@ -71,3 +71,5 @@ const getMoviesForUser = async (username) => {
   const recommendedMovies = await getMoviesForUser(username);
   console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
 })();
+
+module.exports = { getMoviesForUser };
