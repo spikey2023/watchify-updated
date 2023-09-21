@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 
 //routes
 app.use("/api/user", require("./api/user"));
+app.use("/api/getMovies", require("./api/getMovies"));
 
 //JWT
 app.use("/api/auth", require("./api/auth"));

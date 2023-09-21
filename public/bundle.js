@@ -32895,7 +32895,7 @@ const MoviesList = ({
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "movie-content"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, movie.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Average Rating: ${roundToHalf(movie.vote_average)}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, `Total Votes: ${movie.vote_count}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Rating__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    value: movie.vote_average,
+    value: Number(movie.vote_average),
     onChange: newRating => handleRatingChange(movie.tmdb_id, newRating)
   })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "swiper-button-prev"
@@ -33373,77 +33373,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 /* harmony import */ var _MoviesList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MoviesList */ "./app/components/MoviesList.js");
 
 
+
 const UserHome = () => {
-  const [movies, setMovies] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([{
-    tmdb_id: "1",
-    title: "Movie 1",
-    vote_average: 3.75,
-    vote_count: 10
-  }, {
-    tmdb_id: "2",
-    title: "Movie 2",
-    vote_average: 4.75,
-    vote_count: 4
-  }, {
-    tmdb_id: "3",
-    title: "Movie 3",
-    vote_average: 3.7,
-    vote_count: 10
-  }, {
-    tmdb_id: "4",
-    title: "Movie 4",
-    vote_average: 3.5,
-    vote_count: 20
-  }, {
-    tmdb_id: "5",
-    title: "Movie 5",
-    vote_average: 4.9,
-    vote_count: 50
-  }, {
-    tmdb_id: "6",
-    title: "Movie 6",
-    vote_average: 4.5,
-    vote_count: 3333
-  }, {
-    tmdb_id: "7",
-    title: "Movie 7",
-    vote_average: 4.5,
-    vote_count: 3333
-  }, {
-    tmdb_id: "8",
-    title: "Movie 8",
-    vote_average: 4.5,
-    vote_count: 3333
-  }, {
-    tmdb_id: "9",
-    title: "Movie 9",
-    vote_average: 4.5,
-    vote_count: 3333
-  }, {
-    tmdb_id: "10",
-    title: "Movie 10",
-    vote_average: 4.5,
-    vote_count: 3333
-  }, {
-    tmdb_id: "11",
-    title: "Movie 11",
-    vote_average: 4.5,
-    vote_count: 3333
-  }, {
-    tmdb_id: "12",
-    title: "Movie 12",
-    vote_average: 3.75,
-    vote_count: 5
-  }, {
-    tmdb_id: "13",
-    title: "Movie 13",
-    vote_average: 4.7,
-    vote_count: 20
-  }]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MoviesList__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  const [movies, setMovies] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const fetchData = async () => {
+      try {
+        const username = "kevin@aol.com";
+        const response = await axios__WEBPACK_IMPORTED_MODULE_2__["default"].get(`/api/getMovies?username=${username}`);
+        setMovies(response.data);
+      } catch (error) {
+        console.error("An error occurred while fetching data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, movies.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_MoviesList__WEBPACK_IMPORTED_MODULE_1__["default"], {
     movies: movies,
     setMovies: setMovies
   }));
