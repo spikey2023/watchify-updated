@@ -27,7 +27,7 @@ const genreLookup = {
 
 const seed = async () => {
   try {
-    await db.sync({force:true}); //force:true clears all the existing tables and entries in the db
+    await db.sync({ force: true }); //force:true clears all existing tables and db entries
     console.log("DB Synced");
 
     // Seed Genre table
