@@ -15,102 +15,102 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
 import GenreCheckboxes from './GenreCheckboxes';
 
-function verifyEmailFormat(string){
-    //verifies the entered email is in some form of "<x>@<y>.<z>"
-    const step1 = string.split("@");
-    if(step1.length !== 2 || step1[0].length < 1 || step1[1].length < 2) return false;
-    const step2 = step1[1].split(".");
-    if(step2.length < 2) return false;
-    for(let i = 0; i < step2.length; i++){
-        if(step2[i].length === 0) return false;
-    }
-    return true;
+function verifyEmailFormat(string) {
+  //verifies the entered email is in some form of "<x>@<y>.<z>"
+  const step1 = string.split("@");
+  if (step1.length !== 2 || step1[0].length < 1 || step1[1].length < 2)
+    return false;
+  const step2 = step1[1].split(".");
+  if (step2.length < 2) return false;
+  for (let i = 0; i < step2.length; i++) {
+    if (step2[i].length === 0) return false;
+  }
+  return true;
 }
 
-async function registerUser(data){
-    try {
-        const user = await axios.post("/api/user", data);
-        return user;
-    } catch (error) {
+async function registerUser(data) {
+  try {
+    const user = await axios.post("/api/user", data);
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export default function Register() {
+  const dispatch = useDispatch();
+  const pwsNotMatch = useSelector((state) => state.register.pwError);
+  const emailState = useSelector((state) => state.register.emailError);
+  const lastEmailEntered = useSelector(
+    (state) => state.register.currEmailInput
+  );
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  async function checkEmail(event) {
+    const emailStr = event.target.value;
+    //This code includes an API call that I don't want to make if the text in the
+    //email box hasn't changed since last time this function was called
+    if (emailStr !== lastEmailEntered && emailStr) {
+      dispatch(updateCurrEmailInput(emailStr));
+      if (!verifyEmailFormat(emailStr)) {
+        dispatch(emailInvalid());
+        return false;
+      }
+      try {
+        const user = await axios.get(`/api/user/${emailStr}`);
+        if (user.data) {
+          dispatch(emailTaken());
+        }
+      } catch (error) {
         console.log(error);
+      }
+    } else if (emailStr !== lastEmailEntered && !emailStr) {
+      dispatch(updateCurrEmailInput(emailStr));
     }
-}
+  }
 
-export default function Register(){
-    const dispatch = useDispatch();
-    const pwsNotMatch = useSelector( state => state.register.pwError );
-    const emailState = useSelector( state => state.register.emailError );
-    const lastEmailEntered = useSelector( state => state.register.currEmailInput );
+  function emailHelperText() {
+    switch (emailState) {
+      case "invalid":
+        return "Please enter a valid email address";
+      case "taken":
+        return "This email address is already in use";
+      default:
+        return "The email address you'll use to log in!";
+    }
+  }
+  async function handleSubmit(event) {
+    //prevent page from refreshing
+    event.preventDefault();
 
-    const [showPassword, setShowPassword] = React.useState(false);
-  
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
+    //grab the inputs from the form
+    const data = {
+      username: event.target[0].value,
+      email: event.target[2].value,
+      password: event.target[4].value,
+      confirmPw: event.target[7].value,
     };
 
-    async function checkEmail(event){
-        const emailStr = event.target.value;
-        //This code includes an API call that I don't want to make if the text in the
-        //email box hasn't changed since last time this function was called
-        if(emailStr !== lastEmailEntered && emailStr){
-            dispatch(updateCurrEmailInput(emailStr));
-            if(!verifyEmailFormat(emailStr)){
-                dispatch(emailInvalid());
-                return false;
-            }
-            try {
-                const user = await axios.get(`/api/user/${emailStr}`);
-                if(user.data){
-                    dispatch(emailTaken());
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        else if(emailStr !== lastEmailEntered && !emailStr){
-            dispatch(updateCurrEmailInput(emailStr));
-        }
+    //validate data (only checking that password was typed correctly in both fields right now)
+    if (data.password !== data.confirmPw) {
+      dispatch(pwError());
+    } else {
+      dispatch(pwNoError());
     }
-
-    function emailHelperText(){
-        switch(emailState){
-            case "invalid":
-                return "Please enter a valid email address";
-            case "taken":
-                return "This email address is already in use";
-            default:
-                return "The email address you'll use to log in!";
-        }
+    if (emailState === "none" && !pwsNotMatch) {
+      delete data.confirmPw;
+      const newUser = await registerUser(data);
+      console.log(newUser);
+      //Some kind of logInNewUser() function needs to go here
     }
-    async function handleSubmit(event){
-        //prevent page from refreshing
-        event.preventDefault();
-        console.log(event);
-
-        //grab the inputs from the form
-        const data = {
-            username: event.target[0].value,
-            email: event.target[2].value,
-            password: event.target[4].value,
-            confirmPw: event.target[7].value
-        }
-
-        //validate data (only checking that password was typed correctly in both fields right now)
-        if(data.password !== data.confirmPw){
-            dispatch(pwError());
-        }
-        else{
-            dispatch(pwNoError());
-        }
-        if(emailState === "none" && !pwsNotMatch){
-            delete data.confirmPw;
-            // const newUser = await registerUser(data);
-            // console.log(newUser);
-            //Some kind of logInNewUser() function needs to go here
-        }
-    }
+  }
 
     return <div>
         <h1 style={{paddingTop:"60px", fontFamily:"Sans-Serif"}}>Register for Watchify!</h1>
@@ -172,4 +172,5 @@ export default function Register(){
             <Button variant="contained" color="success" type="submit">Register!</Button>
         </Box>
     </div>
+  );
 }
