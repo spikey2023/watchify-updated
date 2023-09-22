@@ -15,7 +15,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { loginUser } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
-//import { loggedinUser } from "../features/userSlice";
 
 function Copyright(props) {
   return (
@@ -52,12 +51,6 @@ const SignIn = () => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  // Dispatch the login action when the login button is clicked
-  const handleLogin = () => {
-    dispatch(loggedinUser());
-    console.log("login dispatched");
   };
 
   const handleChange = (event) => {
@@ -119,6 +112,7 @@ const SignIn = () => {
               <Button
                 type="submit"
                 fullWidth
+                // onClick={handleLogin}
                 variant="contained"
                 sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
               >
