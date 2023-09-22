@@ -23,6 +23,7 @@ const Header = () => {
   };
 
   return (
+    
     <React.Fragment>
       <AppBar sx={{ background: "#0A0A0A" }}>
         <Toolbar>
@@ -41,7 +42,7 @@ const Header = () => {
             {" "}
             WATCHIFY{" "}
           </Typography>
-
+          { userId ? (
           <Tabs
             sx={{ marginLeft: "auto" }}
             textColor="inherit"
@@ -59,8 +60,8 @@ const Header = () => {
               to={`/account`}
             />
           </Tabs>
-
-{/* Make SignIn and Log out appear conditionally */}
+          ) : ("")}
+{/* Make SignIn and Log out appear conditionally if user is logged in */}
 { userId ? (
             <Button
             variant="contained"
