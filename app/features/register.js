@@ -5,6 +5,7 @@ const initialState = {
     pwError: false,
     emailError: "none",
     currEmailInput: "",
+    genreError: false
 }
 
 export const registrationSlice = createSlice({
@@ -19,6 +20,7 @@ export const registrationSlice = createSlice({
             state.currEmailInput = input.payload;
             state.emailError = "none";
         },
+        setGenreError: (state, bool) => {state.genreError = bool.payload},
     },
 
 });
@@ -31,12 +33,13 @@ export const registerUser = async (data) => {
     }
 }
 
-export const {
-    pwError,
-    pwNoError,
-    emailInvalid,
-    emailNoError,
-    emailTaken,
-    updateCurrEmailInput } = registrationSlice.actions;
+export const { 
+    pwError, 
+    pwNoError, 
+    emailInvalid, 
+    emailNoError, 
+    emailTaken, 
+    updateCurrEmailInput,
+    setGenreError } = registrationSlice.actions;
 
 export default registrationSlice.reducer;
