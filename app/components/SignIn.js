@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 // import { createBrowserHistory } from "history";
 // let history = createBrowserHistory();
 //import { Link } from "react-router-dom";
-// import { loggedinUser } from "../features/userSlice";
+
 
 function Copyright(props) {
   return (
@@ -59,12 +59,6 @@ const SignIn = () => {
       console.log(err);
     }
   };
-
-  // Dispatch the login action when the login button is clicked
-  // const handleLogin = () => {
-  //   dispatch(loggedinUser());
-  //   console.log("login dispatched");
-  // };
 
   const handleChange = (event) => {
     setUser((prevState) => ({
@@ -130,7 +124,6 @@ const SignIn = () => {
               <Button
                 type="submit"
                 fullWidth
-                // onClick={handleLogin}
                 variant="contained"
                 sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
               >
