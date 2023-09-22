@@ -10,22 +10,18 @@ import Register from "./Register";
 
 const Root = () => {
   return (
-    <>
-      <div>
-        <Header />
-      </div>
-      <div className="mainContainer">
-        <Routes>
-          <Route path="/account" element={<UserAccountPage />} />
-          <Route exact path="/watchedlist" element={<WatchedList />} />
-          <Route exact path="/login" element={<SignIn />} />
-          <Route exact path="/userhome" element={<UserHome />} />
-          <Route exact path="/register" element={<Register />} />
-          {/* <Route exact path="/recmovie" element={<RecMovie/>} /> */}
-          <Route exact path="/" element={<Hero />} />
-        </Routes>
-      </div>
-    </>
+    <div className="header-container">
+      <Header />
+      <Routes>
+        <Route path="/account" element={<UserAccountPage />} />
+        <Route exact path="/watchedlist" element={<WatchedList />} />
+        <Route exact path="/login" element={<SignIn />} />
+        <Route exact path="/userhome" element={<UserHome />} />
+        <Route exact path="/register" element={<Register />} />
+        {/* <Route exact path="/recmovie" element={<RecMovie/>} /> */}
+        <Route exact path="/" element={<Hero />} />
+      </Routes>
+    </div>
   );
 };
 
