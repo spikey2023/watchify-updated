@@ -1,13 +1,7 @@
 import axios from "axios";
 
-// can write the case reducers as functions inside of an object,
-// instead of having to write a switch/case statement
-// The reducers will be able to write shorter immutable update logic
-// All the action creators will be generated automatically based on the reducer functions we've provided
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-//createSlice has 3 main options: name, initialState, reducers
 const initialState = {
   user: {},
   isLoggedIn: false,
@@ -40,11 +34,19 @@ export const getUser = createAsyncThunk(
   }
 );
 
-export const updateUser = createAsyncThunk(
-  "auth/updateUser",
+export const updateUserInfo = createAsyncThunk(
+  "auth/updateUserInfo",
   async (userInfo) => {
     try {
-      const { data: updated } = await axios.put(`/api/user/${id}`, userInfo);
+      const { data: updated } = await axios.put(
+        `/api/user/${userInfo.id}`,
+        userInfo,
+        {
+          headers: {
+            authorization: userInfo.token,
+          },
+        }
+      );
       return updated;
     } catch (error) {
       return error.message;
@@ -57,44 +59,39 @@ export const updateUser = createAsyncThunk(
 const userSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {    
-    //Logout action 
-    loggedoutUser:(state) => {
+  reducers: {
+    //Logout action
+    loggedoutUser: (state) => {
       state.user = {};
       state.isLoggedIn = false;
-      state.error="";
-      state.token="";
-    }
+      state.error = "";
+      state.token = "";
+    },
   },
   //extraReducers handle axios calls - unlike "reducers:{}"
   extraReducers: (builder) => {
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.user = action.payload;
-      //or: return action.payload  ??
-      state.isLoggedIn= true;
     });
     builder.addCase(getUser.rejected, (state, action) => {
       state.error = action.error.message;
-      isLoggedIn: false;
     });
-    builder.addCase(updateUser.fulfilled, (state, action) => {
+    builder.addCase(updateUserInfo.fulfilled, (state, action) => {
       state.user = action.payload;
-      isLoggedIn: true;
+    });
+    builder.addCase(updateUserInfo.rejected, (state, action) => {
+      state.error = action.error.message;
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      //state.user = action.payload;
-       return action.payload;
-      //  state.isLoggedIn = true
-      
+      return action.payload;
     });
   },
 });
 
-
 export const { loggedinUser, loggedoutUser } = userSlice.actions;
-//need to import actions for non-axios action calls
+//need to export actions for non-axios action calls
 // export const { getUser } = userSlice.actions
 
 export default userSlice.reducer;
 
-//?  export const selectUser = (state) => state.user //may be state.user.user
+//  export const selectUser = (state) => state.auth.user //if using selectUser()
