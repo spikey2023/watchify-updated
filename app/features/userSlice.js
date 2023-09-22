@@ -88,6 +88,7 @@ const userSlice = createSlice({
   },
 });
 
+export const { loggedinUser, loggedoutUser } = userSlice.actions;
 //need to export actions for non-axios action calls
 // export const { getUser } = userSlice.actions
 
