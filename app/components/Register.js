@@ -1,24 +1,19 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  pwError,
-  pwNoError,
-  emailInvalid,
-  emailTaken,
-  updateCurrEmailInput,
-} from "../features/register";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import axios from "axios";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { pwError, pwNoError, emailInvalid, emailTaken, updateCurrEmailInput} from '../reducers/register';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import axios from 'axios';
+import GenreCheckboxes from './GenreCheckboxes';
 
 function verifyEmailFormat(string) {
   //verifies the entered email is in some form of "<x>@<y>.<z>"
@@ -117,91 +112,65 @@ export default function Register() {
     }
   }
 
-  return (
-    <div>
-      <h1>Register for Watchify!</h1>
-      <Box
-        component="form"
-        autoComplete="off"
-        onSubmit={handleSubmit}
-        sx={{ "& .MuiTextField-root": { m: 1, width: "90%" } }}
-      >
-        <TextField
-          required
-          id="outlined-basic"
-          label="User Name"
-          variant="outlined"
-          helperText="Tell us what we should call you!"
-        />
-        <TextField
-          required
-          id="email-address"
-          label="Email Address"
-          variant="outlined"
-          helperText={emailHelperText()}
-          onBlur={checkEmail}
-          error={emailState === "invalid" || emailState === "taken"}
-        />
-        <FormControl sx={{ m: 1, width: "90%" }} variant="outlined" required>
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password-error"
-            type={showPassword ? "text" : "password"}
-            error={pwsNotMatch}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-          <FormHelperText>
-            {pwsNotMatch
-              ? "Entered passwords do not match"
-              : "A secret word or phrase that only you know!"}
-          </FormHelperText>
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "90%" }} variant="outlined" required>
-          <InputLabel htmlFor="outlined-adornment-password">
-            Confirm Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? "text" : "password"}
-            error={pwsNotMatch}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Confirm Password"
-          />
-          <FormHelperText>
-            {pwsNotMatch
-              ? "Entered passwords do not match"
-              : "Make sure you typed your password correctly!"}
-          </FormHelperText>
-        </FormControl>
-        <Button variant="contained" color="success" type="submit">
-          Register!
-        </Button>
-      </Box>
+    return <div>
+        <h1 style={{paddingTop:"60px", fontFamily:"Sans-Serif"}}>Register for Watchify!</h1>
+        <Box component="form" autoComplete="off" onSubmit={handleSubmit}sx={{'& .MuiTextField-root': { m: 1, width: '90%' },}}>
+            <TextField required={false} id="outlined-basic" label="User Name" variant="outlined" helperText="Tell us what we should call you!" />
+            <TextField required={false} id="email-address" 
+                label="Email Address" 
+                variant="outlined" 
+                helperText={emailHelperText()} 
+                onBlur={checkEmail} 
+                error={emailState === "invalid" || emailState === "taken"}/> 
+            <FormControl sx={{ m: 1, width: '90%' }} variant="outlined" required={false}>
+                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <OutlinedInput
+                    id="outlined-adornment-password-error"
+                    type={showPassword ? 'text' : 'password'}
+                    error={pwsNotMatch}
+                    endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                        >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                    }
+                    label="Password"
+                />
+                <FormHelperText>{pwsNotMatch ? "Entered passwords do not match" : "A secret word or phrase that only you know!"}</FormHelperText>
+            </FormControl>
+            <FormControl sx={{ m: 1, width: '90%' }} variant="outlined" required={false}>
+                <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
+                <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? 'text' : 'password'}
+                    error={pwsNotMatch}
+                    endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                        >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                    </InputAdornment>
+                    }
+                    label="Confirm Password"
+                />
+                <FormHelperText>{pwsNotMatch ? "Entered passwords do not match" : "Make sure you typed your password correctly!"}</FormHelperText>
+            </FormControl>
+            <hr style={{marginLeft:30, marginRight:30}}/>
+            <h3 style={{fontFamily:"Sans-Serif", marginLeft:20}}>To help us recommend movies, please tell us at least 2 genres you enjoy:</h3>
+            <GenreCheckboxes />
+            <Button variant="contained" color="success" type="submit">Register!</Button>
+        </Box>
     </div>
   );
 }

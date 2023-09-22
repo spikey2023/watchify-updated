@@ -1,18 +1,22 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { updateUserInfo } from "../features/userSlice";
 
 export default function UserAccUpdates() {
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
-  const [email, setEmail] = React.useState("");
+  const [user, updateUser] = React.useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,12 +26,32 @@ export default function UserAccUpdates() {
     setOpen(false);
   };
 
-  const handleClick = (e) => {
-    setEmail({ [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    updateUser({
+      ...auth.user,
+      [name]: value,
+    });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //   dispatch(updateUserEmail(user.credentials));
+
+    try {
+      dispatch(
+        updateUserInfo({
+          ...auth.user,
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          password: user.password,
+          token: auth.token,
+        })
+      );
+      setOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div>
@@ -35,31 +59,21 @@ export default function UserAccUpdates() {
         edit
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>update email:</DialogTitle>
-        <DialogContent>
-          <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          <DialogTitle>update email:</DialogTitle>
+          <DialogContent>
             <input
               className="email-input"
-              placeholder="new email address"
-              value={email}
+              value={user.email}
               name="email"
-              onChange={handleClick}
+              onChange={handleChange}
             />
-          </form>
-          {/* <TextField
-            autoFocus
-            margin="dense"
-            id="email"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          /> */}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>cancel</Button>
-          <Button onClick={handleClose}>update</Button>
-        </DialogActions>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>cancel</Button>
+            <Button type="submit">update</Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );
