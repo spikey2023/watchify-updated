@@ -1,8 +1,16 @@
 body {
   margin: 0;
+  background: #04476e;
+  background: linear-gradient(to left, #04476e 0%, #010d3ac2 100%);
 }
+
 header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionFixed.mui-fixed.css-1iedjqa-MuiPaper-root-MuiAppBar-root {
   position: relative;
+}
+
+.header-container form {
+  background: white;
+  padding: 5px;
 }
 
 .register-wrapper {
@@ -10,11 +18,13 @@ header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAp
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  background: #a7cfdf;
+  background: linear-gradient(to right, #a7cfdf 0%, #23538a 100%);
 }
 
 .register-container {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
 }
 
 .useraccount {
