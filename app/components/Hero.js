@@ -63,22 +63,30 @@
 import React from 'react';
 import './Hero.css';
 
-import bg from './assets/tfjsmoviemodel/bg.jpg';
+import bg from '../../public/bg.jpg';
+import Img from './Img'
+import ContentWrapper from './ContentWrapper';
+
 
 const Hero = () => {
   return (
     <div className="hero-container">
-      <img src={bg} alt="Background" className="bg-image" />
+      <div className='backdrop-img'>
+        <Img src={bg} className={`bg-image`} />
+      {/* <img src={bg} alt="background" className="bg-image" /> */}
+      </div>
+
+      <div className='opacity-layer'></div>
       <div className="watchify-top">
         <h1 className="watchify-header">
           Welcome to Watchify - Your Personal Movie Universe!
         </h1>
-        <div
+        {/* <div
           className="image"
           style={{
             backgroundImage: `url(${require('../../public/bg.jpg')})`,
           }}
-        ></div>
+        ></div> */}
         <h3>
           Get Personalized Movie Recommendations to Watch Online Based on Your
           Preferences!
