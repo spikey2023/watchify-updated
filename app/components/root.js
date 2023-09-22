@@ -10,7 +10,7 @@ import Register from "./Register";
 
 const Root = () => {
   return (
-    <div>
+    <div className="header-container">
       <Header />
       <Routes>
         <Route path="/account" element={<UserAccountPage />} />

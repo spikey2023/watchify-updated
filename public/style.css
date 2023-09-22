@@ -1,5 +1,24 @@
+body {
+  margin: 0;
+}
+header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionFixed.mui-fixed.css-1iedjqa-MuiPaper-root-MuiAppBar-root {
+  position: relative;
+}
+
+.register-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.register-container {
+  width: 100%;
+  max-width: 500px;
+}
+
 .useraccount {
-  margin-top: 10vh;
+  margin-top: 1vh;
 }
 
 .user-account-container {
