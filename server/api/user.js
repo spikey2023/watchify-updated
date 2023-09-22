@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User } = require("../db/index");
+const { User, GenrePref } = require("../db/index");
 
 router.get("/:id", async (req, res, next) => {
     const param = req.params.id;
@@ -19,8 +19,23 @@ router.get("/:id", async (req, res, next) => {
 
   router.post("/", async (req, res, next) => {
     try {
-        // console.log(req.body);
-        const user = await User.create(req.body);
+        const newUser = {
+          username: req.body.username,
+          email: req.body.email,
+          password: req.body.password,
+        }
+
+        //create the new user entry in the database
+        const user = await User.create(newUser);
+
+        //with the new user created, use its ID to make the new genre pref entries
+        for(let i = 0; i < req.body.genres.length; i++){
+          await GenrePref.create({
+            userId: user.dataValues.id,
+            genreTmdbId: req.body.genres[i],
+          })
+        }
+
         res.json(user);
     } catch (err) {
       next(err);
