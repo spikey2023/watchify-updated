@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { pwError, pwNoError, emailInvalid, emailTaken, updateCurrEmailInput} from '../reducers/register';
+import { pwError, pwNoError, emailInvalid, emailTaken, updateCurrEmailInput, setGenreError } from '../features/register';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
@@ -44,6 +44,7 @@ export default function Register() {
   const lastEmailEntered = useSelector(
     (state) => state.register.currEmailInput
   );
+    const genreError = useSelector( state => state.register.genreError );
 
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -75,54 +76,67 @@ export default function Register() {
       dispatch(updateCurrEmailInput(emailStr));
     }
   }
-
-  function emailHelperText() {
-    switch (emailState) {
-      case "invalid":
-        return "Please enter a valid email address";
-      case "taken":
-        return "This email address is already in use";
-      default:
-        return "The email address you'll use to log in!";
+    function emailHelperText(){
+        switch(emailState){
+            case "invalid":
+                return "Please enter a valid email address";
+            case "taken":
+                return "This email address is already in use";
+            default:
+                return "The email address you'll use to log in!";
+        }
     }
-  }
-  async function handleSubmit(event) {
-    //prevent page from refreshing
-    event.preventDefault();
+    async function handleSubmit(event){
+        //prevent page from refreshing
+        event.preventDefault();
 
-    //grab the inputs from the form
-    const data = {
-      username: event.target[0].value,
-      email: event.target[2].value,
-      password: event.target[4].value,
-      confirmPw: event.target[7].value,
-    };
+        //grab the inputs from the form
+        const data = {
+            username: event.target[0].value,
+            email: event.target[2].value,
+            password: event.target[4].value,
+            confirmPw: event.target[7].value,
+            genres: [],
+        }
 
-    //validate data (only checking that password was typed correctly in both fields right now)
-    if (data.password !== data.confirmPw) {
-      dispatch(pwError());
-    } else {
-      dispatch(pwNoError());
+        for(let i = 10; i <= 28; i++){ //in the event.target array, indices 10-28 are the checkboxes for genres
+          if(event.target[i].checked){
+            data.genres.push(event.target[i].value);
+          }
+        }
+
+        //validate data (only checking that password was typed correctly in both fields right now)
+        if(data.password !== data.confirmPw){
+            dispatch(pwError());
+        }
+        else{
+            dispatch(pwNoError());
+        }
+        if(data.genres.length < 2){
+          dispatch(setGenreError(true));
+        }
+        else{
+          dispatch(setGenreError(false));
+        }
+        if(emailState === "none" && !pwsNotMatch && data.genres.length >= 2){
+            delete data.confirmPw;
+            const newUser = await registerUser(data);
+            console.log(newUser);
+            //Some kind of logInNewUser() function needs to go here
+        }
     }
-    if (emailState === "none" && !pwsNotMatch) {
-      delete data.confirmPw;
-      const newUser = await registerUser(data);
-      console.log(newUser);
-      //Some kind of logInNewUser() function needs to go here
-    }
-  }
 
     return <div>
         <h1 style={{paddingTop:"60px", fontFamily:"Sans-Serif"}}>Register for Watchify!</h1>
-        <Box component="form" autoComplete="off" onSubmit={handleSubmit}sx={{'& .MuiTextField-root': { m: 1, width: '90%' },}}>
-            <TextField required={false} id="outlined-basic" label="User Name" variant="outlined" helperText="Tell us what we should call you!" />
-            <TextField required={false} id="email-address" 
+        <Box component="form" autoComplete="off" onSubmit={handleSubmit} sx={{'& .MuiTextField-root': { m: 1, width: '90%' },}}>
+            <TextField required={true} id="outlined-basic" label="User Name" variant="outlined" helperText="Tell us what we should call you!" />
+            <TextField required={true} id="email-address" 
                 label="Email Address" 
                 variant="outlined" 
                 helperText={emailHelperText()} 
                 onBlur={checkEmail} 
                 error={emailState === "invalid" || emailState === "taken"}/> 
-            <FormControl sx={{ m: 1, width: '90%' }} variant="outlined" required={false}>
+            <FormControl sx={{ m: 1, width: '90%' }} variant="outlined" required={true}>
                 <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-password-error"
@@ -144,7 +158,7 @@ export default function Register() {
                 />
                 <FormHelperText>{pwsNotMatch ? "Entered passwords do not match" : "A secret word or phrase that only you know!"}</FormHelperText>
             </FormControl>
-            <FormControl sx={{ m: 1, width: '90%' }} variant="outlined" required={false}>
+            <FormControl sx={{ m: 1, width: '90%' }} variant="outlined" required={true}>
                 <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-password"
@@ -168,9 +182,11 @@ export default function Register() {
             </FormControl>
             <hr style={{marginLeft:30, marginRight:30}}/>
             <h3 style={{fontFamily:"Sans-Serif", marginLeft:20}}>To help us recommend movies, please tell us at least 2 genres you enjoy:</h3>
-            <GenreCheckboxes />
+            <FormControl sx={{marginBottom:"1rem"}}>
+              <GenreCheckboxes />
+              <FormHelperText error={genreError} sx={{marginLeft:"2rem", marginTop:"-0.5rem"}}>Select at least 2 genres you enjoy!</FormHelperText>
+            </FormControl>
             <Button variant="contained" color="success" type="submit">Register!</Button>
         </Box>
     </div>
-  );
 }
