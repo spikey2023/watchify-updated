@@ -59,7 +59,15 @@ export const updateUserInfo = createAsyncThunk(
 const userSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    //Logout action
+    loggedoutUser: (state) => {
+      state.user = {};
+      state.isLoggedIn = false;
+      state.error = "";
+      state.token = "";
+    },
+  },
   //extraReducers handle axios calls - unlike "reducers:{}"
   extraReducers: (builder) => {
     builder.addCase(getUser.fulfilled, (state, action) => {

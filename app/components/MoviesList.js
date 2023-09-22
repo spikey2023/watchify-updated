@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import axios from "axios";
 import {
   Mousewheel,
   Pagination,
@@ -22,26 +23,70 @@ const roundToHalf = (num) => {
 const MoviesList = ({ movies, setMovies }) => {
   const handleRatingChange = (id, newRating) => {
     // Logic for updating the rating and count
-    const movie = movies.find((movie) => movie.id === id);
+    const movie = movies.find((movie) => movie.tmdb_id === id);
     if (!movie) return;
 
-    const newRatingCount = movie.rating_count + 1;
+    const newRatingCount = movie.vote_count + 1;
     const newAvgRating =
-      (movie.avg_rating * movie.rating_count + newRating) / newRatingCount;
+      (movie.vote_average * movie.vote_count + newRating) / newRatingCount;
 
     // Update the state
     setMovies((prevMovies) => {
       return prevMovies.map((movie) => {
-        if (movie.id !== id) return movie;
+        if (movie.tmdb_id !== id) return movie;
 
         return {
           ...movie,
-          rating_count: newRatingCount,
-          avg_rating: newAvgRating,
+          vote_count: newRatingCount,
+          vote_average: newAvgRating,
         };
       });
     });
   };
+
+  useEffect(() => {
+    const fetchBackdrops = async () => {
+      try {
+        const updatedMovies = await Promise.all(
+          movies.map(async (movie) => {
+            try {
+              const response = await axios.get(
+                `https://api.themoviedb.org/3/movie/${movie.tmdb_id}/images?api_key=7c1a02da75b25d48c10edcf2e32896b2`
+              );
+              const { backdrops } = response.data;
+              let backdropUrl = "";
+              if (backdrops && backdrops.length > 0) {
+                const firstBackdrop = backdrops[0];
+                backdropUrl = `https://image.tmdb.org/t/p/original${firstBackdrop.file_path}`;
+              }
+
+              // Extract the desired backdrop URL from the response data
+              // const backdropUrl = "" + ; // Replace with actual logic to extract URL from response.data
+
+              return {
+                ...movie,
+                backdrop: backdropUrl,
+              };
+            } catch (error) {
+              console.error(
+                `Error fetching backdrop for movie ID: ${movie.tmdb_id}`,
+                error
+              );
+              return movie; // return original movie if fetching backdrop fails
+            }
+          })
+        );
+
+        setMovies(updatedMovies);
+      } catch (error) {
+        console.error("Error fetching backdrops:", error);
+      }
+    };
+
+    if (movies && movies.length > 0) {
+      fetchBackdrops();
+    }
+  }, [movies, setMovies]);
 
   return (
     <>
@@ -50,7 +95,7 @@ const MoviesList = ({ movies, setMovies }) => {
       <div>
         <Swiper
           effect={"coverflow"}
-          lazy={"true"}
+          lazy="true"
           direction="horizontal"
           slidesPerView={"auto"}
           spaceBetween={25}
@@ -81,7 +126,7 @@ const MoviesList = ({ movies, setMovies }) => {
         >
           {" "}
           {movies.map((movie, index) => (
-            <SwiperSlide key={movie.id} className={"swiper-slide"}>
+            <SwiperSlide key={movie.tmdb_id} className={"swiper-slide"}>
               <div className="image-wrapper">
                 <img
                   src={movie.backdrop ? movie.backdrop : "placeholder.jpeg"}
@@ -90,13 +135,13 @@ const MoviesList = ({ movies, setMovies }) => {
                 />
                 <div className="movie-content">
                   <h3>{movie.title}</h3>
-                  <p>{`Average Rating: ${roundToHalf(movie.avg_rating)}`}</p>
-                  <p>{`Total Votes: ${movie.rating_count}`}</p>
+                  <p>{`Average Rating: ${roundToHalf(movie.vote_average)}`}</p>
+                  <p>{`Total Votes: ${movie.vote_count}`}</p>
                   <p>
                     <MovieRating
-                      value={movie.avg_rating}
+                      value={Number(movie.vote_average)}
                       onChange={(newRating) =>
-                        handleRatingChange(movie.id, newRating)
+                        handleRatingChange(movie.tmdb_id, newRating)
                       }
                     />
                   </p>

@@ -9,6 +9,16 @@ const {
 } = require("./server/db/index");
 
 const getMoviesForUser = async (userId) => {
+  const user = await User.findOne({
+    where: { id: userId },
+  });
+
+  if (!user) {
+    console.log("User not found.");
+    return [];
+  }
+
+  // const userId = user.id;
   //Fetch the user's genre preferences
   const userGenrePrefs = await GenrePref.findAll({
     where: { userId },
@@ -19,7 +29,7 @@ const getMoviesForUser = async (userId) => {
   const allMovies = await Movie.findAll({
     where: {
       vote_count: {
-        [Op.gte]: 100,
+        [Op.gte]: 100, //Op.gte = Operator greater than or equal to
       },
     },
   });
@@ -29,7 +39,7 @@ const getMoviesForUser = async (userId) => {
   const allGenreMovies = await GenreMovie.findAll({
     where: {
       movieTmdbId: {
-        [Op.in]: allMovieIds,
+        [Op.in]: allMovieIds, //Op.in return all values true from map of allMovieIds
       },
     },
   });
@@ -51,13 +61,15 @@ const getMoviesForUser = async (userId) => {
       if (diff !== 0) return diff;
       return b.vote_average - a.vote_average;
     })
-    .slice(0, 20); // Take top 20 movies
+    .slice(0, 15); // Take top 15 movies
 
   return sortedMovies;
 };
 
-(async () => {
-  const userId = "6f9f15de-c331-4274-8ac4-c055fe23dc7a"; //kevin uuid (change this later)
-  const recommendedMovies = await getMoviesForUser(userId);
-  console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
-})();
+// (async () => {
+//   const username = "kevin@aol.com"; //kevin uuid (change this later)
+//   const recommendedMovies = await getMoviesForUser(username);
+//   console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
+// })();
+
+module.exports = { getMoviesForUser };

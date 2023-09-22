@@ -52,6 +52,12 @@ const SignIn = () => {
     }
   };
 
+  // Dispatch the login action when the login button is clicked
+  const handleLogin = () => {
+    dispatch(loggedinUser());
+    console.log("login dispatched");
+  };
+
   const handleChange = (event) => {
     setUser((prevState) => ({
       ...prevState,
@@ -108,14 +114,20 @@ const SignIn = () => {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <button
+              <Button
                 type="submit"
-                //fullWidth
-                // variant="contained"
-                // sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
+                fullWidth
+                onClick={handleLogin}
+                variant="contained"
+                sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
               >
                 Sign In
-              </button>
+              </Button>
+              {/* <button
+                type="submit"
+              >
+                Sign In
+              </button> */}
               <Grid container>
                 <Grid item xs></Grid>
                 <Grid item>
