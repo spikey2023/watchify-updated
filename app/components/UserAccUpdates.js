@@ -59,7 +59,23 @@ export default function UserAccUpdates() {
         edit
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <form onSubmit={handleSubmit}>
+        {/* <form className="username-update-form" onSubmit={handleSubmit}>
+          <DialogTitle>update username:</DialogTitle>
+          <DialogContent>
+            <input
+              className="username-input"
+              value={user.username}
+              name="username"
+              onChange={handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>cancel</Button>
+            <Button type="submit">update</Button>
+          </DialogActions>
+        </form> */}
+
+        <form className="email-update-form" onSubmit={handleSubmit}>
           <DialogTitle>update email:</DialogTitle>
           <DialogContent>
             <input
@@ -74,6 +90,22 @@ export default function UserAccUpdates() {
             <Button type="submit">update</Button>
           </DialogActions>
         </form>
+
+        {/* <form className="password-update-form" onSubmit={handleSubmit}>
+          <DialogTitle>update password:</DialogTitle>
+          <DialogContent>
+            <input
+              className="password-input"
+              value={user.password}
+              name="password"
+              onChange={handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>cancel</Button>
+            <Button type="submit">update</Button>
+          </DialogActions>
+        </form> */}
       </Dialog>
     </div>
   );

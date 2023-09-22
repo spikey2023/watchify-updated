@@ -4,19 +4,16 @@ import { Link } from "react-router-dom";
 import UserAccUpdates from "./UserAccUpdates";
 import { getUser, selectUser } from "../features/userSlice";
 
-
 const UserAccountPage = () => {
   const auth = useSelector((state) => state.auth);
 
   //const user = useSelector(selectUser); //this is good to track multiple states
   const dispatch = useDispatch();
 
-  //need useEffect since we're not clicking any event listeners / to call dispatch
   useEffect(() => {
     dispatch(getUser({ id: auth.user.id, token: auth.token }));
   }, []);
 
-  //console.log("auth.user", auth.user);
   return (
     <div className="useraccount">
       {auth.user ? (
@@ -24,8 +21,8 @@ const UserAccountPage = () => {
           <h1 className="user-account-h1">Account Settings</h1>
           <div className="user-account-container">
             <aside className="useracc-left-nav">
-              <Link>Account info</Link>
-              <Link>Genre preferences</Link>
+              <Link to="/account">Account info</Link>
+              <Link to="/account/genrepref">Genre preferences</Link>
               <Link>My watched list</Link>
             </aside>
             <main className="useracc-right-main">

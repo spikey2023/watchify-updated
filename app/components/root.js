@@ -7,13 +7,15 @@ import WatchedList from "./WatchedList";
 import Hero from "./Hero";
 import UserHome from "./UserHome";
 import Register from "./Register";
+import UserUpdateGenrePref from "./UserUpdateGenrePref"
 
 const Root = () => {
   return (
     <div>
       <Header />
       <Routes>
-        <Route path="/account" element={<UserAccountPage />} />
+      <Route exact path="/account/genrepref" element={<UserUpdateGenrePref />} />
+        <Route exact path="/account" element={<UserAccountPage />} />
         <Route exact path="/watchedlist" element={<WatchedList />} />
         <Route exact path="/login" element={<SignIn />} />
         <Route exact path="/userhome" element={<UserHome />} />
