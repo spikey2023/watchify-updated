@@ -38,7 +38,7 @@ export const updateUserInfo = createAsyncThunk(
   "auth/updateUserInfo",
   async (userInfo) => {
     try {
-      console.log("userInfo in thunk", userInfo)
+      console.log("userInfo in thunk", userInfo);
       const { data: updated } = await axios.put(
         `/api/user/${userInfo.id}`,
         userInfo,
