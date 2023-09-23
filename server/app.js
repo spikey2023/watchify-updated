@@ -20,6 +20,7 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 //routes - andrew
 app.use("/api/user", require("./api/user"));
 app.use("/api/getMovies", require("./api/getMovies"));
+app.use("/api/getGenres", require("./api/getGenres"));
 
 //routes - michele
 app.use("/api", routes);
