@@ -2,6 +2,8 @@ body {
   margin: 0;
   background: #04476e;
   background: linear-gradient(to left, #04476e 0%, #010d3ac2 100%);
+  font-family: "Work Sans", sans-serif;
+  font-weight: 900;
 }
 
 header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionFixed.mui-fixed.css-1iedjqa-MuiPaper-root-MuiAppBar-root {

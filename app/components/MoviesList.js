@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import axios from "axios";
 import {
@@ -21,6 +22,7 @@ const roundToHalf = (num) => {
 };
 
 const MoviesList = ({ movies, setMovies }) => {
+  const username = useSelector((state) => state.auth.user.username);
   const handleRatingChange = (id, newRating) => {
     // Logic for updating the rating and count
     const movie = movies.find((movie) => movie.tmdb_id === id);
@@ -91,7 +93,11 @@ const MoviesList = ({ movies, setMovies }) => {
   return (
     <>
       {" "}
-      <h1 className="card-title-popular">Most Popular Movies</h1>
+      <h1 className="card-title-popular">
+        Welcome {` `}
+        <span className="fancy">{` ${username}!`}</span>
+      </h1>
+      <h2 className="card-title-desc">Highest Rated by Your Genre Choices:</h2>
       <div>
         <Swiper
           effect={"coverflow"}
