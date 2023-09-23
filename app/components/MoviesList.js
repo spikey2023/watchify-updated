@@ -14,6 +14,9 @@ import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import "./MovieList.css";
 import MovieRating from "./Rating";
+
+
+import { useNavigate } from "react-router-dom";
 // import infinityWarImage from "./infinitywar.jpeg";
 
 const roundToHalf = (num) => {
@@ -21,6 +24,9 @@ const roundToHalf = (num) => {
 };
 
 const MoviesList = ({ movies, setMovies }) => {
+
+  const navigate = useNavigate()
+
   const handleRatingChange = (id, newRating) => {
     // Logic for updating the rating and count
     const movie = movies.find((movie) => movie.tmdb_id === id);
@@ -127,6 +133,13 @@ const MoviesList = ({ movies, setMovies }) => {
           {" "}
           {movies.map((movie, index) => (
             <SwiperSlide key={movie.tmdb_id} className={"swiper-slide"}>
+              {/* Navigate to movie details page on click */}
+              <div 
+                className="movieCard"
+                onClick={()=>{
+                  navigate(`/movie/${movie.tmdb_id}`)
+                }}>
+
               <div className="image-wrapper">
                 <img
                   src={movie.backdrop ? movie.backdrop : "placeholder.jpeg"}
@@ -137,6 +150,7 @@ const MoviesList = ({ movies, setMovies }) => {
                   <h3>{movie.title}</h3>
                   <p>{`Average Rating: ${roundToHalf(movie.vote_average)}`}</p>
                   <p>{`Total Votes: ${movie.vote_count}`}</p>
+              </div>
                   <p>
                     <MovieRating
                       value={Number(movie.vote_average)}
