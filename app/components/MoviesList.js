@@ -46,6 +46,7 @@ const MoviesList = ({ movies, setMovies }) => {
     });
   };
 
+  const isFirstRender = useRef(true);
   useEffect(() => {
     const fetchBackdrops = async () => {
       try {
@@ -55,16 +56,13 @@ const MoviesList = ({ movies, setMovies }) => {
               const response = await axios.get(
                 `https://api.themoviedb.org/3/movie/${movie.tmdb_id}/images?api_key=7c1a02da75b25d48c10edcf2e32896b2`
               );
+
               const { backdrops } = response.data;
               let backdropUrl = "";
               if (backdrops && backdrops.length > 0) {
                 const firstBackdrop = backdrops[0];
                 backdropUrl = `https://image.tmdb.org/t/p/original${firstBackdrop.file_path}`;
               }
-
-              // Extract the desired backdrop URL from the response data
-              // const backdropUrl = "" + ; // Replace with actual logic to extract URL from response.data
-
               return {
                 ...movie,
                 backdrop: backdropUrl,
@@ -74,16 +72,21 @@ const MoviesList = ({ movies, setMovies }) => {
                 `Error fetching backdrop for movie ID: ${movie.tmdb_id}`,
                 error
               );
-              return movie; // return original movie if fetching backdrop fails
+              return movie;
             }
           })
         );
-
         setMovies(updatedMovies);
       } catch (error) {
-        console.error("Error fetching backdrops:", error);
+        console.error("Error in fetchBackdrops:", error);
       }
     };
+
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+    } else {
+      return;
+    }
 
     if (movies && movies.length > 0) {
       fetchBackdrops();
@@ -141,6 +144,9 @@ const MoviesList = ({ movies, setMovies }) => {
                 />
                 <div className="movie-content">
                   <h3>{movie.title}</h3>
+                  <p>
+                    Genres: {movie.genres.map((genre) => genre.name).join(", ")}
+                  </p>
                   <p>{`Average Rating: ${roundToHalf(movie.vote_average)}`}</p>
                   <p>{`Total Votes: ${movie.vote_count}`}</p>
                   <p>

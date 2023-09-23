@@ -15,6 +15,10 @@ GenreMovie.belongsTo(Genre);
 User.hasMany(UserWatched);
 UserWatched.belongsTo(User);
 UserWatched.belongsTo(Movie);
+Genre.hasMany(GenreMovie);
+
+Movie.belongsToMany(Genre, { through: GenreMovie, as: "genres" });
+Genre.belongsToMany(Movie, { through: GenreMovie });
 
 module.exports = {
   db,
