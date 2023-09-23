@@ -19,8 +19,9 @@ userRouter.get("/:id", async (req, res, next) => {
 userRouter.put("/:id", async (req, res, next) => {
   try {
     console.log("req.params.id", req.params.id);
+    console.log("req.body", req.body);
     const user = await User.findByPk(req.params.id);
-    console.log("updated", user);
+    console.log("user", user);
     const updated = await user.update(req.body);
     console.log("updated", updated);
     res.send(updated);

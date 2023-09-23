@@ -30,17 +30,17 @@ const UserAccountPage = () => {
               <section className="user-section">
                 <p>username:</p>
                 <p className="useracc-info">{auth.user.username}</p>
-                <Link>update</Link>
+                <UserAccUpdates username={auth.user.username} />
               </section>
               <section className="user-section">
                 <p>email:</p>
                 <p className="useracc-info">{auth.user.email}</p>
-                <UserAccUpdates />
+                <UserAccUpdates email={auth.user.email} />
               </section>
               <section className="user-section">
                 <p>password:</p>
                 <p className="useracc-info">*******</p>
-                <Link>update</Link>
+                <UserAccUpdates password={auth.user.password} />
               </section>
             </main>
           </div>
