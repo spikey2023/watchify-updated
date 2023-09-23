@@ -1,7 +1,7 @@
 const userRouter = require("express").Router();
 const { User } = require("../db/index");
 
-//GET /api/user/:id
+//GET /api/user/:id   without genres
 userRouter.get("/:id", async (req, res, next) => {
   try {
     //this sends back the user and token is still attached to headers
