@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import Link from "@mui/material/Link";
 import UserAccUpdates from "./UserAccUpdates";
-import { getUser, selectUser } from "../features/userSlice";
+import { getUser } from "../features/userSlice";
 
 const UserAccountPage = () => {
   const auth = useSelector((state) => state.auth);
 
-  //const user = useSelector(selectUser); //this is good to track multiple states
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,12 +17,26 @@ const UserAccountPage = () => {
     <div className="useraccount">
       {auth.user ? (
         <div>
-          <h1 className="user-account-h1">Account Settings</h1>
+          <h1 className="user-account-h1">My Account</h1>
           <div className="user-account-container">
             <aside className="useracc-left-nav">
-              <Link to="/account">Account info</Link>
-              <Link to="/account/genrepref">Genre preferences</Link>
-              <Link>My watched list</Link>
+              <Link className="account-link" href="/account" underline="hover">
+                Account info
+              </Link>
+              <Link
+                className="genrepref-link"
+                href="/account/genrepref"
+                underline="hover"
+              >
+                Genre preferences
+              </Link>
+              <Link
+                className="watched-link"
+                href="/account/watched"
+                underline="hover"
+              >
+                My watched list
+              </Link>
             </aside>
             <main className="useracc-right-main">
               <p className="p-heading">ACCOUNT DETAILS</p>

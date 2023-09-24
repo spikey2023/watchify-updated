@@ -1,6 +1,10 @@
-.useraccount,
-.acc-genrepref-container {
+.useraccount {
   margin-top: 10vh;
+}
+
+.useraccount a {
+  text-decoration: none;
+  color: black;
 }
 
 .useraccount,
@@ -8,7 +12,9 @@
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
-.user-account-container {
+.user-account-container,
+.acc-genrepref-container,
+.user-watched-container {
   display: flex;
   flex-direction: row;
 }
@@ -50,9 +56,3 @@
   padding-bottom: 10px;
 }
 
-/* .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.25);
-} */
