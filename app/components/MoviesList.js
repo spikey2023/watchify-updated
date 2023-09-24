@@ -133,6 +133,7 @@ const MoviesList = ({ movies, setMovies }) => {
           {" "}
           {movies.map((movie, index) => (
             <SwiperSlide key={movie.tmdb_id} className={"swiper-slide"}>
+              
               {/* Navigate to movie details page on click */}
               <div 
                 className="movieCard"
