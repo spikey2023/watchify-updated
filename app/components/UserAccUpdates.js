@@ -29,7 +29,6 @@ export default function UserAccUpdates(props) {
   };
 
   const handleChange = (e) => {
-
     updateUser((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -79,4 +78,3 @@ export default function UserAccUpdates(props) {
     </div>
   );
 }
-

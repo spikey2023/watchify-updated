@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { Box } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  FormGroup,
+} from "@mui/material";
 import { getUserGenrePrefs } from "../features/userSlice";
 import { getAllGenres } from "../features/genresSlice";
 
@@ -14,39 +19,56 @@ export default function UserUpdateGenrePref() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllGenres());
-    // dispatch(
-    //   getUserGenrePrefs({
-    //     id: auth.user.id,
-    //     token: auth.token,
-    //     genrePrefs: auth.userGenrePrefs,
-    //   })
-    // );
+    dispatch(
+      getUserGenrePrefs({
+        id: auth.user.id,
+        token: auth.token,
+        genrePrefs: auth.userGenrePrefs,
+      })
+    );
   }, []);
-
   //console.log("AUTH", auth.user); //an array of genre prefs as genreTmdbId
   //loop through this array and check all that apply??
+  const userGenres = auth.user;
+  console.log("!!!!!!!", auth.user);
+  const genreIds = [];
+  // if (userGenres.length > 0) {
+  //   userGenres.filter((genre) => genreIds.push(genre.genreTmdbId));
+  //   console.log("!!!!!", genreIds);
+  //}
 
-  const [isChecked, setChecked] = React.useState(false);
+  //this works:
+  // const [checkedState, setCheckedState] = React.useState([]);
 
   const handleChange = (e) => {
-    setChecked(!isChecked);
+    let data = checkedState;
+    data.push(parseInt(e.target.value));
+    console.log(e.target.value);
+    setCheckedState(data);
   };
 
-  // if (auth.user.length > 0) {
-  //   const genres = auth.user;
-  //   genres.forEach((genre) => {
-  //     if (genre.genre.name === checked.label) {
-  //       setChecked(true);
-  //     }
-  //   });
-  //   //genres.forEach((genre) => console.log("genre name is", genre.genre.name));
-  // }
+  //this works
+  // const handleChange = (e) => {
+  //   let data = checkedState;
+  //   data.push(parseInt(e.target.value));
+  //   console.log(e.target.value);
+  //   setCheckedState(data);
+  // };
 
-  console.log("genres", genres);
+  //this works
+  // const savePreferences = (e) => {
+  //   e.preventDefault();
+  //   if (checkedState.length >= 2) {
+  //     console.log(checkedState);
+  //   } else {
+  //     window.alert("please check at least 2 genres");
+  //   }
+  // };
+
   return (
     <div className="acc-genrepref-container">
-      <h1>Update your saved preferences:</h1>
-      <div>
+      <h1 className="user-pref-h1">Update your saved preferences:</h1>
+      <form onSubmit={savePreferences}>
         <Box sx={{ display: "flex" }}>
           <FormGroup
             sx={{
@@ -56,32 +78,69 @@ export default function UserUpdateGenrePref() {
               flexDirection: "row",
             }}
           >
-            {genres.length > 0 ? (
-              genres.map((genre) => (
-                <div className="checkboxes-container" key={genre.tmdb_id}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={isChecked}
-                        onChange={handleChange}
-                        inputProps={{ "aria-label": "controlled" }}
-                      />
-                    }
-                    sx={{ width: "100pt" }}
-                    label={genre.name}
-                    value={genre.tmdb_id}
-                  />
-                </div>
-              ))
-            ) : (
-              <div>no genres right now</div>
-            )}
+            <Box>
+              <FormControl>
+                <FormGroup>
+                  {genres.length > 0 ? (
+                    genres.map((genre) => (
+                      <div className="checkboxes-container" key={genre.tmdb_id}>
+                        <FormControlLabel
+                          label={genre.name}
+                          control={
+                            <Checkbox
+                              // checked={checkedState}
+                              onChange={(e) => handleChange(e)}
+                              value={genre.tmdb_id}
+                              name={genre.name}
+                              inputProps={{ "aria-label": "controlled" }}
+                              sx={{ width: "100pt" }}
+                            />
+                          }
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <p>Loading....</p>
+                  )}
+                </FormGroup>
+              </FormControl>
+            </Box>
           </FormGroup>
         </Box>
-      </div>
+        <Button
+          variant="contained"
+          sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
+          type="submit"
+        >
+          update
+        </Button>
+      </form>
     </div>
   );
 }
+
+// {genres.length > 0 ? (
+//   genres.map((genre) => (
+//     <div className="checkboxes-container" key={genre.tmdb_id}>
+//       <FormControlLabel
+//         control={
+//           <Checkbox
+//             //checked={checkedState.genre.tmdb_id}
+//             checked={checkedState.includes(genre.tmdb_id)}
+//             onChange={() => handleChange(genre.tmdb_id)}
+//             inputProps={{ "aria-label": "controlled" }}
+//           />
+//         }
+//         sx={{ width: "100pt" }}
+//         name={genre.name}
+//         label={genre.name}
+//         value={genre.tmdb_id}
+//       />
+//     </div>
+//   ))
+// ) : (
+//   <div>no genres right now</div>
+// )}
 
 // return (
 //   <div className="acc-genrepref-container">

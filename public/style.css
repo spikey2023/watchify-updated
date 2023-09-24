@@ -1,6 +1,11 @@
 .useraccount,
 .acc-genrepref-container {
-  margin-top: 20vh;
+  margin-top: 10vh;
+}
+
+.useraccount,
+.user-pref-h1 {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .user-account-container {
@@ -32,7 +37,7 @@
 .user-section {
   background-color: #f4f4f4;
   border-radius: 0.3571428571rem;
-  padding: 20px 10px;
+  padding: 20px 10px 10px;
   margin-bottom: 10px;
   width: 70vw;
 }
@@ -42,7 +47,7 @@
 }
 
 .useracc-info {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 /* .modal {
