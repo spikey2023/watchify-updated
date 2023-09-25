@@ -22,7 +22,6 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (user) => {
 export const getUser = createAsyncThunk(
   "auth/getUser",
   async ({ id, token }) => {
-    console.log("id", id, "token", token);
     try {
       const response = await axios.get(`/api/user/${id}`, {
         headers: {
@@ -61,7 +60,6 @@ export const getUserGenrePrefs = createAsyncThunk(
   "auth/getUserGenrePrefs",
   async ({ id, token }) => {
     try {
-      console.log(`!!!!!!, id is ${id}, token is ${token}`);
       const response = await axios.get(`/api/genres/user/${id}`, {
         headers: {
           authorization: token,

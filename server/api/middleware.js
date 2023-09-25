@@ -4,10 +4,8 @@ const { User } = require("../db/index");
 
 const validateToken = async (req, res, next) => {
   try {
-    console.log("!!!!!!!! token", token, "user", user);
     const token = req.headers.authorization;
     const user = await User.validate(token);
-
     req.user = user.dataValues;
     next();
   } catch (error) {

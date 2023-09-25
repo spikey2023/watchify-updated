@@ -17,14 +17,14 @@ export default function UserUpdateGenrePref() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getAllGenres());
     dispatch(
       getUserGenrePrefs({
         id: auth.user.id,
-        genrePrefs: auth.userGenrePrefs,
+        //genrePrefs: auth.userGenrePrefs,
         token: auth.token,
       })
     );
-    dispatch(getAllGenres());
     //populateCheckboxes(); //not getting called
   }, []);
 
