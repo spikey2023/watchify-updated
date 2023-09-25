@@ -22,12 +22,14 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (user) => {
 export const getUser = createAsyncThunk(
   "auth/getUser",
   async ({ id, token }) => {
+    console.log("id", id, "token", token);
     try {
       const response = await axios.get(`/api/user/${id}`, {
         headers: {
           authorization: token,
         },
       });
+      console.log("response.data", response.data);
       return response.data;
     } catch (error) {
       return error.message;
@@ -39,7 +41,6 @@ export const updateUserInfo = createAsyncThunk(
   "auth/updateUserInfo",
   async (userInfo) => {
     try {
-      console.log("userInfo in thunk", userInfo);
       const { data: updated } = await axios.put(
         `/api/user/${userInfo.id}`,
         userInfo,
@@ -60,6 +61,7 @@ export const getUserGenrePrefs = createAsyncThunk(
   "auth/getUserGenrePrefs",
   async ({ id, token }) => {
     try {
+      console.log(`!!!!!!, id is ${id}, token is ${token}`);
       const response = await axios.get(`/api/genres/user/${id}`, {
         headers: {
           authorization: token,
@@ -73,26 +75,26 @@ export const getUserGenrePrefs = createAsyncThunk(
 );
 
 //need to send back userId and genres, token is in userInfo
-export const updateUserGenrePrefs = createAsyncThunk(
-  "auth/updateUserGenrePrefs",
-  async (userInfo, genreArr) => {
-    try {
-      const response = await axios.put(
-        `/api/genres/user/${id}`,
-        userInfo,
-        genreArr,
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      return error.message;
-    }
-  }
-);
+// export const updateUserGenrePrefs = createAsyncThunk(
+//   "auth/updateUserGenrePrefs",
+//   async (userInfo, genreArr) => {
+//     try {
+//       const response = await axios.put(
+//         `/api/genres/user/${id}`,
+//         userInfo,
+//         genreArr,
+//         {
+//           headers: {
+//             authorization: token,
+//           },
+//         }
+//       );
+//       return response.data;
+//     } catch (error) {
+//       return error.message;
+//     }
+//   }
+// );
 
 //due to immer.js under the hood we don't need to copy state with spread operator
 //will copy on it's own
@@ -103,6 +105,7 @@ const userSlice = createSlice({
     //Logout action
     loggedoutUser: (state) => {
       state.user = {};
+      state.userGenrePrefs = [];
       state.isLoggedIn = false;
       state.error = "";
       state.token = "";
@@ -111,19 +114,20 @@ const userSlice = createSlice({
   //extraReducers handle axios calls - unlike "reducers:{}"
   extraReducers: (builder) => {
     builder.addCase(getUserGenrePrefs.fulfilled, (state, action) => {
-      state.user = action.payload;
+      state.userGenrePrefs = action.payload;
     });
     builder.addCase(getUserGenrePrefs.rejected, (state, action) => {
       state.error = action.error.message;
     });
-    builder.addCase(updateUserGenrePrefs.rejected, (state, action) => {
-      state.error = action.error.message;
-    });
-    builder.addCase(updateUserGenrePrefs.rejected, (state, action) => {
-      state.error = action.error.message;
-    });
+    // builder.addCase(updateUserGenrePrefs.fulfilled, (state, action) => {
+    //   state.userGenrePrefs = action.error.message;
+    // });
+    // builder.addCase(updateUserGenrePrefs.rejected, (state, action) => {
+    //   state.error = action.error.message;
+    // });
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.user = action.payload;
+      //state.userGenrePrefs = action.payload;
     });
     builder.addCase(getUser.rejected, (state, action) => {
       state.error = action.error.message;

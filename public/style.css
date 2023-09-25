@@ -1,4 +1,5 @@
-.useraccount {
+.useraccount,
+.genreprefs {
   margin-top: 10vh;
 }
 
@@ -55,4 +56,3 @@
 .useracc-info {
   padding-bottom: 10px;
 }
-

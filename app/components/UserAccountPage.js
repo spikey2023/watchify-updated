@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Link from "@mui/material/Link";
+//import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import UserAccUpdates from "./UserAccUpdates";
 import { getUser } from "../features/userSlice";
 
@@ -20,21 +21,13 @@ const UserAccountPage = () => {
           <h1 className="user-account-h1">My Account</h1>
           <div className="user-account-container">
             <aside className="useracc-left-nav">
-              <Link className="account-link" href="/account" underline="hover">
+              <Link className="account-link" to="/account">
                 Account info
               </Link>
-              <Link
-                className="genrepref-link"
-                href="/account/genrepref"
-                underline="hover"
-              >
+              <Link className="genrepref-link" to="/account/genrepref">
                 Genre preferences
               </Link>
-              <Link
-                className="watched-link"
-                href="/account/watched"
-                underline="hover"
-              >
+              <Link className="watched-link" to="/account/watched">
                 My watched list
               </Link>
             </aside>

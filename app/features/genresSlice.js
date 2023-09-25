@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const getAllGenres = createAsyncThunk(
-  "genrePef/getAllGenres",
+  "genres/getAllGenres",
   async () => {
     try {
       const response = await axios.get("/api/getGenres");
