@@ -9,6 +9,7 @@ import UserHome from "./UserHome";
 import Register from "./Register";
 import MovieDetails from "./MovieDetails";
 
+
 const Root = () => {
   return (
     <div className="header-container">

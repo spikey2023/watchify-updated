@@ -55,21 +55,20 @@ h3 {
   margin:0 auto;
   }
 
-  .bg-image {
+  .hero-img {
     display: inline-block;
     background-size: cover;
     background-repeat: no-repeat;
     position:absolute;
     top:55px;
     left:0px;
-    opacity:0.5;
     overflow: hidden;
     object-fit:cover;
     object-position: center;
     }
 
 
-    .backdrop-img {
+    /* .backdrop-img {
       width: 100%;
       height: 100%;
       position: absolute;
@@ -89,8 +88,7 @@ h3 {
         height: 100%;
         object-fit: cover;
         object-position: center;
-      }  
-
+      }    */
 
             
   /* .opacity-layer {
@@ -98,12 +96,14 @@ h3 {
     height:250px;
     background: linear-gradient(
       180deg,
-      rgba(10, 51, 109, 0)0%,
+      rgba(43, 94, 165, 0.017)0%,
       #010203 79.17%
     );
     position: absolute;
     bottom:0;
     left:0;
+    top:55px;
     z-index: -1;
     }
+   
      */
