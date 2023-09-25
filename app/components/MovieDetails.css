@@ -211,10 +211,7 @@
   }
   
   /* Genre labels */
-  .genres {
-    margin-bottom: 10px;
-  }
-  
+   
   /* .genre {
     display: inline-block;
     margin-right: 10px;
@@ -226,6 +223,7 @@
   
   .genres {
     display: flex;
+    margin-bottom: 10px;
     gap: 5px;
     .genre {
         background-color: rgb(35, 88, 186);
@@ -277,7 +275,7 @@
     font-weight: bold;
   }
   
-  /* Director, Writer, and Creator labels */
+  /* Director and Writer labels */
   .text.bold::after {
     content: ":";
     margin-right: 5px;
