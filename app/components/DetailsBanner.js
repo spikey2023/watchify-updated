@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Img from "./Img";
 import Casts from "./Casts";
@@ -66,11 +66,10 @@ const DetailsBanner = ({ video, crew }) => {
     fetchMovieData();
   }, []);
 
-  useEffect(() => { document.body.style.backgroundColor = 'red' }, []) 
+  // useEffect(() => { document.body.style.backgroundColor = 'red' }, []) 
 
     return (
-    <div 
-        className="detailsBanner"
+    <div  className="detailsBanner"
         >
     
       {!!data && (
@@ -195,7 +194,6 @@ const DetailsBanner = ({ video, crew }) => {
             </div>            
             <TrailerPopup show={show} setShow={setShow} videoId={videoId} setVideoId={setVideoId} />
             <Casts data={data.credits?.cast} />
- <MovieVideos data={data} />
           </ContentWrapper>
         </React.Fragment>
         
