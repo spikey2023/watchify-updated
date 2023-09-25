@@ -62,7 +62,10 @@ Copyright (c) 2023
 This project is MIT licensed.
 
 
- 
+### Credits
+
+<a href="https://www.freepik.com/free-vector/young-friends-resting-backyard-watching-movie_9173905.htm#query=Movie&position=0&from_view=search&track=sph">Image by pch.vector</a> on Freepik
+
 # MVP Concept:
 
 Shows and movie filter

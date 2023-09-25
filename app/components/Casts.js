@@ -23,7 +23,6 @@ const Cast = ({ data, loading }) => {
     <div className="castSection">
       <ContentWrapper>
         <div className="sectionHeading">Top Cast</div>
-        {!loading ? (
           <div className="listItems">
             {data?.map((item) => {
               let imgUrl = item.profile_path
@@ -40,16 +39,7 @@ const Cast = ({ data, loading }) => {
               );
             })}
           </div>
-        ) : (
-          <div className="castSkeleton">
-            {skeleton()}
-            {skeleton()}
-            {skeleton()}
-            {skeleton()}
-            {skeleton()}
-            {skeleton()}
-          </div>
-        )}
+        
       </ContentWrapper>
     </div>
   );

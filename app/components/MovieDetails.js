@@ -179,6 +179,7 @@ const DetailsBanner = ({ video, crew }) => {
             </div>            
             <TrailerPopup show={show} setShow={setShow} videoId={videoId} setVideoId={setVideoId} />
             <Casts data={data.credits?.cast} />
+            {/* <MovieVideos data={data?.videos} /> */}
           </ContentWrapper>
         </React.Fragment>
         

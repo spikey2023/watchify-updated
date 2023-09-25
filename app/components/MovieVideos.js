@@ -8,25 +8,15 @@ import TrailerPopup from "./TrailerPopup";
 import Img from "./Img";
 import ContentWrapper from "./ContentWrapper";
 
-const MovieVideos = ({ data, loading }) => {
+const MovieVideos = ({ data }) => {
   const [show, setShow] = useState(false);
   const [videoId, setVideoId] = useState(null);
 
-  const loadingSkeleton = () => {
-    return (
-      <div className="skItem">
-        <div className="thumb skeleton"></div>
-        <div className="row skeleton"></div>
-        <div className="row2 skeleton"></div>
-      </div>
-    );
-  };
 
   return (
     <div className="videosSection">
       <ContentWrapper>
         <div className="sectionHeading">Related Videos</div>
-        {!loading ? (
           <div className="videos">
             {data.results?.map((video) => (
               <div
@@ -47,14 +37,6 @@ const MovieVideos = ({ data, loading }) => {
               </div>
             ))}
           </div>
-        ) : (
-          <div className="videoSkeleton">
-            {loadingSkeleton()}
-            {loadingSkeleton()}
-            {loadingSkeleton()}
-            {loadingSkeleton()}
-          </div>
-        )}
       </ContentWrapper>
       <TrailerPopup
         show={show}

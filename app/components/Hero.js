@@ -2,43 +2,30 @@ import React from 'react';
 import './Hero.css';
 
 import bg from '../../public/bg.jpg';
-import bg1 from '../../public/bg1.png'
-import Img from './Img'
-import ContentWrapper from './ContentWrapper';
+import heroimg from '../../public/heroimg.jpg'
 
 import Button from "@mui/material/Button";
-import { NavLink, Link } from "react-router-dom"
+import {Link } from "react-router-dom"
 
 const Hero = () => {
 
 
   return (
-    <div className="heroBanner">
-      <div className='hero-img'>
-        {/* <Img src={bg1} /> */}
-        {/* <Img src={bg} className={`bg-image`} /> */}
-      {/* <img src={bg} alt="background" className="bg-image" /> */}
-      </div>
 
-      {/* <div className='opacity-layer'></div> */}
+      <div class="container">
+      <img src={heroimg} alt="Loading"/>
+      <div class="hero-text">
+        
+        <h1> Watchify - Your Personal Movie Universe!</h1>
+        <p>Say goodbye to endless browsing on your Friday nights!</p>
+          <p>Get Personalized Movie Recommendations to Watch Online Based on Your
+          Preferences!</p>
+          <p>Let Watchify be your movie guide and never look back!
+        </p>
 
-    <ContentWrapper>
-      <div className="heroBannerContent">
-        <h1 className="watchify-header">
-          Welcome to Watchify - Your Personal Movie Universe!
-        </h1>
-        <h3>
-          Get Personalized Movie Recommendations to Watch Online Based on Your
-          Preferences!
-        </h3>
         <p>Discover Your Next Binge</p>
         <p>Rediscover Cinematic Gems</p>
-        <p>
-          Say goodbye to endless browsing on your
-          Friday nights!Start your journey into a universe of personalized movie
-          recommendations.Let Watchify be your movie guide and never look back!
-        </p>
-            <Button
+        <Button
                 type="submit"
                 fullWidth
                 className="get-started-button"
@@ -49,9 +36,7 @@ const Hero = () => {
               >
                 Get Started now!
               </Button>
-  
       </div>
-      </ContentWrapper>
     </div>
 
   );
