@@ -66,9 +66,13 @@ const DetailsBanner = ({ video, crew }) => {
     fetchMovieData();
   }, []);
 
+  useEffect(() => { document.body.style.backgroundColor = 'red' }, []) 
 
     return (
-    <div className="detailsBanner">
+    <div 
+        className="detailsBanner"
+        >
+    
       {!!data && (
         <React.Fragment>
           <div className="backdrop-img">
@@ -84,7 +88,7 @@ const DetailsBanner = ({ video, crew }) => {
                   <Img className="posterImg" alt="no poster found" />
                 )}
               </div>
-
+                
               <div className="right">
                 <div className="title">
                   {`${data.name || data.title} (${dayjs(data.release_date).format("YYYY")})`}
@@ -99,14 +103,9 @@ const DetailsBanner = ({ video, crew }) => {
                   ))}
                 </div>
 
-                <div className="row">Empty Rating Div</div>
 
                 <div
                   className="playbtn"
-                  onClick={() => {
-                    setShow(true);
-                    setVideoId(trailer[0].key);
-                  }}
                 >
                   <PlayCircleOutlineIcon
                     sx={{ "&:hover": { color: "#1E3CA8" } }}
@@ -115,10 +114,11 @@ const DetailsBanner = ({ video, crew }) => {
                       setShow(true);
                       setVideoId(trailer[0].key);
                     }}
+                    className="playicon"
                   />
                   <span className="text">Watch Trailer</span>
                 </div>
-              </div>
+             
 
               <div className="overview">
                 <div className="heading">Overview</div>
@@ -192,15 +192,17 @@ const DetailsBanner = ({ video, crew }) => {
                 </div>
               )}
             </div>
-
+            </div>            
             <TrailerPopup show={show} setShow={setShow} videoId={videoId} setVideoId={setVideoId} />
             <Casts data={data.credits?.cast} />
  <MovieVideos data={data} />
           </ContentWrapper>
         </React.Fragment>
+        
  
       )}
     </div>
+    
   );
 }
 

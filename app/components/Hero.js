@@ -11,15 +11,14 @@ const Hero = () => {
 
 
   return (
-    <div className="heroContainer">
+    <div className="heroBanner">
       <div className='backdrop-img'>
-      {/* <Img src={bg1} /> */}
+        <Img src={bg1} />
         {/* <Img src={bg} className={`bg-image`} /> */}
       {/* <img src={bg} alt="background" className="bg-image" /> */}
       </div>
-      <div className='opacity-layer'></div>
 
-      {/* <div className="watchify-top"> */}
+      <div className='opacity-layer'></div>
 
     <ContentWrapper>
       <div className="heroBannerContent">
@@ -35,19 +34,15 @@ const Hero = () => {
         <p>
           Embark on a spectacular journey of personalized movie recommendations
           tailored to your preferences. Say goodbye to endless browsing on your
-          Friday nights!
+          Friday nights!Start your journey into a universe of personalized movie
+          recommendations.Let Watchify be your movie guide and never look back!
         </p>
         <button className="get-started-button">Get Started now!</button>
     
-        <p>
-          Start your journey into a universe of personalized movie
-          recommendations. Let Watchify be your movie guide and never look back!
-        </p>
       </div>
       </ContentWrapper>
-      
     </div>
-    
+
   );
 };
 

@@ -1,10 +1,9 @@
 .watchify-header {
-    /* Define the font style and weight */
 font-style: normal;
 font-weight: 400;
 
 /* Define the text color */
-color: rgb(227, 230, 242);
+color: rgb(18, 20, 29);
 
 /* Define the font size */
 font-size: 72px;
@@ -17,136 +16,94 @@ text-transform: none;
 text-decoration: none;
 }
 
-.bg-image {
-  display: inline-block;
-  background-size: cover;
-  background-repeat: no-repeat;
-  position:absolute;
-  top:55px;
-  left:0px;
-  opacity:0.5;
-  overflow: hidden;
-  object-fit:cover;
-  object-position: center;
-}
-  
 .watchify-top {
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-    left:0;
-  }
-  .get-started-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-
-/* Hero.css */
-
-
-
-/* .watchify-header {
-  font-size: 24px;
-  margin-bottom: 20px;
-} */
-
-/* .image {
-  height: 350px;
-  width: 550px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin-bottom: 20px;
-} */
-
-h3 {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-
-.signup-options {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
   margin-top: 20px;
+  left:0;
 }
 
-.signup-button,
-.join-button {
-  background-color: #28a745;
+.get-started-button {
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 16px;
-  margin-right: 10px;
   cursor: pointer;
 }
 
-p {
-  font-size: 16px;
-} 
-
-.hero-container {
-  width: 100%;
-  height:450px;
-  background-color: red;
-  display:flex;
-  align-items:center;
-  position:relative;
-
-}
+h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  }
 
 ::-webkit-scrollbar {
-  display:none
-}
-
-.backdrop-img {
- width: 100%;
- height: 100%;
- position: absolute;
- margin-top: 45px;
- top:0;
- left:0;
- opacity:0.5;
- overflow: hidden;
- z-index: -1;
- .lazy-load-image-background{
-  width: 100%;
-  height: 100%;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
+    display:none
  }
 
-.heroBannerContent {
+ .heroBannerContent {
   display:flex;
   flex-direction: column;
   align-items: center;
-  color:white;
+  color:black;
   text-align:center;
   position: relative;
   max-width: 800px;
   margin:0 auto;
-}
-}
-.opacity-layer {
-  width: 100%;
-  height:250px;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 51, 109, 0)0%,
-    #010203 79.17%
-  );
-  position: absolute;
-  bottom:0;
-  left:0;
-  z-index: -1;
-}
+  }
+
+  .bg-image {
+    display: inline-block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position:absolute;
+    top:55px;
+    left:0px;
+    opacity:0.5;
+    overflow: hidden;
+    object-fit:cover;
+    object-position: center;
+    }
+
+
+    .backdrop-img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      margin-top: 10px;
+      top:0;
+      left:0;
+      opacity:0.5;
+      overflow: hidden;
+      z-index: -1;
+      .lazy-load-image-background{
+      width: 100%;
+      height: 100%;
+
+      }}
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }  
+
+
+            
+  /* .opacity-layer {
+    width: 100%;
+    height:250px;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 51, 109, 0)0%,
+      #010203 79.17%
+    );
+    position: absolute;
+    bottom:0;
+    left:0;
+    z-index: -1;
+    }
+     */
