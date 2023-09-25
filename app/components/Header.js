@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loggedoutUser } from "../features/userSlice"
 
 
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const Header = () => {

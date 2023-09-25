@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
 import Img from "./Img";
 import Casts from "./Casts";
 
@@ -18,7 +18,6 @@ import ContentWrapper from "./ContentWrapper";
 
 import "./ContentWrapper.css";
 import "./MovieDetails.css";
-
 
 const DetailsBanner = ({ video, crew }) => {
   //pop up video trailer
@@ -65,12 +64,10 @@ const DetailsBanner = ({ video, crew }) => {
     fetchMovieData();
   }, []);
 
-  // useEffect(() => { document.body.style.backgroundColor = 'red' }, []) 
+  // useEffect(() => { document.body.style.backgroundColor = 'red' }, [])
 
-    return (
-    <div  className="detailsBanner"
-        >
-    
+  return (
+    <div className="detailsBanner">
       {!!data && (
         <React.Fragment>
           <div className="backdrop-img">
@@ -86,10 +83,12 @@ const DetailsBanner = ({ video, crew }) => {
                   <Img className="posterImg" alt="no poster found" />
                 )}
               </div>
-                
+
               <div className="right">
                 <div className="title">
-                  {`${data.name || data.title} (${dayjs(data.release_date).format("YYYY")})`}
+                  {`${data.name || data.title} (${dayjs(
+                    data.release_date
+                  ).format("YYYY")})`}
                 </div>
                 <div className="subtitle">{data.tagline}</div>
 
@@ -101,13 +100,10 @@ const DetailsBanner = ({ video, crew }) => {
                   ))}
                 </div>
 
-
-                <div
-                  className="playbtn"
-                >
+                <div className="playbtn">
                   <PlayCircleOutlineIcon
                     sx={{ "&:hover": { color: "#1E3CA8" } }}
-                    style={{ fontSize: '3rem' }}
+                    style={{ fontSize: "3rem" }}
                     onClick={() => {
                       setShow(true);
                       setVideoId(trailer[0].key);
@@ -116,80 +112,81 @@ const DetailsBanner = ({ video, crew }) => {
                   />
                   <span className="text">Watch Trailer</span>
                 </div>
-             
 
-              <div className="overview">
-                <div className="heading">Overview</div>
-                <div className="description">{data.overview}</div>
-              </div>
+                <div className="overview">
+                  <div className="heading">Overview</div>
+                  <div className="description">{data.overview}</div>
+                </div>
 
-              <div className="info">
-                {data.status && (
-                  <div className="infoItem">
-                    <span className="text bold">Status: </span>
-                    <span className="text">{data.status}</span>
-                  </div>
-                )}
+                <div className="info">
+                  {data.status && (
+                    <div className="infoItem">
+                      <span className="text bold">Status: </span>
+                      <span className="text">{data.status}</span>
+                    </div>
+                  )}
 
-                {data.release_date && (
-                  <div className="infoItem">
-                    <span className="text bold">Release Date: </span>
+                  {data.release_date && (
+                    <div className="infoItem">
+                      <span className="text bold">Release Date: </span>
+                      <span className="text">
+                        {dayjs(data.release_date).format("MMM D, YYYY")}
+                      </span>
+                    </div>
+                  )}
+
+                  {data.runtime && (
+                    <div className="infoItem">
+                      <span className="text bold">Runtime: </span>
+                      <span className="text">
+                        {timeConversion(data.runtime)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {director?.length > 0 && (
+                  <div className="info">
+                    <span className="text bold">Director: </span>
                     <span className="text">
-                      {dayjs(data.release_date).format("MMM D, YYYY")}
+                      {director?.map((d, i) => (
+                        <span key={i}>
+                          {d.name}
+                          {director.length - 1 !== i && ", "}
+                        </span>
+                      ))}
                     </span>
                   </div>
                 )}
 
-                {data.runtime && (
-                  <div className="infoItem">
-                    <span className="text bold">Runtime: </span>
-                    <span className="text">{timeConversion(data.runtime)}</span>
+                {writer?.length > 0 && (
+                  <div className="info">
+                    <span className="text bold">Writer: </span>
+                    <span className="text">
+                      {writer?.map((d, i) => (
+                        <span key={i}>
+                          {d.name}
+                          {writer.length - 1 !== i && ", "}
+                        </span>
+                      ))}
+                    </span>
                   </div>
                 )}
               </div>
-
-              {director?.length > 0 && (
-                <div className="info">
-                  <span className="text bold">Director: </span>
-                  <span className="text">
-                    {director?.map((d, i) => (
-                      <span key={i}>
-                        {d.name}
-                        {director.length - 1 !== i && ", "}
-                      </span>
-                    ))}
-                  </span>
-                </div>
-              )}
-
-              {writer?.length > 0 && (
-                <div className="info">
-                  <span className="text bold">Writer: </span>
-                  <span className="text">
-                    {writer?.map((d, i) => (
-                      <span key={i}>
-                        {d.name}
-                        {writer.length - 1 !== i && ", "}
-                      </span>
-                    ))}
-                  </span>
-                </div>
-              )}
             </div>
-            </div>            
-            <TrailerPopup show={show} setShow={setShow} videoId={videoId} setVideoId={setVideoId} />
+            <TrailerPopup
+              show={show}
+              setShow={setShow}
+              videoId={videoId}
+              setVideoId={setVideoId}
+            />
             <Casts data={data.credits?.cast} />
             {/* <MovieVideos data={data?.videos} /> */}
           </ContentWrapper>
         </React.Fragment>
-        
- 
       )}
     </div>
-    
   );
-}
-
-
+};
 
 export default DetailsBanner;
