@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import axios from "axios";
 import {
@@ -17,28 +18,100 @@ import MovieRating from "./Rating";
 
 import { useNavigate } from "react-router-dom";
 // import infinityWarImage from "./infinitywar.jpeg";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const roundToHalf = (num) => {
-  return Math.round(num * 2) / 2;
+  return Math.round(num * 2);
 };
 
-const MoviesList = ({ movies, setMovies }) => {
+const MoviesList = ({ movies, setMovies, fetchData }) => {
+  const [backdrops, setBackdrops] = useState({});
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedRating, setSelectedRating] = useState(0);
+
   const navigate = useNavigate();
+  const username = useSelector((state) => state.auth.user.username);
+  const userId = useSelector((state) => state.auth.user.id);
+
+  const openConfirmationDialog = (movie, rating) => {
+    setSelectedMovie(movie);
+    setSelectedRating(rating);
+    setOpenDialog(true);
+  };
+
+  // const handleRatingChange = async (id, newRating) => {
+  //   const movie = movies.find((movie) => movie.tmdb_id === id);
+  //   if (!movie) return;
+
+  //   const isConfirmed = window.confirm(
+  //     `Are you sure you want to rate "${movie.title}" ${newRating} stars?`
+  //   );
+
+  //   if (!isConfirmed) return; // Return early if the user cancels.
+
+  //   const newRatingCount = movie.vote_count + 1;
+  //   const newAvgRating =
+  //     (movie.vote_average * movie.vote_count + newRating) / newRatingCount;
+
+  //   try {
+  //     await axios.post("/api/updateRating", {
+  //       userId,
+  //       movieTmdbId: id,
+  //       rating: newRating,
+  //     });
+  //     fetchData(); // Refetch after rate
+  //   } catch (error) {
+  //     console.error("Error updating rating:", error);
+  //   }
+
+  //   setMovies((prevMovies) => {
+  //     return prevMovies.map((movie) => {
+  //       if (movie.tmdb_id !== id) return movie;
+  //       return {
+  //         ...movie,
+  //         vote_count: newRatingCount,
+  //         vote_average: newAvgRating,
+  //       };
+  //     });
+  //   });
+  // };
+
 
   const handleRatingChange = (id, newRating) => {
-    // Logic for updating the rating and count
     const movie = movies.find((movie) => movie.tmdb_id === id);
     if (!movie) return;
 
-    const newRatingCount = movie.vote_count + 1;
-    const newAvgRating =
-      (movie.vote_average * movie.vote_count + newRating) / newRatingCount;
+    openConfirmationDialog(movie, newRating);
+  };
 
-    // Update the state
+  const handleConfirmRating = async () => {
+    if (!selectedMovie) return;
+    const newRatingCount = selectedMovie.vote_count + 1;
+    const newAvgRating =
+      (selectedMovie.vote_average * selectedMovie.vote_count + selectedRating) /
+      newRatingCount;
+
+    try {
+      await axios.post("/api/updateRating", {
+        userId,
+        movieTmdbId: selectedMovie.tmdb_id,
+        rating: selectedRating,
+      });
+      fetchData(); // Refetch after rate
+      setOpenDialog(false);
+    } catch (error) {
+      console.error("Error updating rating:", error);
+    }
+
     setMovies((prevMovies) => {
       return prevMovies.map((movie) => {
-        if (movie.tmdb_id !== id) return movie;
-
+        if (movie.tmdb_id !== selectedMovie.tmdb_id) return movie;
         return {
           ...movie,
           vote_count: newRatingCount,
@@ -50,52 +123,40 @@ const MoviesList = ({ movies, setMovies }) => {
 
   useEffect(() => {
     const fetchBackdrops = async () => {
-      try {
-        const updatedMovies = await Promise.all(
-          movies.map(async (movie) => {
-            try {
-              const response = await axios.get(
-                `https://api.themoviedb.org/3/movie/${movie.tmdb_id}/images?api_key=7c1a02da75b25d48c10edcf2e32896b2`
-              );
-              const { backdrops } = response.data;
-              let backdropUrl = "";
-              if (backdrops && backdrops.length > 0) {
-                const firstBackdrop = backdrops[0];
-                backdropUrl = `https://image.tmdb.org/t/p/original${firstBackdrop.file_path}`;
-              }
-
-              // Extract the desired backdrop URL from the response data
-              // const backdropUrl = "" + ; // Replace with actual logic to extract URL from response.data
-
-              return {
-                ...movie,
-                backdrop: backdropUrl,
-              };
-            } catch (error) {
-              console.error(
-                `Error fetching backdrop for movie ID: ${movie.tmdb_id}`,
-                error
-              );
-              return movie; // return original movie if fetching backdrop fails
-            }
-          })
-        );
-
-        setMovies(updatedMovies);
-      } catch (error) {
-        console.error("Error fetching backdrops:", error);
+      const newBackdrops = {};
+      for (const movie of movies) {
+        try {
+          const response = await axios.get(
+            `https://api.themoviedb.org/3/movie/${movie.tmdb_id}/images?api_key=7c1a02da75b25d48c10edcf2e32896b2`
+          );
+          const { backdrops } = response.data;
+          if (backdrops && backdrops.length > 0) {
+            const firstBackdrop = backdrops[0];
+            newBackdrops[
+              movie.tmdb_id
+            ] = `https://image.tmdb.org/t/p/original${firstBackdrop.file_path}`;
+          }
+        } catch (error) {
+          console.error(
+            `Error fetching backdrop for movie ID: ${movie.tmdb_id}`,
+            error
+          );
+        }
       }
+      setBackdrops(newBackdrops);
     };
 
     if (movies && movies.length > 0) {
       fetchBackdrops();
     }
-  }, [movies, setMovies]);
+  }, [movies]);
 
   return (
     <>
-      {" "}
-      <h1 className="card-title-popular">Most Popular Movies</h1>
+      <h1 className="card-title-popular">
+        Welcome <span className="fancy">{` ${username}!`}</span>
+      </h1>
+      <h2 className="card-title-desc">Highest Rated by Your Genre Choices:</h2>
       <div>
         <Swiper
           effect={"coverflow"}
@@ -128,32 +189,28 @@ const MoviesList = ({ movies, setMovies }) => {
             EffectCoverflow,
           ]}
         >
-          {" "}
           {movies.map((movie, index) => (
             <SwiperSlide key={movie.tmdb_id} className={"swiper-slide"}>
-              {/* Navigate to movie details page on click */}
-              <div
-                className="movieCard"
-                onClick={() => {
-                  navigate(`/movie/${movie.tmdb_id}`);
-                }}
-              >
-                <div className="image-wrapper">
-                  <img
-                    src={movie.backdrop ? movie.backdrop : "placeholder.jpeg"}
-                    loading="lazy"
-                    alt={movie.title}
-                  />
-                  <div className="movie-content">
-                    <h3>{movie.title}</h3>
-                    <p>{`Average Rating: ${roundToHalf(
-                      movie.vote_average
-                    )}`}</p>
-                    <p>{`Total Votes: ${movie.vote_count}`}</p>
-                  </div>
+              <div className="image-wrapper">
+                <img
+                  src={
+                    backdrops[movie.tmdb_id]
+                      ? backdrops[movie.tmdb_id]
+                      : "placeholder.jpeg"
+                  }
+                  loading="lazy"
+                  alt={movie.title}
+                />
+                <div className="movie-content">
+                  <h3>{movie.title}</h3>
+                  <p>
+                    Genres: {movie.genres.map((genre) => genre.name).join(", ")}
+                  </p>
+                  <p>{`Average Rating: ${roundToHalf(movie.vote_average)}`}</p>
+                  <p>{`Total Votes: ${movie.vote_count}`}</p>
                   <p>
                     <MovieRating
-                      value={Number(movie.vote_average)}
+                      value={roundToHalf(Number(movie.vote_average) / 2)}
                       onChange={(newRating) =>
                         handleRatingChange(movie.tmdb_id, newRating)
                       }
@@ -166,6 +223,29 @@ const MoviesList = ({ movies, setMovies }) => {
           <div className="swiper-button-prev"></div>
           <div className="swiper-button-next"></div>
         </Swiper>
+        <Dialog
+          open={openDialog}
+          onClose={() => setOpenDialog(false)}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Confirm Rating"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {`Are you sure you want to rate ${
+                selectedMovie ? selectedMovie.title : ""
+              } ${selectedRating} out of 10 stars?`}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpenDialog(false)} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleConfirmRating} color="primary" autoFocus>
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     </>
   );

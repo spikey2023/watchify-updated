@@ -7,25 +7,29 @@ const UserHome = () => {
   const [movies, setMovies] = useState([]);
   const userId = useSelector((state) => state.auth.user.id);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (userId) {
-          const response = await axios.get(`/api/getMovies?userId=${userId}`);
-          setMovies(response.data);
-        }
-      } catch (error) {
-        console.error("An error occurred while fetching data: ", error);
+  const fetchData = async () => {
+    try {
+      if (userId) {
+        const response = await axios.get(`/api/getMovies?userId=${userId}`);
+        setMovies(response.data);
       }
-    };
+    } catch (error) {
+      console.error("An error occurred while fetching data: ", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [userId]);
 
   return (
     <div>
       {movies.length > 0 && (
-        <MoviesList movies={movies} setMovies={setMovies} />
+        <MoviesList
+          movies={movies}
+          setMovies={setMovies}
+          fetchData={fetchData}
+        />
       )}
     </div>
   );

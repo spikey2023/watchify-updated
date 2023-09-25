@@ -66,10 +66,4 @@ const getMoviesForUser = async (userId) => {
   return sortedMovies;
 };
 
-// (async () => {
-//   const username = "kevin@aol.com"; //kevin uuid (change this later)
-//   const recommendedMovies = await getMoviesForUser(username);
-//   console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
-// })();
-
 module.exports = { getMoviesForUser };

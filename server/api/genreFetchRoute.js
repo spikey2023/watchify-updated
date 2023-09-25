@@ -6,70 +6,70 @@ const {
   Movie,
   GenreMovie,
   GenrePref,
+  UserWatched,
 } = require("../db/index");
 
 const getMoviesForUser = async (userId) => {
-  const user = await User.findOne({
-    where: { id: userId },
-  });
-
+  // Fetch the user
+  const user = await User.findByPk(userId);
   if (!user) {
     console.log("User not found.");
     return [];
   }
 
-  // const userId = user.id;
-  //Fetch the user's genre preferences
+  // Fetch the user's genre preferences
   const userGenrePrefs = await GenrePref.findAll({
     where: { userId },
   });
   const userPrefGenreIds = userGenrePrefs.map((pref) => pref.genreTmdbId);
 
-  //Fetch all movies with a vote_count of at least 100
-  const allMovies = await Movie.findAll({
+  const watchedMovies = await UserWatched.findAll({
+    where: { userId },
+    attributes: ["movieTmdbId"],
+  });
+
+  const watchedMovieIds = watchedMovies.map((movie) => movie.movieTmdbId);
+
+  // Fetch all movies with a vote_count of at least 100 and include their genres
+  const moviesWithGenres = await Movie.findAll({
     where: {
+      tmdb_id: {
+        [Op.notIn]: watchedMovieIds,
+      },
       vote_count: {
-        [Op.gte]: 100, //Op.gte = Operator greater than or equal to
+        [Op.gte]: 100,
       },
+    },
+    include: {
+      model: Genre,
+      through: GenreMovie,
+      as: "genres",
     },
   });
 
-  //Fetch genre associations for those movies
-  const allMovieIds = allMovies.map((movie) => movie.tmdb_id);
-  const allGenreMovies = await GenreMovie.findAll({
-    where: {
-      movieTmdbId: {
-        [Op.in]: allMovieIds, //Op.in return all values true from map of allMovieIds
-      },
-    },
-  });
-
-  //Filter movies by user's genre preferences and count matches
+  // Filter movies by user's genre preferences and count matches
   const movieGenreCounts = {};
-  allGenreMovies.forEach((gm) => {
-    if (userPrefGenreIds.includes(gm.genreTmdbId)) {
-      movieGenreCounts[gm.movieTmdbId] =
-        (movieGenreCounts[gm.movieTmdbId] || 0) + 1;
-    }
+  moviesWithGenres.forEach((movie) => {
+    movie.genres.forEach((genre) => {
+      if (userPrefGenreIds.includes(genre.tmdb_id)) {
+        movieGenreCounts[movie.tmdb_id] =
+          (movieGenreCounts[movie.tmdb_id] || 0) + 1;
+      }
+    });
   });
 
-  //Sort by number of genre matches and then by vote average
-  const sortedMovies = allMovies
+  // Sort by number of genre matches and then by vote average
+  const sortedMoviesWithGenres = moviesWithGenres
     .filter((movie) => movieGenreCounts[movie.tmdb_id])
     .sort((a, b) => {
-      const diff = movieGenreCounts[b.tmdb_id] - movieGenreCounts[a.tmdb_id];
-      if (diff !== 0) return diff;
+      const countDiff =
+        (movieGenreCounts[b.tmdb_id] || 0) - (movieGenreCounts[a.tmdb_id] || 0);
+      if (countDiff !== 0) return countDiff;
       return b.vote_average - a.vote_average;
     })
     .slice(0, 15); // Take top 15 movies
 
-  return sortedMovies;
+  return sortedMoviesWithGenres;
 };
-
-// (async () => {
-//   const username = "kevin@aol.com"; //kevin uuid (change this later)
-//   const recommendedMovies = await getMoviesForUser(username);
-//   console.log("HERE ARE THE RECOMMENDED MOVIES", recommendedMovies);
-// })();
 
 module.exports = { getMoviesForUser };
