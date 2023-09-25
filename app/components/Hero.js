@@ -23,7 +23,6 @@ const Hero = () => {
           Preferences!
         </p>
         <p>Let Watchify be your movie guide and never look back!</p>
-
         <p>Discover Your Next Binge</p>
         <p>Rediscover Cinematic Gems</p>
       <motion.div animate={{ x: 5 }} initial={true} >
