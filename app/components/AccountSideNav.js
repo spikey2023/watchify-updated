@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Outlet } from "react-router-dom";
-////import Link from "@mui/material/Link";
+import { NavLink, Outlet } from "react-router-dom";
 import { getUser } from "../features/userSlice";
 
 const AccountSideNav = () => {
@@ -19,15 +18,15 @@ const AccountSideNav = () => {
       <div className="user-account-container">
         {auth.user ? (
           <aside className="useracc-left-nav">
-            <Link className="account-link" to="/account">
+            <NavLink className="account-link" to="/account">
               Account Details
-            </Link>
-            <Link className="genrepref-link" to="/account/genrepref">
+            </NavLink>
+            <NavLink className="genrepref-link" to="/account/genrepref">
               Genre preferences
-            </Link>
-            <Link className="watched-link" to="/account/watched">
+            </NavLink>
+            <NavLink className="watched-link" to="/account/watched">
               My watched list
-            </Link>
+            </NavLink>
           </aside>
         ) : (
           <p>please log in...</p>

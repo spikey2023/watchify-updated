@@ -48,9 +48,6 @@ export default function UserUpdateGenrePref() {
     }
   };
 
-  //this works:
-  // const [checkedState, setCheckedState] = React.useState([]);
-
   const handleChange = (e) => {
     //let data = checkedState;
     console.log("DATA is", data);
