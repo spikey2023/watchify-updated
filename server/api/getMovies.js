@@ -1,4 +1,3 @@
-// ./api/getMovies.js
 const express = require("express");
 const router = express.Router();
 const { getMoviesForUser } = require("./genreFetchRoute");
