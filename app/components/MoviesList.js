@@ -23,7 +23,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 const roundToHalf = (num) => {
-  return Math.round(num * 2) / 2;
+  return Math.round(num * 2);
 };
 
 const MoviesList = ({ movies, setMovies, fetchData }) => {
@@ -207,7 +207,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
                     <MovieRating
                       value={roundToHalf(Number(movie.vote_average) / 2)}
                       onChange={(newRating) =>
-                        handleRatingChange(movie.tmdb_id, newRating * 2)
+                        handleRatingChange(movie.tmdb_id, newRating)
                       }
                     />
                   </p>

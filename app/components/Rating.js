@@ -11,7 +11,8 @@ export default function MovieRating({ value, onChange }) {
       onChange={(event, newValue) => {
         onChange(newValue);
       }}
-      precision={0.5}
+      precision={1}
+      max={10}
     />
   );
 }
