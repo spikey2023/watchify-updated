@@ -13,6 +13,7 @@ Movie.hasMany(GenreMovie);
 GenreMovie.belongsTo(Movie);
 GenreMovie.belongsTo(Genre);
 User.hasMany(UserWatched);
+Movie.hasMany(UserWatched);
 UserWatched.belongsTo(User);
 UserWatched.belongsTo(Movie);
 Genre.hasMany(GenreMovie);

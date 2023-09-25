@@ -6,6 +6,7 @@ const {
   Movie,
   GenreMovie,
   GenrePref,
+  UserWatched,
 } = require("../db/index");
 
 const getMoviesForUser = async (userId) => {
@@ -22,17 +23,27 @@ const getMoviesForUser = async (userId) => {
   });
   const userPrefGenreIds = userGenrePrefs.map((pref) => pref.genreTmdbId);
 
+  const watchedMovies = await UserWatched.findAll({
+    where: { userId },
+    attributes: ["movieTmdbId"],
+  });
+
+  const watchedMovieIds = watchedMovies.map((movie) => movie.movieTmdbId);
+
   // Fetch all movies with a vote_count of at least 100 and include their genres
   const moviesWithGenres = await Movie.findAll({
     where: {
+      tmdb_id: {
+        [Op.notIn]: watchedMovieIds,
+      },
       vote_count: {
         [Op.gte]: 100,
       },
     },
     include: {
       model: Genre,
-      through: GenreMovie, // specifying the join table
-      as: "genres", // alias
+      through: GenreMovie,
+      as: "genres",
     },
   });
 
