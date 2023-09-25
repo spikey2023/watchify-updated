@@ -15,6 +15,7 @@ userRouter.get("/:id", async (req, res, next) => {
   }
 });
 
+//option to get user AND genre prefs, broken right now:
 // userRouter.get("/:id", async (req, res, next) => {
 //   try {
 //     console.log("req.params.id", req.params.id);

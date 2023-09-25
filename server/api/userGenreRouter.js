@@ -18,7 +18,7 @@ userGenreRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-//PUT /api/genres/user/:id  update user genre prefs
+//PUT /api/genres/user/:id  update user genre prefs (passing in array of genreIds in req.body)
 //this probably won't work
 userGenreRouter.put("/:id", async (req, res, next) => {
   try {

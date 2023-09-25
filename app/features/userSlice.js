@@ -73,26 +73,26 @@ export const getUserGenrePrefs = createAsyncThunk(
 );
 
 //need to send back userId and genres, token is in userInfo
-// export const updateUserGenrePrefs = createAsyncThunk(
-//   "auth/updateUserGenrePrefs",
-//   async (userInfo, genreArr) => {
-//     try {
-//       const response = await axios.put(
-//         `/api/genres/user/${id}`,
-//         userInfo,
-//         genreArr,
-//         {
-//           headers: {
-//             authorization: token,
-//           },
-//         }
-//       );
-//       return response.data;
-//     } catch (error) {
-//       return error.message;
-//     }
-//   }
-// );
+export const updateUserGenrePrefs = createAsyncThunk(
+  "auth/updateUserGenrePrefs",
+  async (userInfo, genreArr) => {
+    try {
+      const response = await axios.put(
+        `/api/genres/user/${id}`,
+        userInfo,
+        genreArr,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
 
 //due to immer.js under the hood we don't need to copy state with spread operator
 //will copy on it's own
@@ -117,12 +117,12 @@ const userSlice = createSlice({
     builder.addCase(getUserGenrePrefs.rejected, (state, action) => {
       state.error = action.error.message;
     });
-    // builder.addCase(updateUserGenrePrefs.fulfilled, (state, action) => {
-    //   state.userGenrePrefs = action.error.message;
-    // });
-    // builder.addCase(updateUserGenrePrefs.rejected, (state, action) => {
-    //   state.error = action.error.message;
-    // });
+    builder.addCase(updateUserGenrePrefs.fulfilled, (state, action) => {
+      state.userGenrePrefs = action.error.message;
+    });
+    builder.addCase(updateUserGenrePrefs.rejected, (state, action) => {
+      state.error = action.error.message;
+    });
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.user = action.payload;
       //state.userGenrePrefs = action.payload;

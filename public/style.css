@@ -50,6 +50,15 @@
   margin-left: 5vw;
 }
 
+.usergenrepref-container-margin {
+  margin-left: 4vw;
+  /* padding-left: 1vw; */
+}
+
+.usergenrepref-container-margin form {
+  margin-left: 0px;
+}
+
 .p-heading {
   margin-top: 0px;
 }

@@ -79,13 +79,13 @@ export default function UserUpdateGenrePref() {
   };
 
   return (
-    <div>
+    <div className="usergenrepref-container-margin">
       <p className="p-heading">UPDATE YOUR SAVED PREFERENCES:</p>
       <form onSubmit={savePreferences}>
         <Box sx={{ display: "flex" }}>
           <FormGroup
             sx={{
-              marginLeft: 3,
+              // marginLeft: 1,
               marginRight: 3,
               display: "flex",
               flexDirection: "row",
