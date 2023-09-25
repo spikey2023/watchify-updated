@@ -5,6 +5,7 @@ import "./Cast.css";
 
 import ContentWrapper from "./ContentWrapper";
 import Img from "./Img";
+import avatar from "../../public/avatar.png"
 
 const Cast = ({ data, loading }) => {
   const tmdbImageUrl = `https://image.tmdb.org/t/p/original`;
@@ -27,7 +28,7 @@ const Cast = ({ data, loading }) => {
             {data?.map((item) => {
               let imgUrl = item.profile_path
                 ? tmdbImageUrl + item.profile_path
-                : "N/A";
+                : avatar;
               return (
                 <div key={item.id} className="listItem">
                   <div className="profileImg">

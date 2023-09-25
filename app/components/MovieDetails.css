@@ -1,4 +1,12 @@
-
+.detailsBanner{
+  background-color: rgb(7, 2, 1);
+  overflow: hidden;
+  z-index: -5;
+  left: 0;
+  position: absolute;
+  object-fit: cover;
+  ;
+  }
 
 .detailsBanner .content .left {
     flex-shrink: 0;
@@ -143,13 +151,14 @@
     line-height: 24px;
 }
 /* Container for the movie details */
-.details-banner {
+/* .details-banner {
     position: relative;
     display: flex;
     background-color: #222;
     color: #fff;
     margin-top: 60px;
-  }
+  } */
+
   
   /* Background image */
   .backdrop-img {
@@ -294,15 +303,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0);
   }
 
-  .detailsBanner{
-    background-color: rgb(7, 2, 1);
-    overflow: hidden;
-    z-index: -5;
-    left: 0;
-    position: absolute;
-    object-fit: cover;
-    ;
-    }
     
     .sectionHeading{
         font-weight: bold;
