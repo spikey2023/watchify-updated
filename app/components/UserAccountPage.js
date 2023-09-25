@@ -11,27 +11,13 @@ const UserAccountPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUser({ id: auth.user.id, token: auth.token }));
+    dispatch(getUser({ id: auth.user.id, userGenrePrefs: auth.user.id, token: auth.token }));
   }, []);
 
   return (
-    <div className="useraccount">
+    <div className="useracc-right-main">
       {auth.user ? (
         <div>
-          <h1 className="user-account-h1">My Account</h1>
-          <div className="user-account-container">
-            <aside className="useracc-left-nav">
-              <Link className="account-link" to="/account">
-                Account info
-              </Link>
-              <Link className="genrepref-link" to="/account/genrepref">
-                Genre preferences
-              </Link>
-              <Link className="watched-link" to="/account/watched">
-                My watched list
-              </Link>
-            </aside>
-            <main className="useracc-right-main">
               <p className="p-heading">ACCOUNT DETAILS</p>
               <section className="user-section">
                 <p>username:</p>
@@ -48,9 +34,7 @@ const UserAccountPage = () => {
                 <p className="useracc-info">*******</p>
                 <UserAccUpdates password={auth.user.password} />
               </section>
-            </main>
           </div>
-        </div>
       ) : (
         <div>Loading ....</div>
       )}

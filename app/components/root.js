@@ -8,24 +8,23 @@ import Hero from "./Hero";
 import UserHome from "./UserHome";
 import Register from "./Register";
 import UserUpdateGenrePref from "./UserUpdateGenrePref";
+import AccountSideNav from "./AccountSideNav";
 
 const Root = () => {
   return (
     <div>
       <Header />
       <Routes>
-        <Route
-          exact
-          path="/account/genrepref"
-          element={<UserUpdateGenrePref />}
-        />
-        <Route exact path="/account" element={<UserAccountPage />} />
-        <Route exact path="/account/watched" element={<WatchedList />} />
         <Route exact path="/login" element={<SignIn />} />
         <Route exact path="/userhome" element={<UserHome />} />
         <Route exact path="/register" element={<Register />} />
         {/* <Route exact path="/recmovie" element={<RecMovie/>} /> */}
         <Route exact path="/" element={<Hero />} />
+        <Route path="/account" element={<AccountSideNav />}>
+          <Route path="/account/genrepref" element={<UserUpdateGenrePref />} />
+          <Route path="/account" element={<UserAccountPage />} />
+          <Route path="/account/watched" element={<WatchedList />} />
+        </Route>
       </Routes>
     </div>
   );

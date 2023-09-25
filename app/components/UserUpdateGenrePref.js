@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 //import Link from "@mui/material/Link";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -79,71 +79,48 @@ export default function UserUpdateGenrePref() {
   };
 
   return (
-    <div className="genreprefs">
-      <h1 className="user-account-h1">My Account</h1>
-      <div className="acc-genrepref-container">
-        <aside className="useracc-left-nav">
-        <Link className="account-link" to="/account">
-                Account info
-              </Link>
-              <Link
-                className="genrepref-link"
-                to="/account/genrepref"
-              >
-                Genre preferences
-              </Link>
-              <Link
-                className="watched-link"
-                to="/account/watched"
-
-              >
-                My watched list
-              </Link>
-        </aside>
-        <main className="useracc-right-main">
-          <p className="p-heading">UPDATE YOUR SAVED PREFERENCES:</p>
-          <form onSubmit={savePreferences}>
-            <Box sx={{ display: "flex" }}>
-              <FormGroup
-                sx={{
-                  marginLeft: 3,
-                  marginRight: 3,
-                  display: "flex",
-                  flexDirection: "row",
-                }}
-              >
-                {genres.length > 0 ? (
-                  genres.map((genre) => (
-                    <div className="checkboxes-container" key={genre.tmdb_id}>
-                      <FormControlLabel
-                        label={genre.name}
-                        control={
-                          <Checkbox
-                            onChange={(e) => handleChange(e)}
-                            value={genre.tmdb_id}
-                            name={genre.name}
-                            inputProps={{ "aria-label": "controlled" }}
-                            sx={{ width: "100pt" }}
-                          />
-                        }
+    <div className="useracc-right-main">
+      <p className="p-heading">UPDATE YOUR SAVED PREFERENCES:</p>
+      <form onSubmit={savePreferences}>
+        <Box sx={{ display: "flex" }}>
+          <FormGroup
+            sx={{
+              marginLeft: 3,
+              marginRight: 3,
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            {genres.length > 0 ? (
+              genres.map((genre) => (
+                <div className="checkboxes-container" key={genre.tmdb_id}>
+                  <FormControlLabel
+                    label={genre.name}
+                    control={
+                      <Checkbox
+                        onChange={(e) => handleChange(e)}
+                        value={genre.tmdb_id}
+                        name={genre.name}
+                        inputProps={{ "aria-label": "controlled" }}
+                        sx={{ width: "100pt" }}
                       />
-                    </div>
-                  ))
-                ) : (
-                  <p>Loading....</p>
-                )}
-              </FormGroup>
-            </Box>
-            <Button
-              variant="contained"
-              sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
-              type="submit"
-            >
-              update
-            </Button>
-          </form>
-        </main>
-      </div>
+                    }
+                  />
+                </div>
+              ))
+            ) : (
+              <p>Loading....</p>
+            )}
+          </FormGroup>
+        </Box>
+        <Button
+          variant="contained"
+          sx={{ mt: 3, mb: 2, background: "#1E3CA8" }}
+          type="submit"
+        >
+          update
+        </Button>
+      </form>
     </div>
   );
 }
