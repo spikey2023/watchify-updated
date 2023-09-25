@@ -79,7 +79,7 @@ export default function UserUpdateGenrePref() {
   };
 
   return (
-    <div className="useracc-right-main">
+    <div>
       <p className="p-heading">UPDATE YOUR SAVED PREFERENCES:</p>
       <form onSubmit={savePreferences}>
         <Box sx={{ display: "flex" }}>

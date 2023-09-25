@@ -13,7 +13,7 @@ const UserAccountPage = () => {
   }, []);
 
   return (
-    <div className="useracc-right-main">
+    <div>
       {auth.user ? (
         <div>
           <p className="p-heading">ACCOUNT DETAILS</p>

@@ -3,6 +3,18 @@
   margin-top: 10vh;
 }
 
+.account-link:hover {
+  text-decoration: underline;
+}
+
+.genrepref-link:hover {
+  text-decoration: underline;
+}
+
+.watched-link:hover {
+  text-decoration: underline;
+}
+
 .useraccount a {
   text-decoration: none;
   color: black;
@@ -35,7 +47,7 @@
 }
 
 .useracc-right-main {
-  margin-left: 10vw;
+  margin-left: 5vw;
 }
 
 .p-heading {
