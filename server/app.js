@@ -20,9 +20,10 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 //routes - andrew
 app.use("/api/user", require("./api/user"));
 app.use("/api/getMovies", require("./api/getMovies"));
+app.use("/api/getGenres", require("./api/getGenres"));
 app.use("/api/updateRating", require("./api/updateRating"));
 
-//routes
+//routes - michele
 app.use("/api", routes);
 
 // any remaining requests with an extension (.js, .css, etc.) send 404

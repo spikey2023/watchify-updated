@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
 
 const WatchedList = () => {
   return (
-    <div>WatchedList Route
-      WatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList RouteWatchedList Route
+    <div>
+      <p className="p-heading">MY WATCHED MOVIES LIST:</p>
+      <section></section>
     </div>
-  )
-}
+  );
+};
 
-export default WatchedList
+export default WatchedList;

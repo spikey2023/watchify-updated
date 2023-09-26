@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   pwError,
@@ -46,6 +47,7 @@ async function registerUser(data) {
 }
 
 export default function Register() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const pwsNotMatch = useSelector((state) => state.register.pwError);
   const emailState = useSelector((state) => state.register.emailError);
@@ -128,6 +130,7 @@ export default function Register() {
     if (emailState === "none" && !pwsNotMatch && data.genres.length >= 2) {
       delete data.confirmPw;
       const newUser = await registerUser(data);
+      if (newUser) navigate("/login");
       console.log(newUser);
       //Some kind of logInNewUser() function needs to go here
     }
