@@ -6,7 +6,10 @@ import {
   emailInvalid,
   emailTaken,
   updateCurrEmailInput,
+<<<<<<< HEAD
+=======
   setGenreError,
+>>>>>>> main
 } from "../features/register";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -133,6 +136,108 @@ export default function Register() {
   }
 
   return (
+<<<<<<< HEAD
+    <div>
+      <h1 style={{ paddingTop: "60px", fontFamily: "Sans-Serif" }}>
+        Register for Watchify!
+      </h1>
+      <Box
+        component="form"
+        autoComplete="off"
+        onSubmit={handleSubmit}
+        sx={{ "& .MuiTextField-root": { m: 1, width: "90%" } }}
+      >
+        <TextField
+          required={false}
+          id="outlined-basic"
+          label="User Name"
+          variant="outlined"
+          helperText="Tell us what we should call you!"
+        />
+        <TextField
+          required={false}
+          id="email-address"
+          label="Email Address"
+          variant="outlined"
+          helperText={emailHelperText()}
+          onBlur={checkEmail}
+          error={emailState === "invalid" || emailState === "taken"}
+        />
+        <FormControl
+          sx={{ m: 1, width: "90%" }}
+          variant="outlined"
+          required={false}
+        >
+          <InputLabel htmlFor="outlined-adornment-password">
+            Password
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password-error"
+            type={showPassword ? "text" : "password"}
+            error={pwsNotMatch}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+          />
+          <FormHelperText>
+            {pwsNotMatch
+              ? "Entered passwords do not match"
+              : "A secret word or phrase that only you know!"}
+          </FormHelperText>
+        </FormControl>
+        <FormControl
+          sx={{ m: 1, width: "90%" }}
+          variant="outlined"
+          required={false}
+        >
+          <InputLabel htmlFor="outlined-adornment-password">
+            Confirm Password
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? "text" : "password"}
+            error={pwsNotMatch}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Confirm Password"
+          />
+          <FormHelperText>
+            {pwsNotMatch
+              ? "Entered passwords do not match"
+              : "Make sure you typed your password correctly!"}
+          </FormHelperText>
+        </FormControl>
+        <hr style={{ marginLeft: 30, marginRight: 30 }} />
+        <h3 style={{ fontFamily: "Sans-Serif", marginLeft: 20 }}>
+          To help us recommend movies, please tell us at least 2 genres you
+          enjoy:
+        </h3>
+        <GenreCheckboxes />
+        <Button variant="contained" color="success" type="submit">
+          Register!
+        </Button>
+      </Box>
+=======
     <div className="register-wrapper">
       <div className="register-container">
         <h1 style={{ paddingTop: "20px", fontFamily: "Sans-Serif" }}>
@@ -243,6 +348,7 @@ export default function Register() {
           </Button>
         </Box>
       </div>
+>>>>>>> main
     </div>
   );
 }
