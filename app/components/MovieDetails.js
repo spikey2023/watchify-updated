@@ -16,6 +16,8 @@ import TrailerPopup from "./TrailerPopup";
 import axios from "axios";
 import ContentWrapper from "./ContentWrapper";
 
+import Rating from "./Rating"
+
 import "./ContentWrapper.css";
 import "./MovieDetails.css";
 
@@ -82,6 +84,7 @@ const DetailsBanner = ({ video, crew }) => {
                 ) : (
                   <Img className="posterImg" alt="no poster found" />
                 )}
+                <Rating ></Rating>
               </div>
 
               <div className="right">
