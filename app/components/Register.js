@@ -233,7 +233,9 @@ export default function Register() {
             To help us recommend movies, please tell us at least 2 genres you
             enjoy:
           </h3>
-          <FormControl sx={{ marginBottom: "1rem" }} id="genres">
+          <FormControl sx={{ marginBottom: "1rem" }} 
+          // id="genres"
+          >
             <GenreCheckboxes />
             <FormHelperText
               error={genreError}

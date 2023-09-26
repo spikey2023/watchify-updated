@@ -6,8 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -100,19 +99,18 @@ const SignIn = () => {
               >
                 Sign In
               </Button>
-              {/* <button
+          <hr style={{ marginLeft: 30, marginRight: 30, marginTop: 10, marginBottom: 5}} />
+              <Button
                 type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                color="success"
+                component={Link}
+                to={"/register"}
               >
-                Sign In
-              </button> */}
-              <Grid container>
-                <Grid item xs></Grid>
-                <Grid item>
-                  <Link href="/register" variant="body2" color="#1E3CA8">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
+                Register
+              </Button>
             </Box>
           </Box>
         </Container>
