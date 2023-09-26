@@ -1,3 +1,7 @@
+.useraccount,
+.genreprefs {
+  margin-top: 10vh;
+}
 /* body {
   margin: 0;
   background: #04476e;
@@ -33,7 +37,31 @@ header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAp
   margin-top: 1vh;
 }
 
-.user-account-container {
+.account-link:hover {
+  text-decoration: underline;
+}
+
+.genrepref-link:hover {
+  text-decoration: underline;
+}
+
+.watched-link:hover {
+  text-decoration: underline;
+}
+
+.useraccount a {
+  text-decoration: none;
+  color: black;
+}
+
+.useraccount,
+.user-pref-h1 {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.user-account-container,
+.acc-genrepref-container,
+.user-watched-container {
   display: flex;
   flex-direction: row;
 }
@@ -53,7 +81,16 @@ header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAp
 }
 
 .useracc-right-main {
-  margin-left: 10vw;
+  margin-left: 5vw;
+}
+
+.usergenrepref-container-margin {
+  margin-left: 4vw;
+  /* padding-left: 1vw; */
+}
+
+.usergenrepref-container-margin form {
+  margin-left: 0px;
 }
 
 .p-heading {
@@ -62,7 +99,7 @@ header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAp
 .user-section {
   background-color: #f4f4f4;
   border-radius: 0.3571428571rem;
-  padding: 20px 10px;
+  padding: 20px 10px 10px;
   margin-bottom: 10px;
   width: 70vw;
 }
@@ -72,12 +109,5 @@ header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAp
 }
 
 .useracc-info {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
-
-/* .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.25);
-} */
