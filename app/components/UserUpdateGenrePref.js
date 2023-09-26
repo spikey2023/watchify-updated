@@ -25,34 +25,41 @@ export default function UserUpdateGenrePref() {
         token: auth.token,
       })
     );
-    //populateCheckboxes(); //not getting called
   }, []);
 
-  const userGenres = auth.user;
+  useEffect(() => {
+    populateCheckboxes(); //not getting called
+  }, [auth.userGenrePrefs]);
 
   const [checkedState, setCheckedState] = React.useState([]);
+
   let data = checkedState;
 
-  //gets skipped over in initial render (userGenres is undefined)
+  const userGenres = auth.userGenrePrefs;
+
   const populateCheckboxes = () => {
-    console.log("userGenres.length is", userGenres.length);
-    console.log("checkedState.length is", checkedState.length);
-    if (userGenres.length > 0 && checkedState.length === 0) {
-      userGenres.filter((genre) => {
-        console.log("genre.genreTmdbId is", genre.genreTmdbId);
-        data.push(genre.genreTmdbId);
+    //filter through entire genres list creating an object in an array, then at each genre push tmdb_id: true if
+    //usergenres.includes(that id) matches else tmdb_id:false into data array object
+    if (userGenres?.length > 0 && checkedState.length === 0) {
+      genres.map((genre) => {
+        console.log("userGenres.genreTmdbId", userGenres.genreTmdbId);
+        console.log("genre.tmdb_id", genre.tmdb_id);
+        if (genre.tmdb_id === userGenres.genreTmdbId) {
+          data.push(true);
+        } else {
+          data.push(false);
+        }
       });
-      console.log("DATA in state is", data);
+      //console.log("DATA in state is", data);
       //return setCheckedState(data);
-      //or setCheckedState(...checkedState, ...genreIds);
+      console.log("checkedState", checkedState);
     }
   };
 
+  //this will need to change
   const handleChange = (e) => {
-    //let data = checkedState;
     console.log("DATA is", data);
     data.push(parseInt(e.target.value));
-    //setCheckedState(...checkedState, ...data); //not good
     setCheckedState(data);
     console.log("checkedState");
   };

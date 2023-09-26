@@ -24,9 +24,6 @@ const AccountSideNav = () => {
             <NavLink className="genrepref-link" to="/account/genrepref">
               Genre preferences
             </NavLink>
-            <NavLink className="watched-link" to="/account/watched">
-              My watched list
-            </NavLink>
           </aside>
         ) : (
           <p>please log in...</p>
