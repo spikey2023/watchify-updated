@@ -192,6 +192,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
           {movies.map((movie, index) => (
             <SwiperSlide key={movie.tmdb_id} className={"swiper-slide"}>
               <div className="image-wrapper">
+              <div onClick={()=> {navigate(`/movie/${movie.tmdb_id}`)}}>
                 <img
                   src={
                     backdrops[movie.tmdb_id]
@@ -201,6 +202,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
                   loading="lazy"
                   alt={movie.title}
                 />
+                 </div>
                 <div className="movie-content">
                   <h3>{movie.title}</h3>
                   <p>
@@ -208,6 +210,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
                   </p>
                   <p>{`Average Rating: ${roundToHalf(movie.vote_average)}`}</p>
                   <p>{`Total Votes: ${movie.vote_count}`}</p>
+                
                   <p>
                     <MovieRating
                       value={roundToHalf(Number(movie.vote_average) / 2)}
