@@ -21,6 +21,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import axios from "axios";
 import GenreCheckboxes from "./GenreCheckboxes";
+import "./Register.css"
 
 function verifyEmailFormat(string) {
   //verifies the entered email is in some form of "<x>@<y>.<z>"
@@ -142,7 +143,7 @@ export default function Register() {
           component="form"
           autoComplete="off"
           onSubmit={handleSubmit}
-          sx={{ "& .MuiTextField-root": { m: 1, width: "90%" } }}
+          sx={{ "& .MuiTextField-root": { m: 1, width: "97%" } }}
         >
           <TextField
             required={true}
@@ -161,7 +162,7 @@ export default function Register() {
             error={emailState === "invalid" || emailState === "taken"}
           />
           <FormControl
-            sx={{ m: 1, width: "90%" }}
+            sx={{ m: 1, width: "97%" }}
             variant="outlined"
             required={true}
           >
@@ -193,7 +194,7 @@ export default function Register() {
             </FormHelperText>
           </FormControl>
           <FormControl
-            sx={{ m: 1, width: "90%" }}
+            sx={{ m: 1, width: "97%" }}
             variant="outlined"
             required={true}
           >
@@ -225,11 +226,11 @@ export default function Register() {
             </FormHelperText>
           </FormControl>
           <hr style={{ marginLeft: 30, marginRight: 30 }} />
-          <h3 style={{ fontFamily: "Sans-Serif", marginLeft: 20 }}>
+          <h3 style={{ fontFamily: "Sans-Serif", marginLeft: 20, width:"95%"}}>
             To help us recommend movies, please tell us at least 2 genres you
             enjoy:
           </h3>
-          <FormControl sx={{ marginBottom: "1rem" }}>
+          <FormControl sx={{ marginBottom: "1rem" }} id="genres">
             <GenreCheckboxes />
             <FormHelperText
               error={genreError}
