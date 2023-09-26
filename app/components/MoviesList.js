@@ -157,6 +157,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
         Welcome <span className="fancy">{` ${username}!`}</span>
       </h1>
       <h2 className="card-title-desc">Highest Rated by Your Genre Choices:</h2>
+      <div className="opacity-layer"></div>
       <div>
         <Swiper
           effect={"coverflow"}
