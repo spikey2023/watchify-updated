@@ -42,8 +42,8 @@ export default function UserUpdateGenrePref() {
     //usergenres.includes(that id) matches else tmdb_id:false into data array object
     if (userGenres?.length > 0 && checkedState.length === 0) {
       genres.map((genre) => {
-        console.log("userGenres.genreTmdbId", userGenres.genreTmdbId);
-        console.log("genre.tmdb_id", genre.tmdb_id);
+        // console.log("userGenres.genreTmdbId", userGenres.genreTmdbId);
+        // console.log("genre.tmdb_id", genre.tmdb_id);
         if (genre.tmdb_id === userGenres.genreTmdbId) {
           data.push(true);
         } else {
