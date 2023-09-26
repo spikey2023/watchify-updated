@@ -7,7 +7,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { updateUserInfo } from "../features/userSlice";
 
-export default function UserAccUpdates() {
+//import { useForm } from "react-hook-form"
+
+export default function UserAccUpdates(props) {
+  const key = Object.keys(props).toString();
+
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -27,13 +31,12 @@ export default function UserAccUpdates() {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    updateUser({
-      ...auth.user,
-      [name]: value,
-    });
+    updateUser((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -41,10 +44,9 @@ export default function UserAccUpdates() {
       dispatch(
         updateUserInfo({
           ...auth.user,
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          password: user.password,
+          username: user.username || auth.user.username,
+          email: user.email || auth.user.email,
+          password: user.password || auth.user.password,
           token: auth.token,
         })
       );
@@ -59,13 +61,13 @@ export default function UserAccUpdates() {
         edit
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <form onSubmit={handleSubmit}>
-          <DialogTitle>update email:</DialogTitle>
+        <form className="update-form" onSubmit={handleSubmit}>
+          <DialogTitle>update {key}:</DialogTitle>
           <DialogContent>
             <input
-              className="email-input"
-              value={user.email}
-              name="email"
+              className="form-input"
+              value={user.value}
+              name={key}
               onChange={handleChange}
             />
           </DialogContent>
