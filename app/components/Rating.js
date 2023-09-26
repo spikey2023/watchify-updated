@@ -11,10 +11,8 @@ export default function MovieRating({ value, onChange }) {
       onChange={(event, newValue) => {
         onChange(newValue);
       }}
-      precision={0.5}
-      // style={{
-      //   background: "linear-gradient(transparent, rgb(112, 112, 112))",
-      // }}
+      precision={1}
+      max={10}
     />
   );
 }

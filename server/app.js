@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 app.use("/api/user", require("./api/user"));
 app.use("/api/getMovies", require("./api/getMovies"));
 app.use("/api/getGenres", require("./api/getGenres"));
+app.use("/api/updateRating", require("./api/updateRating"));
 
 //routes - michele
 app.use("/api", routes);

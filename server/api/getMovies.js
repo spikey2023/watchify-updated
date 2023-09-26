@@ -1,7 +1,6 @@
-// ./api/getMovies.js
 const express = require("express");
 const router = express.Router();
-const { getMoviesForUser } = require("../../genreFetchRoute");
+const { getMoviesForUser } = require("./genreFetchRoute");
 
 router.get("/", async (req, res, next) => {
   try {
