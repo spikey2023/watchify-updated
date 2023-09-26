@@ -15,6 +15,9 @@ import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import "./MovieList.css";
 import MovieRating from "./Rating";
+
+import { useNavigate } from "react-router-dom";
+// import infinityWarImage from "./infinitywar.jpeg";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -32,6 +35,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [selectedRating, setSelectedRating] = useState(0);
 
+  const navigate = useNavigate();
   const username = useSelector((state) => state.auth.user.username);
   const userId = useSelector((state) => state.auth.user.id);
 
@@ -77,6 +81,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
   //     });
   //   });
   // };
+
 
   const handleRatingChange = (id, newRating) => {
     const movie = movies.find((movie) => movie.tmdb_id === id);
@@ -152,6 +157,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
         Welcome <span className="fancy">{` ${username}!`}</span>
       </h1>
       <h2 className="card-title-desc">Highest Rated by Your Genre Choices:</h2>
+      <div className="opacity-layer"></div>
       <div>
         <Swiper
           effect={"coverflow"}
@@ -187,6 +193,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
           {movies.map((movie, index) => (
             <SwiperSlide key={movie.tmdb_id} className={"swiper-slide"}>
               <div className="image-wrapper">
+              <div onClick={()=> {navigate(`/movie/${movie.tmdb_id}`)}}>
                 <img
                   src={
                     backdrops[movie.tmdb_id]
@@ -196,6 +203,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
                   loading="lazy"
                   alt={movie.title}
                 />
+                 </div>
                 <div className="movie-content">
                   <h3>{movie.title}</h3>
                   <p>
@@ -203,6 +211,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
                   </p>
                   <p>{`Average Rating: ${roundToHalf(movie.vote_average)}`}</p>
                   <p>{`Total Votes: ${movie.vote_count}`}</p>
+                
                   <p>
                     <MovieRating
                       value={roundToHalf(Number(movie.vote_average) / 2)}
