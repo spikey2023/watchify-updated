@@ -93,6 +93,19 @@ display:none
   margin-bottom: 12px;
 }
 /* Media queries */
+@media (max-width: 1255px) {
+  .container {
+    margin-top: 10px;
+    flex-direction: column;
+  }
+  .hero-text {
+    width: 100%;
+    text-align: center;
+  }
+  .hero-text h1 {
+    font-size: 3rem;
+  }
+}
 
 @media (max-width: 884px) {
   .container {
