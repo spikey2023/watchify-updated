@@ -32,7 +32,17 @@ export default function GenreCheckboxes() {
   return (<div>
         <Box sx={{display:"flex"}}>
             <FormGroup sx={{marginLeft:3, marginRight:3, display:"flex", flexDirection:"row"}}>
-                {genres.map( x => <FormControlLabel control={<Checkbox />} key={`${x}-checkbox`}sx={{width:"120pt"}} label={x} value={genreLookup[x]}/>)}
+                {
+                  genres.map(x =>
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      key={`${x}-checkbox`}
+                      sx={{width:"120pt"}}
+                      label={x}
+                      value={genreLookup[x]}
+                    />
+                  )
+                }
             </FormGroup>
         </Box>
     </div>
