@@ -152,7 +152,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
   }, [movies]);
 
   return (
-    <>
+    <div className="movie-list-container">
       <h1 className="card-title-popular">
         Welcome <span className="fancy">{` ${username}!`}</span>
       </h1>
@@ -251,7 +251,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
           </DialogActions>
         </Dialog>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -18,18 +18,22 @@ import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
+
+
 const SignIn = () => {
   const dispatch = useDispatch();
   const [user, setUser] = React.useState({ email: "", password: "" });
-
   const navigate = useNavigate();
+
 
   const login = async (event) => {
     event.preventDefault();
     try {
-      await dispatch(loginUser(user));
+      const loggedUser = await dispatch(loginUser(user));
       setUser({ email: "", password: "" });
-      navigate("/userhome");
+      //navigate only when user is accurate
+      if (loggedUser.payload) navigate("/userhome");
+      console.log(loggedUser.payload)
     } catch (err) {
       console.log(err);
     }

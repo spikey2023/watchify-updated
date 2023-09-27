@@ -3,8 +3,7 @@
   font-size: 4vw;
   text-transform: uppercase;
   text-align: center;
-  padding-top: 2rem;
-  margin: 0;
+  padding-top: 5rem;
 }
 
 .fancy {
@@ -138,4 +137,8 @@
   bottom: 0;
   background: rgba(74, 74, 74, 0.653);
   z-index: -1;
+}
+
+.movie-list-container{
+  margin-top: 0%;
 }

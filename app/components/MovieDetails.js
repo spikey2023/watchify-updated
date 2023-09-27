@@ -16,6 +16,8 @@ import TrailerPopup from "./TrailerPopup";
 import axios from "axios";
 import ContentWrapper from "./ContentWrapper";
 
+import Rating from "./Rating"
+
 import "./ContentWrapper.css";
 import "./MovieDetails.css";
 
@@ -44,7 +46,7 @@ const DetailsBanner = ({ video, crew }) => {
   const timeConversion = (totalMinutes) => {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
-    return `${hours}h${minutes > 0 ? `${minutes}m` : ""}`;
+    return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
   };
 
   useEffect(() => {
@@ -82,6 +84,7 @@ const DetailsBanner = ({ video, crew }) => {
                 ) : (
                   <Img className="posterImg" alt="no poster found" />
                 )}
+                <Rating ></Rating>
               </div>
 
               <div className="right">
@@ -184,7 +187,7 @@ const DetailsBanner = ({ video, crew }) => {
             {/* <MovieVideos data={data?.videos} /> */}
           </ContentWrapper>
         </React.Fragment>
-      )}
+      )} 
     </div>
   );
 };

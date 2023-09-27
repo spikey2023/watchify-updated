@@ -12,10 +12,14 @@ import AccountSideNav from "./AccountSideNav";
 import MovieDetails from "./MovieDetails";
 
 const Root = () => {
+const loggedIn = window.localStorage.getItem("isLoggedIn")
+console.log(loggedIn,"login")
+
   return (
     <div className="header-container">
       <Header />
       <Routes>
+        
         <Route exact path="/login" element={<SignIn />} />
         <Route exact path="/userhome" element={<UserHome />} />
         <Route exact path="/register" element={<Register />} />
