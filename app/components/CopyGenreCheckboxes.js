@@ -28,8 +28,7 @@ const genreLookup = {
 
 const genres = Object.keys(genreLookup);
 
-export default function CopyGenreCheckboxes({ selectedGenres, handleChange }) {
-  console.log({ selectedGenres });
+export default function CopyGenreCheckboxes(props) {
   return (
     <div>
       <Box sx={{ display: "flex" }}>
@@ -41,20 +40,29 @@ export default function CopyGenreCheckboxes({ selectedGenres, handleChange }) {
             flexDirection: "row",
           }}
         >
-          {genres.map((x) => (
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={selectedGenres.includes(genreLookup[x])}
-                  onChange={handleChange}
-                />
-              }
-              key={`${x}-checkbox`}
-              sx={{ width: "120pt" }}
-              label={x}
-              value={genreLookup[x]}
-            />
-          ))}
+          {genres.map((x) => {
+            return props.selectedGenres?.includes(genreLookup[x]) ? (
+              <FormControlLabel
+                control={
+                  <Checkbox checked={true} onChange={props.handleChange} />
+                }
+                key={`${x}-checkbox`}
+                sx={{ width: "120pt" }}
+                label={x}
+                value={genreLookup[x]}
+              />
+            ) : (
+              <FormControlLabel
+                control={
+                  <Checkbox checked={false} onChange={props.handleChange} />
+                }
+                key={`${x}-checkbox`}
+                sx={{ width: "120pt" }}
+                label={x}
+                value={genreLookup[x]}
+              />
+            );
+          })}
         </FormGroup>
       </Box>
     </div>
