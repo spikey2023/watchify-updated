@@ -26,7 +26,7 @@ const Header = () => {
     
     <React.Fragment>
       <AppBar sx={{ background: "#0A0A0A", zIndex:0}}>
-        <Toolbar>
+        <Toolbar variant="dense">
           <MovieIcon />
           <Typography
             sx={{
@@ -54,7 +54,11 @@ const Header = () => {
             // tab indicatorColor=to match theme
             TabIndicatorProps={{ style: { background: "#1E3CA8" } }}
           >
-            <Tab label="Home" value="/" component={Link} to={`/userhome`} />
+            <Tab 
+              label="Home" 
+              value="userhome" 
+              component={Link} 
+              to={`/userhome`} />
             <Tab
               label="Account"
               value="account"
