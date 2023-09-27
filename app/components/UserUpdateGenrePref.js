@@ -26,6 +26,7 @@ export default function UserUpdateGenrePref() {
   }, [auth.userGenrePrefs]);
 
   const [checked, setCheckedState] = React.useState({});
+  //const [data, setData] = React.useState([]);
   const [data, setData] = React.useState([]);
 
   const userGenres = auth.userGenrePrefs;
@@ -34,7 +35,7 @@ export default function UserUpdateGenrePref() {
     if (userGenres?.length > 0 && !checked.length) {
       userGenres?.filter((genre) => {
         setData((prevProps) => {
-          return [...prevProps, genre.genreTmdbId];
+          return { ...prevProps, [genre.genreTmdbId]: true };
         });
       });
     }
@@ -46,19 +47,16 @@ export default function UserUpdateGenrePref() {
       ...data,
       [e.target.value]: e.target.checked,
     }));
-    console.log("$$$$$$", checked, e.target.value, e.target.checked, data);
+    console.log("checked", checked, "e.target.value", e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    for (let i = 0; i <= 18; i++) {
-      if (e.target[i].checked) {
-        data.push(parseInt(e.target[i].value));
-      }
-      if (data.length < 2) {
-        window.alert("please check at least 2 genres");
-      }
+    for (let key in checked) {
+      setData(parseInt(key));
+    }
+    if (data.length < 2) {
+      window.alert("please check at least 2 genres");
     }
     console.log("data in submit", data);
   };
