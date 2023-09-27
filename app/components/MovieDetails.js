@@ -16,7 +16,13 @@ import TrailerPopup from "./TrailerPopup";
 import axios from "axios";
 import ContentWrapper from "./ContentWrapper";
 
-import Rating from "./Rating"
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
+import Rating from "@mui/material/Rating";
 
 import "./ContentWrapper.css";
 import "./MovieDetails.css";
@@ -30,6 +36,9 @@ const DetailsBanner = ({ video, crew }) => {
   const [data, setData] = useState([]);
   const tmdbUrl = `https://image.tmdb.org/t/p/original`;
   const { id } = useParams();
+
+  const [rating, setRating] = useState(0);
+  const [openDialog, setOpenDialog] = useState(false);
 
   // const _genres = data?.genres?.map((genre) => genre.id);
 
@@ -84,7 +93,7 @@ const DetailsBanner = ({ video, crew }) => {
                 ) : (
                   <Img className="posterImg" alt="no poster found" />
                 )}
-                <Rating ></Rating>
+                <Rating></Rating>
               </div>
 
               <div className="right">
@@ -187,7 +196,7 @@ const DetailsBanner = ({ video, crew }) => {
             {/* <MovieVideos data={data?.videos} /> */}
           </ContentWrapper>
         </React.Fragment>
-      )} 
+      )}
     </div>
   );
 };
