@@ -37,7 +37,7 @@ const Header = () => {
             }}
             color="#1E3CA8"
             component={Link}
-            to={`/`}
+            to={`${ userId ? `/userhome`:`/`}`}
           >
             {" "}
             WATCHIFY{" "}
