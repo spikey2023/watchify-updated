@@ -139,3 +139,7 @@
   background: rgba(74, 74, 74, 0.653);
   z-index: -1;
 }
+
+.movie-list-container{
+  margin-top: 0%;
+}

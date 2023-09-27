@@ -187,7 +187,7 @@ const DetailsBanner = ({ video, crew }) => {
             {/* <MovieVideos data={data?.videos} /> */}
           </ContentWrapper>
         </React.Fragment>
-      )}
+      )} 
     </div>
   );
 };

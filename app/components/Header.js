@@ -25,7 +25,7 @@ const Header = () => {
   return (
     
     <React.Fragment>
-      <AppBar sx={{ background: "#0A0A0A" }}>
+      <AppBar sx={{ background: "#0A0A0A", zIndex:0}}>
         <Toolbar>
           <MovieIcon />
           <Typography
