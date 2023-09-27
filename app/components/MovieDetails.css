@@ -144,11 +144,22 @@
     padding: 15px 0;
     display: flex;
 }
+.detailsBanner .content .right .info .text.bold {
+  font-weight: 600;
+  opacity: 1;
+}
 
-.detailsBanner .content .right .info .infoItem .text {
+
+/* .detailsBanner .content .right .info .infoItem .text {
     margin-right: 10px;
     opacity: 0.5;
     line-height: 24px;
+} */
+
+.detailsBanner .content .right .info .text {
+  margin-right: 10px;
+  opacity: 0.5;
+  line-height: 24px;
 }
 /* Container for the movie details */
 /* .details-banner {
