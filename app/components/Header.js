@@ -42,8 +42,10 @@ const Header = () => {
             {" "}
             WATCHIFY{" "}
           </Typography>
-          { userId ? (
-          <Tabs
+{/* Make SignIn and Log out appear conditionally if user is logged in */}
+{ userId ? (
+<>
+            <Tabs
             sx={{ marginLeft: "auto" }}
             textColor="inherit"
             //tabindicator color logic
@@ -60,18 +62,16 @@ const Header = () => {
               to={`/account`}
             />
           </Tabs>
-          ) : ("")}
-{/* Make SignIn and Log out appear conditionally if user is logged in */}
-{ userId ? (
             <Button
             variant="contained"
-            sx={{ background: "#1E3CA8", marginLeft: "auto" }}
+            sx={{ background: "#1E3CA8" }}
             onClick={handleLogout}
             component={Link}
             to={`/`}
           >
             Logout
           </Button>
+          </>
           ) : (
           <Button
             variant="contained"
