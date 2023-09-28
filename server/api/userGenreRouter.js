@@ -30,7 +30,7 @@ userGenreRouter.put("/:id", async (req, res, next) => {
     //is this right?
     const newUserPrefs = req.body;
     await newUserPrefs.map((genrePref) => {
-      GenrePref.bulkCreate({ userId: req.params.id, genreTmdbId: genrePref });
+      GenrePref.create({ userId: req.params.id, genreTmdbId: genrePref });
     });
     //return updated user genre prefs
     const userGenrePrefs = await GenrePref.findAll({

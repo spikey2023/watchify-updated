@@ -13,7 +13,17 @@
 header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionFixed.mui-fixed.css-1iedjqa-MuiPaper-root-MuiAppBar-root {
   position: relative;
 }
+.genre-form {
+  flex-direction: column;
+}
+.genre-p {
+  padding-top: 10px;
+}
 
+.btn {
+  width: 25%;
+  padding-left: 25%;
+}
 .header-container form {
   background: white;
   padding: 5px;
