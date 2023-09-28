@@ -124,14 +124,14 @@ const DetailsBanner = ({ video, crew }) => {
                 <div className="info">
                   {data.status && (
                     <div className="infoItem">
-                      <span className="text bold">Status: </span>
+                      <span className="text bold">Status </span>
                       <span className="text">{data.status}</span>
                     </div>
                   )}
 
                   {data.release_date && (
                     <div className="infoItem">
-                      <span className="text bold">Release Date: </span>
+                      <span className="text bold">Release Date </span>
                       <span className="text">
                         {dayjs(data.release_date).format("MMM D, YYYY")}
                       </span>
@@ -140,7 +140,7 @@ const DetailsBanner = ({ video, crew }) => {
 
                   {data.runtime && (
                     <div className="infoItem">
-                      <span className="text bold">Runtime: </span>
+                      <span className="text bold">Runtime </span>
                       <span className="text">
                         {timeConversion(data.runtime)}
                       </span>
@@ -150,7 +150,7 @@ const DetailsBanner = ({ video, crew }) => {
 
                 {director?.length > 0 && (
                   <div className="info">
-                    <span className="text bold">Director: </span>
+                    <span className="text bold">Director </span>
                     <span className="text">
                       {director?.map((d, i) => (
                         <span key={i}>
@@ -164,7 +164,7 @@ const DetailsBanner = ({ video, crew }) => {
 
                 {writer?.length > 0 && (
                   <div className="info">
-                    <span className="text bold">Writer: </span>
+                    <span className="text bold">Writer </span>
                     <span className="text">
                       {writer?.map((d, i) => (
                         <span key={i}>
