@@ -11,8 +11,8 @@ const Hero = () => {
   return (
     <div className="container">
       <img src={heroimg} alt="Loading" />
-
       <div className="hero-text">
+  
         <h1> Watchify - Your Personal Movie Universe!</h1>
         <p>Say goodbye to endless browsing on your Friday nights!</p>
         <p>

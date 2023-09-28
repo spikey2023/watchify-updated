@@ -16,6 +16,13 @@ import TrailerPopup from "./TrailerPopup";
 import axios from "axios";
 import ContentWrapper from "./ContentWrapper";
 
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
+
 import "./ContentWrapper.css";
 import "./MovieDetails.css";
 
@@ -23,6 +30,8 @@ const DetailsBanner = ({ video, crew }) => {
   //pop up video trailer
   const [show, setShow] = useState(false);
   const [videoId, setVideoId] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedRating, setSelectedRating] = useState(0);
 
   //set data from Api call
   const [data, setData] = useState([]);
@@ -39,12 +48,11 @@ const DetailsBanner = ({ video, crew }) => {
   const trailer = data.videos?.results.filter(
     (result) => result.name === "Official Trailer" || result.type === "Trailer"
   );
-  console.log(trailer);
 
   const timeConversion = (totalMinutes) => {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
-    return `${hours}h${minutes > 0 ? `${minutes}m` : ""}`;
+    return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
   };
 
   useEffect(() => {
@@ -53,8 +61,6 @@ const DetailsBanner = ({ video, crew }) => {
         const { data } = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=7c1a02da75b25d48c10edcf2e32896b2&append_to_response=credits,videos`
         );
-        console.log(id);
-        console.log(data);
         return setData(data);
         // return {... data }
       } catch (error) {
@@ -121,14 +127,14 @@ const DetailsBanner = ({ video, crew }) => {
                 <div className="info">
                   {data.status && (
                     <div className="infoItem">
-                      <span className="text bold">Status: </span>
+                      <span className="text bold">Status </span>
                       <span className="text">{data.status}</span>
                     </div>
                   )}
 
                   {data.release_date && (
                     <div className="infoItem">
-                      <span className="text bold">Release Date: </span>
+                      <span className="text bold">Release Date </span>
                       <span className="text">
                         {dayjs(data.release_date).format("MMM D, YYYY")}
                       </span>
@@ -137,7 +143,7 @@ const DetailsBanner = ({ video, crew }) => {
 
                   {data.runtime && (
                     <div className="infoItem">
-                      <span className="text bold">Runtime: </span>
+                      <span className="text bold">Runtime </span>
                       <span className="text">
                         {timeConversion(data.runtime)}
                       </span>
@@ -147,7 +153,7 @@ const DetailsBanner = ({ video, crew }) => {
 
                 {director?.length > 0 && (
                   <div className="info">
-                    <span className="text bold">Director: </span>
+                    <span className="text bold">Director </span>
                     <span className="text">
                       {director?.map((d, i) => (
                         <span key={i}>
@@ -161,7 +167,7 @@ const DetailsBanner = ({ video, crew }) => {
 
                 {writer?.length > 0 && (
                   <div className="info">
-                    <span className="text bold">Writer: </span>
+                    <span className="text bold">Writer </span>
                     <span className="text">
                       {writer?.map((d, i) => (
                         <span key={i}>

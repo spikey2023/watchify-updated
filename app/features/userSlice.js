@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
   user: {},
   userGenrePrefs: [],
-  isLoggedIn: false,
+  isLoggedIn: window.localStorage.getItem("isLoggedIn"),
   error: "",
   token: "",
 };
@@ -13,6 +13,7 @@ const initialState = {
 export const loginUser = createAsyncThunk("auth/loginUser", async (user) => {
   try {
     const response = await axios.post(`/api/auth/login`, user);
+    window.localStorage.setItem("isLoggedIn", true);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -104,7 +105,7 @@ const userSlice = createSlice({
     loggedoutUser: (state) => {
       state.user = {};
       state.userGenrePrefs = [];
-      state.isLoggedIn = false;
+      state.isLoggedIn = localStorage.clear();
       state.error = "";
       state.token = "";
     },
@@ -140,10 +141,11 @@ const userSlice = createSlice({
       //state.user = action.payload;
       return action.payload;
     });
+    
   },
 });
 
-export const { loggedinUser, loggedoutUser } = userSlice.actions;
+export const { loggedoutUser } = userSlice.actions;
 //need to export actions for non-axios action calls
 
 export default userSlice.reducer;

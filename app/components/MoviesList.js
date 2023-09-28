@@ -45,44 +45,6 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
     setOpenDialog(true);
   };
 
-  // const handleRatingChange = async (id, newRating) => {
-  //   const movie = movies.find((movie) => movie.tmdb_id === id);
-  //   if (!movie) return;
-
-  //   const isConfirmed = window.confirm(
-  //     `Are you sure you want to rate "${movie.title}" ${newRating} stars?`
-  //   );
-
-  //   if (!isConfirmed) return; // Return early if the user cancels.
-
-  //   const newRatingCount = movie.vote_count + 1;
-  //   const newAvgRating =
-  //     (movie.vote_average * movie.vote_count + newRating) / newRatingCount;
-
-  //   try {
-  //     await axios.post("/api/updateRating", {
-  //       userId,
-  //       movieTmdbId: id,
-  //       rating: newRating,
-  //     });
-  //     fetchData(); // Refetch after rate
-  //   } catch (error) {
-  //     console.error("Error updating rating:", error);
-  //   }
-
-  //   setMovies((prevMovies) => {
-  //     return prevMovies.map((movie) => {
-  //       if (movie.tmdb_id !== id) return movie;
-  //       return {
-  //         ...movie,
-  //         vote_count: newRatingCount,
-  //         vote_average: newAvgRating,
-  //       };
-  //     });
-  //   });
-  // };
-
-
   const handleRatingChange = (id, newRating) => {
     const movie = movies.find((movie) => movie.tmdb_id === id);
     if (!movie) return;
@@ -152,7 +114,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
   }, [movies]);
 
   return (
-    <>
+    <div className="movie-list-container">
       <h1 className="card-title-popular">
         Welcome <span className="fancy">{` ${username}!`}</span>
       </h1>
@@ -193,17 +155,21 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
           {movies.map((movie, index) => (
             <SwiperSlide key={movie.tmdb_id} className={"swiper-slide"}>
               <div className="image-wrapper">
-              <div onClick={()=> {navigate(`/movie/${movie.tmdb_id}`)}}>
-                <img
-                  src={
-                    backdrops[movie.tmdb_id]
-                      ? backdrops[movie.tmdb_id]
-                      : "placeholder.jpeg"
-                  }
-                  loading="lazy"
-                  alt={movie.title}
-                />
-                 </div>
+                <div
+                  onClick={() => {
+                    navigate(`/movie/${movie.tmdb_id}`);
+                  }}
+                >
+                  <img
+                    src={
+                      backdrops[movie.tmdb_id]
+                        ? backdrops[movie.tmdb_id]
+                        : "placeholder.jpeg"
+                    }
+                    loading="lazy"
+                    alt={movie.title}
+                  />
+                </div>
                 <div className="movie-content">
                   <h3>{movie.title}</h3>
                   <p>
@@ -211,7 +177,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
                   </p>
                   <p>{`Average Rating: ${roundToHalf(movie.vote_average)}`}</p>
                   <p>{`Total Votes: ${movie.vote_count}`}</p>
-                
+
                   <p>
                     <MovieRating
                       value={roundToHalf(Number(movie.vote_average) / 2)}
@@ -251,7 +217,7 @@ const MoviesList = ({ movies, setMovies, fetchData }) => {
           </DialogActions>
         </Dialog>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -32,6 +32,7 @@ header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAp
 .register-wrapper {
   display: flex;
   flex-direction: column;
+  margin-top: 5vh;
   align-items: center;
   min-height: 100vh;
   background: #a7cfdf;
@@ -74,6 +75,7 @@ header.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAp
 .user-watched-container {
   display: flex;
   flex-direction: row;
+  padding-top: 10px;
 }
 
 .useracc-left-nav {
