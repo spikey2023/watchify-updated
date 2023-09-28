@@ -28,9 +28,9 @@ User Account Page
 
 **Andrew Ern**
 
-- Github 
-- Email 
-- Linkedin 
+- Github https://github.com/Jack-Flap
+- Email aern86@gmail.com
+- Linkedin https://www.linkedin.com/in/andrew-ern/
 
 **Choudhury Asif Yusuf**
 

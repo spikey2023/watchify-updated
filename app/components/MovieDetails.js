@@ -16,7 +16,12 @@ import TrailerPopup from "./TrailerPopup";
 import axios from "axios";
 import ContentWrapper from "./ContentWrapper";
 
-import Rating from "./Rating"
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
 
 import "./ContentWrapper.css";
 import "./MovieDetails.css";
@@ -25,6 +30,8 @@ const DetailsBanner = ({ video, crew }) => {
   //pop up video trailer
   const [show, setShow] = useState(false);
   const [videoId, setVideoId] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedRating, setSelectedRating] = useState(0);
 
   //set data from Api call
   const [data, setData] = useState([]);
@@ -41,7 +48,6 @@ const DetailsBanner = ({ video, crew }) => {
   const trailer = data.videos?.results.filter(
     (result) => result.name === "Official Trailer" || result.type === "Trailer"
   );
-  console.log(trailer);
 
   const timeConversion = (totalMinutes) => {
     const hours = Math.floor(totalMinutes / 60);
@@ -55,8 +61,6 @@ const DetailsBanner = ({ video, crew }) => {
         const { data } = await axios.get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=7c1a02da75b25d48c10edcf2e32896b2&append_to_response=credits,videos`
         );
-        console.log(id);
-        console.log(data);
         return setData(data);
         // return {... data }
       } catch (error) {
@@ -84,7 +88,6 @@ const DetailsBanner = ({ video, crew }) => {
                 ) : (
                   <Img className="posterImg" alt="no poster found" />
                 )}
-                <Rating ></Rating>
               </div>
 
               <div className="right">
@@ -187,7 +190,7 @@ const DetailsBanner = ({ video, crew }) => {
             {/* <MovieVideos data={data?.videos} /> */}
           </ContentWrapper>
         </React.Fragment>
-      )} 
+      )}
     </div>
   );
 };
