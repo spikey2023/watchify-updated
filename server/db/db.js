@@ -8,8 +8,7 @@ if (process.env.QUIET) {
 }
 
 const db = new Sequelize(
-  process.env.DATABASE_URL ||
-    "postgres://watchify_2k9k_user:HP5ZED4tIGg0ifWF2PY6XVyMJTZSHUJu@dpg-ckae4nmgtj9c73fhm48g-a/watchify_2k9k",
+  process.env.DATABASE_URL || "postgres://localhost/watchify",
   { logging: false }
 );
 
