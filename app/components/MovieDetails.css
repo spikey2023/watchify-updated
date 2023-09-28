@@ -290,7 +290,7 @@
   /* Director and Writer labels */
   .text.bold::after {
     content: ":";
-    margin-right: 5px;
+    margin-right: px;
   }
   .left {
     flex-shrink: 0;
@@ -317,31 +317,122 @@
     .sectionHeading{
         font-weight: bold;
     }
+    @media screen and (max-width: 400px) {
+      .detailsBanner .content .right .title {
+        font-size: 34px;
+        line-height: 44px;
+      }
+      .content{
+        flex-direction: column;
+        align-items: center;
+      }
+      .right{
+        object-fit: contain;
+      }
+      .left{
+        max-width:300px;
 
+
+      }
+      .contentWrapper{
+        max-width: 410px;
+      }
+    }
     @media screen and (max-width: 700px) {
       .detailsBanner .content .right .title {
         font-size: 34px;
         line-height: 44px;
       }
-      .right {
-        flex-direction: column;
-        width: 100%;
-        margin-left: 20px;
-        margin-right: 10px;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0);
-      }
       .content{
         flex-direction: column;
+        align-items: center;
       }
       .right{
         object-fit: contain;
-        padding-right: 20px;
-        max-width: auto;
+        max-width: 400px;
       }
-      .overview {
-        margin-top: 20px;
+      .left{
+        max-width:300px;
+      }
+      .overview{
+        max-width: fit-content;
+        }
+      .contentWrapper{
         max-width: 400px;
       }
     }
+
+    @media screen and (max-width: 850px) {
+      .detailsBanner .content .right .title {
+        font-size: 34px;
+        line-height: 44px;
+      }
+      .content{
+        flex-direction: column;
+        align-items: center;
+      }
+      .contentWrapper{
+        max-width: 750px;
+      }
+  .overview{
+  max-width: fit-content;
+  }
+      .left{
+        max-width:300px;
+      }
+      .detailsBanner .content .right .info {
+        border-bottom: 1px solid rgba(26, 23, 175, 0.1);
+        padding: 5px;
+        display: flex;
+    }
+    }
+
+    @media screen and (max-width: 924px) and (min-width: 859px){
+      .detailsBanner .content .right .title {
+        font-size: 34px;
+        line-height: 44px;
+      }
+      .content{
+        flex-direction: column;
+        align-items: center;
+      }
+      .contentWrapper{
+        max-width: 750px;
+      }
+      .right{
+        object-fit: contain;
+
+      }
+      
+      .left{
+        max-width:auto;
+
+
+      }
+            .detailsBanner .content .right .info {
+        border-bottom: 1px solid rgba(26, 23, 175, 0.1);
+        padding: 5px;
+        display: flex;
+    }
+    }
+
+
+    @media screen and (max-width: 1200px) and (min-width: 925px){
+      .contentWrapper{
+        max-width: 900px;
+      }
+      .right .overview{
+        max-width: fit-content;
+
+      }
+      .left{
+        max-width:auto;
+      }
+      .detailsBanner .content .right .info {
+        border-bottom: 1px solid rgba(26, 23, 175, 0.1);
+        padding: 5px;
+        display: flex;
+    }
+    }
+
+
