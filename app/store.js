@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
 
 const store = configureStore({
   reducer: {
-    genres: allGenresSlice, //this is to get all genres (not user specific)
+    //genres: allGenresSlice, //this is to get all genres (not user specific)
     auth: userReducer,
     register: registerReducer,
   },
