@@ -61,7 +61,7 @@ const DetailsBanner = ({ video, crew }) => {
     const fetchMovieData = async () => {
       try {
         const { data } = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.TMDB_API_TOKEN}&append_to_response=credits,videos`
+          `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_API_TOKEN}&append_to_response=credits,videos`
         );
         return setData(data);
         // return {... data }
