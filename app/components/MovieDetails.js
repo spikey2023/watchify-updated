@@ -26,7 +26,7 @@ import Button from "@mui/material/Button";
 import "./ContentWrapper.css";
 import "./MovieDetails.css";
 
-const API_TOKEN = process.env.TMDB_API_TOKEN;
+
 
 const DetailsBanner = ({ video, crew }) => {
   //pop up video trailer
@@ -61,7 +61,7 @@ const DetailsBanner = ({ video, crew }) => {
     const fetchMovieData = async () => {
       try {
         const { data } = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=${API_TOKEN}&append_to_response=credits,videos`
+          `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.TMDB_API_TOKEN}&append_to_response=credits,videos`
         );
         return setData(data);
         // return {... data }
