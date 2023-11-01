@@ -1,3 +1,15 @@
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+// Load environment variables from a .env file
+const env = dotenv.config().parsed;
+
+
+// DefinePlugin will replace process.env.REACT_APP_... with the actual values from the .env file
+const definePlugin = new webpack.DefinePlugin({
+  'process.env': JSON.stringify(env),
+});
+
 module.exports = {
   entry: ["./app/index.js"],
   output: {
@@ -38,4 +50,5 @@ module.exports = {
       },
     ],
   },
+  plugins: [definePlugin],
 };
