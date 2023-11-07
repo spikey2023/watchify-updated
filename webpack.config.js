@@ -8,6 +8,7 @@ const env = dotenv.config().parsed;
 // DefinePlugin will replace process.env.REACT_APP_... with the actual values from the .env file
 const definePlugin = new webpack.DefinePlugin({
   'process.env': JSON.stringify(env),
+  'process.env.REACT_APP_TMDB_API_TOKEN': JSON.stringify(process.env.REACT_APP_TMDB_API_TOKEN),
 });
 
 module.exports = {
