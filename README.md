@@ -35,7 +35,7 @@ User Account Page
 **Choudhury Asif Yusuf**
 
 - Github https://github.com/spikey2023
-- Email cy33@evansville.edu
+- Email spikeyusuf2023@gmail.com
 - Linkedin https://www.linkedin.com/in/spikeyusuf/
 
 **Kevin Choi**
