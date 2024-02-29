@@ -26,7 +26,7 @@ const Hero = () => {
       {/* <img src={heroimg} alt="Loading" /> */}
       <div className="hero-text">
         <h1> 
-          <span> WATCHIFY</span> - Your Personal Movie Universe!</h1>
+          <span id="hero-title"> WATCHIFY</span> - Your Personal Movie Universe</h1>
         <p>Say goodbye to endless browsing on your Friday nights!</p>
         <p>
           Get Personalized Movie Recommendations to Watch Online Based on Your
@@ -34,7 +34,6 @@ const Hero = () => {
         </p>
         <p>Let Watchify be your movie guide and never look back!</p>
         <p>Discover Your Next Binge</p>
-        <p>Rediscover Cinematic Gems</p>
         <motion.div animate={{ x: 5 }} initial={true}>
           <Button
             type="submit"
